@@ -35,6 +35,9 @@
     <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -52,10 +55,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Source\Controller\BaseController.cs" />
     <Compile Include="Source\Controller\MainController.cs" />
+    <Compile Include="Source\Enumeration\Log\EnumLogLevel.cs" />
+    <Compile Include="Source\Enumeration\Log\EnumLogType.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateMain.cs" />
     <Compile Include="Source\Interface\IView.cs" />
     <Compile Include="Source\Model\Exception\EMasterToolsException.cs" />
+    <Compile Include="Source\Model\Language\MLanguage.cs" />
     <Compile Include="Source\Util\UExceptionHandler.cs" />
+    <Compile Include="Source\Util\UFileIO.cs" />
+    <Compile Include="Source\Util\ULanguage.cs" />
     <Compile Include="Source\Util\ULog.cs" />
     <Compile Include="Source\View\ViewMain.cs">
       <SubType>Form</SubType>
@@ -75,6 +83,7 @@
     <EmbeddedResource Include="Source\View\ViewMain.resx">
       <DependentUpon>ViewMain.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -84,14 +93,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Resources\Strings\enUS.json" />
+    <EmbeddedResource Include="Resources\Strings\ptBR.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Assets\" />
     <Folder Include="Doc\Dev\" />
-    <Folder Include="Resources\" />
+    <Folder Include="Source\Enumeration\Language\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

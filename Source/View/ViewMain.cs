@@ -30,6 +30,7 @@
 using RPGMasterTools.Source.Controller;
 using RPGMasterTools.Source.Enumeration.State;
 using RPGMasterTools.Source.Interface;
+using RPGMasterTools.Source.Util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -76,7 +77,7 @@ namespace RPGMasterTools.Source.View
         {
             if(currentState == EnumStateMain.STATE_START)
             {
-                this.label1.Text = "START";
+                this.label1.Text = ULanguage.getStringCurrentLanguage("MAIN.TEST");
             }
             else if (currentState == EnumStateMain.STATE_LOADING)
             {
