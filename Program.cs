@@ -12,9 +12,16 @@ namespace RPGMasterTools
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run( new FrmMain() );
+            try
+            {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run( new ViewMain() );
+            }
+            catch( Exception e )
+            {
+                // THROW FATAL EXCEPTIONS
+            }
         }
     }
 }
