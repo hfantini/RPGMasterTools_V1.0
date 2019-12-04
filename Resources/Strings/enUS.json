@@ -1,6 +1,15 @@
 ﻿{
 	"MAIN":
 	{
-		"TEST": "TEST"
+		"TITLE": "RPG MASTER TOOLS",
+		"MENU":
+		{
+			"MAIN": "MAIN",
+			"EXIT": "EXIT"
+		},
+		"TAB":
+		{
+			"SOUND": "SOUND AND MUSIC"
+		}
 	}
 }

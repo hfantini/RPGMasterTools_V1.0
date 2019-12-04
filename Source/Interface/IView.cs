@@ -43,7 +43,7 @@ namespace RPGMasterTools.Source.Interface
     // == INTERFACE
     // ==============================================================
 
-    public interface IView<T>
+    public interface IView<T> where T : System.Enum
     {
         // == DECLARATIONS
         // ==============================================================

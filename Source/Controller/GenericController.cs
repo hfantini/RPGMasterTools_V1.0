@@ -14,11 +14,11 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [FrmMain.cs]
-    |	Type: [Form]
+    |	Name: [GenericController.cs]
+    |	Type: [CONTROLLER]
     |	Author: Henrique Fantini
     |	
-    |	Description: Main form of the program.
+    |	Description: Defines an abstract generic controller.
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
@@ -27,67 +27,38 @@
 // == IMPORTS
 // ==================================================================
 
-using RPGMasterTools.Source.Controller;
-using RPGMasterTools.Source.Enumeration.State;
-using RPGMasterTools.Source.Interface;
-using RPGMasterTools.Source.Util;
-using RPGMasterTools.Source.View.Sound;
+using RPGMasterTools.Source.Enumeration.Controller;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 // == NAMESPACE
 // ==================================================================
 
-namespace RPGMasterTools.Source.View
+namespace RPGMasterTools.Source.Controller
 {
     // == CLASS
     // ==============================================================
 
-    public partial class ViewMain : Form, IView<EnumStateMain>
+    public abstract class GenericController
     {
-        // == DECLARATIONS
-        // ==============================================================
-
         // -- CONST -----------------------------------------------------
 
         // -- VAR -------------------------------------------------------
-
-        private MainController _controller;
+        private EnumControllerType _type;
 
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public ViewMain()
+        public GenericController(EnumControllerType type)
         {
-            InitializeComponent();
-
-            // == FORM CONFIGURATION
-
-            this.WindowState = FormWindowState.Maximized;
-
-            this._controller = new MainController(this);
-            UFormUtil.applyLanguageToForm(this);
-            UFormUtil.applyLanguageToMenu(mnuMain);
-            UFormUtil.applyLanguageToTabPanel(tpnlMain);
-
-            // == ADDING ANOTHER COMPONENTS
-            tabSound.Controls.Add( new ViewSound(this._controller) );
+            this._type = type;
         }
 
         // == METHODS
         // ==============================================================
-
-        public void update(EnumStateMain lastState, EnumStateMain currentState)
-        {
-
-        }
 
         // == EVENTS
         // ==============================================================
@@ -95,9 +66,9 @@ namespace RPGMasterTools.Source.View
         // == GETTERS AND SETTERS
         // ==============================================================
 
-        public void getController()
+        public EnumControllerType type
         {
-            throw new NotImplementedException();
+            get { return this._type; }
         }
     }
 }

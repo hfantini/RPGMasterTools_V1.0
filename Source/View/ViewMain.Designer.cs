@@ -28,38 +28,91 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.mnuMain = new System.Windows.Forms.MenuStrip();
+            this.mItemMain = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuItemExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.pnlMain = new System.Windows.Forms.Panel();
+            this.tpnlMain = new System.Windows.Forms.TabControl();
+            this.tabSound = new System.Windows.Forms.TabPage();
+            this.mnuMain.SuspendLayout();
+            this.pnlMain.SuspendLayout();
+            this.tpnlMain.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label1
+            // mnuMain
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(45, 31);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(51, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "label1";
+            this.mnuMain.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.mnuMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mItemMain});
+            this.mnuMain.Location = new System.Drawing.Point(0, 0);
+            this.mnuMain.Name = "mnuMain";
+            this.mnuMain.Size = new System.Drawing.Size(1253, 33);
+            this.mnuMain.TabIndex = 0;
             // 
-            // button1
+            // mItemMain
             // 
-            this.button1.Location = new System.Drawing.Point(49, 86);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(124, 47);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "SWITCH";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.mItemMain.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuItemExit});
+            this.mItemMain.Name = "mItemMain";
+            this.mItemMain.Size = new System.Drawing.Size(174, 29);
+            this.mItemMain.Text = "MAIN.MENU.MAIN";
+            // 
+            // mnuItemExit
+            // 
+            this.mnuItemExit.Name = "mnuItemExit";
+            this.mnuItemExit.Size = new System.Drawing.Size(252, 30);
+            this.mnuItemExit.Text = "MAIN.MENU.EXIT";
+            // 
+            // pnlMain
+            // 
+            this.pnlMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlMain.Controls.Add(this.tpnlMain);
+            this.pnlMain.Location = new System.Drawing.Point(0, 36);
+            this.pnlMain.Name = "pnlMain";
+            this.pnlMain.Size = new System.Drawing.Size(1253, 583);
+            this.pnlMain.TabIndex = 1;
+            // 
+            // tpnlMain
+            // 
+            this.tpnlMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tpnlMain.Controls.Add(this.tabSound);
+            this.tpnlMain.Location = new System.Drawing.Point(3, 3);
+            this.tpnlMain.Name = "tpnlMain";
+            this.tpnlMain.SelectedIndex = 0;
+            this.tpnlMain.Size = new System.Drawing.Size(1250, 580);
+            this.tpnlMain.TabIndex = 0;
+            // 
+            // tabSound
+            // 
+            this.tabSound.Location = new System.Drawing.Point(4, 29);
+            this.tabSound.Name = "tabSound";
+            this.tabSound.Padding = new System.Windows.Forms.Padding(3);
+            this.tabSound.Size = new System.Drawing.Size(1242, 547);
+            this.tabSound.TabIndex = 0;
+            this.tabSound.Text = "MAIN.TAB.SOUND";
+            this.tabSound.UseVisualStyleBackColor = true;
             // 
             // ViewMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1150, 659);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(1253, 617);
+            this.Controls.Add(this.pnlMain);
+            this.Controls.Add(this.mnuMain);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MainMenuStrip = this.mnuMain;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ViewMain";
-            this.Text = "FrmMain";
+            this.Text = "MAIN.TITLE";
+            this.mnuMain.ResumeLayout(false);
+            this.mnuMain.PerformLayout();
+            this.pnlMain.ResumeLayout(false);
+            this.tpnlMain.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -67,7 +120,11 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.MenuStrip mnuMain;
+        private System.Windows.Forms.ToolStripMenuItem mItemMain;
+        private System.Windows.Forms.ToolStripMenuItem mnuItemExit;
+        private System.Windows.Forms.Panel pnlMain;
+        private System.Windows.Forms.TabControl tpnlMain;
+        private System.Windows.Forms.TabPage tabSound;
     }
 }

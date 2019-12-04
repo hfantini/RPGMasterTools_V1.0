@@ -14,11 +14,11 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [FrmMain.cs]
-    |	Type: [Form]
+    |	Name: [ViewSound.cs]
+    |	Type: [COMPONENT]
     |	Author: Henrique Fantini
     |	
-    |	Description: Main form of the program.
+    |	Description: Sound component.
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
@@ -27,30 +27,29 @@
 // == IMPORTS
 // ==================================================================
 
-using RPGMasterTools.Source.Controller;
-using RPGMasterTools.Source.Enumeration.State;
-using RPGMasterTools.Source.Interface;
-using RPGMasterTools.Source.Util;
-using RPGMasterTools.Source.View.Sound;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using RPGMasterTools.Source.Enumeration.State;
+using RPGMasterTools.Source.Interface;
+using RPGMasterTools.Source.Controller.Sound;
+using RPGMasterTools.Source.Controller;
 
 // == NAMESPACE
 // ==================================================================
 
-namespace RPGMasterTools.Source.View
+namespace RPGMasterTools.Source.View.Sound
 {
     // == CLASS
     // ==============================================================
 
-    public partial class ViewMain : Form, IView<EnumStateMain>
+    public partial class ViewSound : UserControl, IComponent<EnumStateSound>
     {
         // == DECLARATIONS
         // ==============================================================
@@ -58,35 +57,27 @@ namespace RPGMasterTools.Source.View
         // -- CONST -----------------------------------------------------
 
         // -- VAR -------------------------------------------------------
-
-        private MainController _controller;
+        private SoundController _controller = null;
 
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public ViewMain()
+        public ViewSound( GenericController parentController )
         {
             InitializeComponent();
 
-            // == FORM CONFIGURATION
-
-            this.WindowState = FormWindowState.Maximized;
-
-            this._controller = new MainController(this);
-            UFormUtil.applyLanguageToForm(this);
-            UFormUtil.applyLanguageToMenu(mnuMain);
-            UFormUtil.applyLanguageToTabPanel(tpnlMain);
-
-            // == ADDING ANOTHER COMPONENTS
-            tabSound.Controls.Add( new ViewSound(this._controller) );
+            this._controller = new SoundController(this, parentController);
         }
 
         // == METHODS
         // ==============================================================
 
-        public void update(EnumStateMain lastState, EnumStateMain currentState)
+        public void update(EnumStateSound lastState, EnumStateSound currentState)
         {
-
+            if(currentState == EnumStateSound.STATE_START)
+            {
+                label1.Text = "IHIHIHIHI";
+            }
         }
 
         // == EVENTS
@@ -95,9 +86,5 @@ namespace RPGMasterTools.Source.View
         // == GETTERS AND SETTERS
         // ==============================================================
 
-        public void getController()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

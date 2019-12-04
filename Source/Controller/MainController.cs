@@ -43,7 +43,7 @@ namespace RPGMasterTools.Source.Controller
     // == CLASS
     // ==============================================================
 
-    public class MainController : BaseController<EnumStateMain>
+    public class MainController : ViewController<EnumStateMain>
     {
         // == DECLARATIONS
         // ==============================================================
@@ -60,7 +60,7 @@ namespace RPGMasterTools.Source.Controller
 
         }
 
-        public MainController(IView<EnumStateMain> view, BaseController<System.Enum> baseController) : base(view, baseController)
+        public MainController(IView<EnumStateMain> view, ViewController<System.Enum> baseController) : base(view, baseController)
         {
 
         }

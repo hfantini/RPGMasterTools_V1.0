@@ -87,8 +87,18 @@ namespace RPGMasterTools.Source.Util
 
         public static string getString( MLanguage language, string key )
         {
+            string retValue = "?";
+
             JObject stringSet = loadLanguageStrings(language);
-            return stringSet.SelectToken(key).ToString();
+
+            JToken jTokenValue = stringSet.SelectToken(key);
+
+            if(jTokenValue != null)
+            {
+                retValue = jTokenValue.ToString();
+            }
+
+            return retValue;
         }
 
         public static string getStringCurrentLanguage( string key )

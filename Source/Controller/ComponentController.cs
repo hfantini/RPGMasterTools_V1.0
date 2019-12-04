@@ -14,12 +14,12 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [BaseController.cs]
+    |	Name: [ComponentController.cs]
     |	Type: [Controller]
     |	Author: Henrique Fantini
     |	
-    |	Description: Define the base controller. All system
-    |                controllers inherits from that structure.
+    |	Description: Define the base controller for system 
+    |   components. 
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
@@ -28,6 +28,7 @@
 // == IMPORTS
 // ==================================================================
 
+using RPGMasterTools.Source.Enumeration.Controller;
 using RPGMasterTools.Source.Interface;
 using RPGMasterTools.Source.Model.Exception;
 using System;
@@ -44,7 +45,7 @@ namespace RPGMasterTools.Source.Controller
     // == CLASS
     // ==============================================================
 
-    public abstract class BaseController<T> where T : System.Enum
+    public abstract class ComponentController<T> : GenericController where T : System.Enum 
     {
         // == DECLARATIONS
         // ==============================================================
@@ -53,30 +54,21 @@ namespace RPGMasterTools.Source.Controller
 
         // -- VAR -------------------------------------------------------
 
-        private BaseController<System.Enum> _parentController;
-        private IView<T> _currentView;
+        private GenericController _parentController;
+        private IComponent<T> _currentComponent;
         private T _lastState;
         private T _currentState;
 
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public BaseController( IView<T> currentView )
+        public ComponentController( IComponent<T> currentComponent, GenericController parentController ) : base(EnumControllerType.TYPE_COMPONENT)
         {
-            this._currentView = currentView;
-            this._parentController = null;
-
-            init();
-            this._currentView.update(this._lastState, this._currentState);
-        }
-
-        public BaseController( IView<T> currentView, BaseController<System.Enum> parentController )
-        {
-            this._currentView = currentView;
+            this._currentComponent = currentComponent;
             this._parentController = parentController;
 
             init();
-            this._currentView.update( this._lastState, this._currentState );
+            this._currentComponent.update( this._lastState, this._currentState );
         }
 
         // == METHODS
@@ -84,7 +76,12 @@ namespace RPGMasterTools.Source.Controller
 
         protected virtual void init()
         {
-            if (this._currentView == null)
+            if (this._parentController == null)
+            {
+                throw new EMasterToolsException();
+            }
+
+            if (this._currentComponent == null)
             {
                 throw new EMasterToolsException();
             }
@@ -93,7 +90,7 @@ namespace RPGMasterTools.Source.Controller
         // == GETTERS AND SETTERS
         // ==============================================================
 
-        public BaseController<System.Enum> parentController
+        public GenericController parentController
         {
             get { return _parentController; }
         }
@@ -112,7 +109,7 @@ namespace RPGMasterTools.Source.Controller
                 this._lastState = this._currentState;
                 this._currentState = value;
 
-                this._currentView.update(this._lastState, this._currentState);
+                this._currentComponent.update(this._lastState, this._currentState);
             }
         }
     }
