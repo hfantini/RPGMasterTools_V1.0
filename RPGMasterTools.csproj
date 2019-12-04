@@ -54,6 +54,9 @@
     <Compile Include="Source\Controller\MainController.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateMain.cs" />
     <Compile Include="Source\Interface\IView.cs" />
+    <Compile Include="Source\Model\Exception\EMasterToolsException.cs" />
+    <Compile Include="Source\Util\UExceptionHandler.cs" />
+    <Compile Include="Source\Util\ULog.cs" />
     <Compile Include="Source\View\ViewMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -89,8 +92,6 @@
     <Folder Include="Assets\" />
     <Folder Include="Doc\Dev\" />
     <Folder Include="Resources\" />
-    <Folder Include="Source\Model\" />
-    <Folder Include="Source\Util\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

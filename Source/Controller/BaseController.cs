@@ -29,6 +29,7 @@
 // ==================================================================
 
 using RPGMasterTools.Source.Interface;
+using RPGMasterTools.Source.Model.Exception;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -85,7 +86,7 @@ namespace RPGMasterTools.Source.Controller
         {
             if (this._currentView == null)
             {
-                // THROW ERROR
+                throw new EMasterToolsException();
             }
         }
 

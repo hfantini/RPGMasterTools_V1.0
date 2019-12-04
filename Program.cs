@@ -1,4 +1,5 @@
-﻿using RPGMasterTools.Source.View;
+﻿using RPGMasterTools.Source.Util;
+using RPGMasterTools.Source.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,8 @@ namespace RPGMasterTools
             }
             catch( Exception e )
             {
-                // THROW FATAL EXCEPTIONS
+                // THROW EXCEPTION TO GLOBAL EXCEPTION HANDLER
+                UExceptionHandler.handleWithException(e);
             }
         }
     }
