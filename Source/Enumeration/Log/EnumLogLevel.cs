@@ -14,11 +14,11 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [EnumStateMain.cs]
+    |	Name: [EnumLogLevel.cs]
     |	Type: [ENUM]
     |	Author: Henrique Fantini
     |	
-    |	Description: Define the state of main controller.
+    |	Description: Defines all log levels of importance.
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
@@ -32,16 +32,18 @@ using System.ComponentModel;
 // == NAMESPACE
 // ==================================================================
 
-namespace RPGMasterTools.Source.Enumeration.State
+namespace RPGMasterTools.Source.Enumeration.Log
 {
     // == ENUM
     // ==============================================================
 
-    [DefaultValue(STATE_START)]
-    public enum EnumStateMain
+    [DefaultValue(LEVEL_NORMAL)]
+    public enum EnumLogLevel
     {
-        STATE_START,
-        STATE_LOADING,
-        STATE_READY
+        LEVEL_LOW = 0,
+        LEVEL_NORMAL = 1,
+        LEVEL_HIGH = 2,
+        LEVEL_IMPORTANT = 3,
+        LEVEL_CRITICAL = 4
     }
 }

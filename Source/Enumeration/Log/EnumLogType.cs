@@ -14,11 +14,11 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [EnumStateMain.cs]
+    |	Name: [EnumLogType.cs]
     |	Type: [ENUM]
     |	Author: Henrique Fantini
     |	
-    |	Description: Define the state of main controller.
+    |	Description: Defines all types of log used by the system.
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
@@ -32,16 +32,17 @@ using System.ComponentModel;
 // == NAMESPACE
 // ==================================================================
 
-namespace RPGMasterTools.Source.Enumeration.State
+namespace RPGMasterTools.Source.Enumeration.Log
 {
     // == ENUM
     // ==============================================================
 
-    [DefaultValue(STATE_START)]
-    public enum EnumStateMain
+    [DefaultValue(TYPE_NORMAL)]
+    public enum EnumLogType
     {
-        STATE_START,
-        STATE_LOADING,
-        STATE_READY
+        TYPE_NORMAL,
+        TYPE_INFO,
+        TYPE_WARNING,
+        TYPE_ERROR
     }
 }

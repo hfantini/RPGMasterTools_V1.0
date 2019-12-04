@@ -14,26 +14,23 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [UExceptionHandler.cs]
+    |	Name: [ULog.cs]
     |	Type: [UTIL]
     |	Author: Henrique Fantini
     |	
     |	Description: Defines a class who provides ways to handle
-    |   with system errors.
+    |   with system log.
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
 */
 
+
 // == IMPORTS
 // ==================================================================
 
+using RPGMasterTools.Source.Enumeration.Log;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 // == NAMESPACE
 // ==================================================================
@@ -43,7 +40,7 @@ namespace RPGMasterTools.Source.Util
     // == CLASS
     // ==============================================================
 
-    public class UExceptionHandler
+    public class ULog
     {
         // -- CONST -----------------------------------------------------
 
@@ -55,9 +52,19 @@ namespace RPGMasterTools.Source.Util
         // == METHODS
         // ==============================================================
 
-        public static void handleWithException(Exception e)
+        public static void writeLog(EnumLogLevel level, EnumLogType type, string message)
         {
-            MessageBox.Show(e.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Console.Out.WriteLine(message);
+        }
+
+        public static void writeLog( EnumLogType type, string message )
+        {
+            ULog.writeLog(EnumLogLevel.LEVEL_NORMAL, type, message);
+        }
+
+        public static void writeLog( string message )
+        {
+            ULog.writeLog(EnumLogLevel.LEVEL_NORMAL, EnumLogType.TYPE_NORMAL, message);
         }
 
         // == EVENTS
