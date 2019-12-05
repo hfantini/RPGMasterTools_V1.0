@@ -42,6 +42,7 @@ namespace RPGMasterTools.Source.Enumeration.State
     {
         STATE_NONE,
         STATE_LOADING,
+        STATE_REFRESH,
         STATE_READY,
         STATE_SEARCH
     }

@@ -72,9 +72,9 @@ namespace RPGMasterTools.Source.View
 
             this.WindowState = FormWindowState.Maximized;
 
-            UFormUtil.applyLanguageToForm(this);
-            UFormUtil.applyLanguageToMenu(mnuMain);
-            UFormUtil.applyLanguageToTabPanel(tpnlMain);
+            UComponent.applyLanguageToComponent(this);
+            UComponent.applyLanguageToMenu(mnuMain);
+            UComponent.applyLanguageToTabPanel(tpnlMain);
 
             // == INIT CONTROLLER
             this._controller = new MainController(this);
@@ -99,7 +99,7 @@ namespace RPGMasterTools.Source.View
 
         private void ViewMain_Load(object sender, EventArgs e)
         {
-            this._controller.update();
+            this._controller.currentState = EnumStateMain.STATE_NONE;
         }
 
         // == GETTERS AND SETTERS

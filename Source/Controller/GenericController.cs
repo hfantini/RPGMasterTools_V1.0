@@ -49,7 +49,6 @@ namespace RPGMasterTools.Source.Controller
         // -- VAR -------------------------------------------------------
         private EnumControllerType _type;
         private List<GenericController> _children;
-        private bool _allowUpdatePropagation = true;
 
         // == CONSTRUCTOR(S)
         // ==============================================================
@@ -63,7 +62,7 @@ namespace RPGMasterTools.Source.Controller
         // == METHODS
         // ==============================================================
 
-        public abstract void update();
+        protected abstract void update();
 
         public void addChildrenController(GenericController controller)
         {
@@ -84,6 +83,14 @@ namespace RPGMasterTools.Source.Controller
         // == EVENTS
         // ==============================================================
 
+        protected virtual void onParentStateChange(GenericController parentController)
+        {
+            foreach (GenericController childController in this.children)
+            {
+                childController.onParentStateChange(parentController);
+            }
+        }
+
         // == GETTERS AND SETTERS
         // ==============================================================
 
@@ -95,12 +102,6 @@ namespace RPGMasterTools.Source.Controller
         public List<GenericController> children
         {
             get { return new List<GenericController>(this._children); }
-        }
-
-        public bool allowUpdatePropagation
-        {
-            get { return this._allowUpdatePropagation; }
-            set { this._allowUpdatePropagation = value; }
         }
 
         public abstract Object getCurrentState();

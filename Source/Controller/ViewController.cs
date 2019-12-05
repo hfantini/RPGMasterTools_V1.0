@@ -78,17 +78,9 @@ namespace RPGMasterTools.Source.Controller
             }
         }
 
-        public override void update()
+        protected override void update()
         {
             this._currentView.update(this._lastState, this._currentState);
-
-            foreach( GenericController childController in this.children )
-            {
-                if( childController.allowUpdatePropagation )
-                {
-                    childController.update();
-                }
-            }
         }
 
         // == GETTERS AND SETTERS

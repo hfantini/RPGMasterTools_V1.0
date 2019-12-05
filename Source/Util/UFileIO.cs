@@ -64,6 +64,11 @@ namespace RPGMasterTools.Source.Util
             return UFileIO._assembly.GetManifestResourceStream( UFileIO._defaultNamespace + "." + name );
         }
 
+        public static String getAssetFolderPath()
+        {
+            return AppDomain.CurrentDomain.BaseDirectory + "assets";
+        }
+
         // == EVENTS
         // ==============================================================
 

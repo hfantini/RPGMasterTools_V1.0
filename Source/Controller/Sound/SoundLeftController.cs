@@ -27,12 +27,16 @@
 // == IMPORTS
 // ==================================================================
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using RPGMasterTools.Source.Enumeration.State;
 using RPGMasterTools.Source.Interface;
 using RPGMasterTools.Source.Model.Exception;
+using RPGMasterTools.Source.Util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -51,8 +55,8 @@ namespace RPGMasterTools.Source.Controller.Sound
         // -- CONST -----------------------------------------------------
 
         // -- VAR -------------------------------------------------------
-        private BackgroundWorker bwLoad = null;
-        public int counter = 0;
+
+        private BackgroundWorker _bwLoad = null;
 
         // == CONSTRUCTOR(S)
         // ==============================================================
@@ -65,7 +69,7 @@ namespace RPGMasterTools.Source.Controller.Sound
         // == METHODS
         // ==============================================================
 
-        public override void update()
+        protected override void update()
         {
             if(this.currentState == EnumStateSoundLeft.STATE_NONE)
             {
@@ -75,11 +79,11 @@ namespace RPGMasterTools.Source.Controller.Sound
             {
                 if (this.lastState == EnumStateSoundLeft.STATE_NONE)
                 {
-                    bwLoad = new BackgroundWorker();
-                    bwLoad.DoWork += loadTask;
-                    bwLoad.RunWorkerCompleted += onLoadTaskFinished;
+                    this._bwLoad = new BackgroundWorker();
+                    this._bwLoad.DoWork += loadTask;
+                    this._bwLoad.RunWorkerCompleted += onLoadTaskFinished;
 
-                    bwLoad.RunWorkerAsync();
+                    this._bwLoad.RunWorkerAsync();
                 }
                 else
                 {
@@ -94,17 +98,82 @@ namespace RPGMasterTools.Source.Controller.Sound
             base.update();
         }
 
-        private void loadTask(object sender, DoWorkEventArgs e)
+        private JObject scanDirectory(String path)
         {
-            Thread.Sleep(3000);
+            JObject retValue = new JObject();
+
+            if ( Directory.Exists( path ) )
+            {
+                // LOOKING FOR DESCRIPTOR.JSON
+                JObject descriptor = null;
+                string descriptorPath = path + "\\descriptor.json";
+
+                if (File.Exists(descriptorPath) )
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    descriptor = (JObject) serializer.Deserialize( new JsonTextReader( new StreamReader(descriptorPath) ) );
+
+                    // SEARCH AUDIO FILES IN THE DIRECTORY
+
+                    string[] files = Directory.GetFiles(path, "*.mp3");
+                    JArray fileArray = new JArray();
+
+                    foreach( String file in files )
+                    {
+                        FileInfo fInfo = new FileInfo(file);
+
+                        JObject jsonFileInfo = new JObject();
+                        jsonFileInfo.Add("NAME", fInfo.Name);
+                        jsonFileInfo.Add("PATH", path);
+
+                        fileArray.Add(jsonFileInfo);
+                    }
+
+                    descriptor.Add("FILES", fileArray);
+
+                    // SCANING SUBFOLDERS
+
+                    JArray children = new JArray();
+                    string[] directories = Directory.GetDirectories(path);
+
+                    foreach( String directory in directories)
+                    {
+                        children.Add( scanDirectory(directory) );
+                    }
+
+                    descriptor.Add("CHILDREN", children);
+
+                    // ATTACHING COLLETED INFO TO RETURN
+
+                    retValue = descriptor;
+                }
+            }
+
+            return retValue;
         }
 
         // == EVENTS
         // ==============================================================
 
+        private void loadTask(object sender, DoWorkEventArgs e)
+        {
+            JArray loadResult = new JArray();
+
+            // SCANNING FOR MUSIC
+            loadResult.Add( scanDirectory( UFileIO.getAssetFolderPath() + "\\music" ) );
+
+            // SCANNING FOR AMBIENCE
+            loadResult.Add(scanDirectory(UFileIO.getAssetFolderPath() + "\\ambience"));
+
+            // SCANING FOR SOUNDFX
+            loadResult.Add(scanDirectory(UFileIO.getAssetFolderPath() + "\\soundfx"));
+
+            ((SoundController)this.parentController).assetsFromTheDisk = loadResult;
+        }
+
         private void onLoadTaskFinished(object sender, RunWorkerCompletedEventArgs e)
         {
-            this.currentState = EnumStateSoundLeft.STATE_READY;
+            this.currentState = EnumStateSoundLeft.STATE_REFRESH;
         }
 
         // == GETTERS AND SETTERS

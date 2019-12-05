@@ -19,6 +19,20 @@
 	},
 	"SOUND":
 	{
-		
+		"LEFT":
+		{
+			"REFRESH": "UPDATING LIST OF ITEMS",
+			"DETAIL": 
+			{
+				"TITLE": "DETAILS",
+				"EMPTY": "No item selected",
+				"NAME": "NAME:",
+				"TYPE": "TYPE:",
+				"DESCRIPTION": "DESCRIPTION",
+				"FOLDER": "FOLDER",
+				"DETAIL": "DETAIL",
+				"FILE": "FILE",
+			}
+		}
 	}
 }

@@ -14,64 +14,74 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [SoundController]
-    |	Type: [CONTROLLER]
+    |	Name: [ViewSoundLeftDetailFolder.cs]
+    |	Type: [VIEW]
     |	Author: Henrique Fantini
     |	
-    |	Description: Sound controller class.
+    |	Description: -
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
 */
 
-
 // == IMPORTS
 // ==================================================================
 
-using Newtonsoft.Json.Linq;
-using RPGMasterTools.Source.Enumeration.State;
-using RPGMasterTools.Source.Interface;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using RPGMasterTools.Source.Util;
+using Newtonsoft.Json.Linq;
 
 // == NAMESPACE
 // ==================================================================
 
-namespace RPGMasterTools.Source.Controller.Sound
+namespace RPGMasterTools.Source.View.Sound
 {
     // == CLASS
     // ==============================================================
 
-    public class SoundController : ComponentController<EnumStateSound>
+    public partial class ViewSoundLeftDetailFolder : UserControl
     {
-
         // -- CONST -----------------------------------------------------
 
         // -- VAR -------------------------------------------------------
 
-        private JArray _assetsFromTheDisk = null;
-
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public SoundController(IComponent<EnumStateSound> component, GenericController controller) : base(component, controller)
+        public ViewSoundLeftDetailFolder()
         {
+            InitializeComponent();
 
+            // CONFIGURE COMPONENTS
+
+            UComponent.applyLanguageToComponent(lblNameText);
+            UComponent.applyLanguageToComponent(lblTypeText);
+            UComponent.applyLanguageToComponent(lblDescText);
+
+            lblTypeValue.Text = ULanguage.getStringCurrentLanguage("SOUND.LEFT.DETAIL.FOLDER");
         }
 
         // == METHODS
         // ==============================================================
 
-        // == GETTERS AND SETTERS
-        // ==============================================================]
-
-        public JArray assetsFromTheDisk
+        public void update(JObject info)
         {
-            get { return this._assetsFromTheDisk; }
-            set { this._assetsFromTheDisk = value; }
+            lblNameValue.Text = info.Value<String>("NAME");
+            txtDesc.Text = info.Value<String>("DESCRIPTION");
         }
+
+        // == EVENTS
+        // ==============================================================
+
+        // == GETTERS AND SETTERS
+        // ==============================================================
     }
 }

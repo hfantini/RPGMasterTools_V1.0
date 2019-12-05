@@ -14,11 +14,11 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [UFormUtil.cs]
+    |	Name: [UComponent.cs]
     |	Type: [UTIL]
     |	Author: Henrique Fantini
     |	
-    |	Description: Provides methods related with form
+    |	Description: Provides methods related with component
     |   manipulation.
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
@@ -35,6 +35,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.Control;
 
 // == NAMESPACE
 // ==================================================================
@@ -44,7 +45,7 @@ namespace RPGMasterTools.Source.Util
     // == CLASS
     // ==============================================================
 
-    public class UFormUtil
+    public class UComponent
     {
         // == DECLARATIONS
         // ==============================================================
@@ -59,9 +60,9 @@ namespace RPGMasterTools.Source.Util
         // == METHODS
         // ==============================================================
 
-        public static void applyLanguageToForm(Form form)
+        public static void applyLanguageToComponent(Control control)
         {
-            form.Text = ULanguage.getStringCurrentLanguage( form.Text );
+            control.Text = ULanguage.getStringCurrentLanguage(control.Text );
         }
 
         public static void applyLanguageToTabPanel(TabControl tabControl)
@@ -83,7 +84,7 @@ namespace RPGMasterTools.Source.Util
 
                     if (item.DropDown.Items.Count > 0)
                     {
-                        UFormUtil.applyLanguageToMenu(item);
+                        UComponent.applyLanguageToMenu(item);
                     }
                 }
             }
@@ -96,7 +97,7 @@ namespace RPGMasterTools.Source.Util
 
                     if (item.DropDown.Items.Count > 0)
                     {
-                        UFormUtil.applyLanguageToMenu(item);
+                        UComponent.applyLanguageToMenu(item);
                     }
                 }
             }
@@ -105,6 +106,16 @@ namespace RPGMasterTools.Source.Util
                 throw new EMasterToolsException("applyLanguageToMenu: Invalid parameter type.");
             }
 
+        }
+
+        public static void removeAllChildren(Control control)
+        {
+            ControlCollection controlCollect = control.Controls;
+
+            foreach( Control cControl in controlCollect )
+            {
+                control.Controls.Remove(cControl);
+            }
         }
 
         // == EVENTS

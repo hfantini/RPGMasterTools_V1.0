@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
     <LangVersion>7.3</LangVersion>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>sysicon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -71,7 +74,7 @@
     <Compile Include="Source\Model\Exception\EMasterToolsException.cs" />
     <Compile Include="Source\Model\Language\MLanguage.cs" />
     <Compile Include="Source\Util\UAsyncTask.cs" />
-    <Compile Include="Source\Util\UFormUtil.cs" />
+    <Compile Include="Source\Util\UComponent.cs" />
     <Compile Include="Source\Util\UExceptionHandler.cs" />
     <Compile Include="Source\Util\UFileIO.cs" />
     <Compile Include="Source\Util\ULanguage.cs" />
@@ -88,6 +91,18 @@
     <Compile Include="Source\View\Sound\ViewSoundLeft.Designer.cs">
       <DependentUpon>ViewSoundLeft.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source\View\Sound\ViewSoundLeftDetailFolder.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\View\Sound\ViewSoundLeftDetailFolder.Designer.cs">
+      <DependentUpon>ViewSoundLeftDetailFolder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\View\Sound\ViewSoundLeftDetailEmpty.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\View\Sound\ViewSoundLeftDetailEmpty.Designer.cs">
+      <DependentUpon>ViewSoundLeftDetailEmpty.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source\View\ViewMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,12 +117,19 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Source\View\Sound\ViewSound.resx">
       <DependentUpon>ViewSound.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\View\Sound\ViewSoundLeft.resx">
       <DependentUpon>ViewSoundLeft.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\View\Sound\ViewSoundLeftDetailFolder.resx">
+      <DependentUpon>ViewSoundLeftDetailFolder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\View\Sound\ViewSoundLeftDetailEmpty.resx">
+      <DependentUpon>ViewSoundLeftDetailEmpty.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\View\ViewMain.resx">
       <DependentUpon>ViewMain.cs</DependentUpon>
@@ -126,11 +148,17 @@
     <EmbeddedResource Include="Resources\Strings\ptBR.json" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Doc\Dev\" />
     <Folder Include="Source\Enumeration\Language\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Images\Icons\ico_picture.png" />
+    <Content Include="sysicon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

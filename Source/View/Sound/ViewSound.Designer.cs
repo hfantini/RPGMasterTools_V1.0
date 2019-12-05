@@ -73,6 +73,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.tblSoundLayout);
             this.Name = "ViewSound";
             this.Size = new System.Drawing.Size(1387, 653);

@@ -87,7 +87,7 @@ namespace RPGMasterTools.Source.View.Sound
 
         private void ViewSound_Load(object sender, EventArgs e)
         {
-            this._controller.update();
+            this._controller.currentState = EnumStateSound.STATE_NONE;
         }
 
         // == GETTERS AND SETTERS

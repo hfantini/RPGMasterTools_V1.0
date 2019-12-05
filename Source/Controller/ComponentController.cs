@@ -95,17 +95,9 @@ namespace RPGMasterTools.Source.Controller
             }
         }
 
-        public override void update()
+        protected override void update()
         {
             this._currentComponent.update(this._lastState, this._currentState);
-
-            foreach (GenericController childController in this.children)
-            {
-                if (childController.allowUpdatePropagation)
-                {
-                    childController.update();
-                }
-            }
         }
 
         // == GETTERS AND SETTERS
@@ -131,6 +123,7 @@ namespace RPGMasterTools.Source.Controller
                 this._currentState = value;
 
                 update();
+                onParentStateChange(this);
             }
         }
 

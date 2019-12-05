@@ -14,64 +14,62 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [SoundController]
-    |	Type: [CONTROLLER]
+    |	Name: [ViewSoundLeftDetailEmpty.cs]
+    |	Type: [VIEW]
     |	Author: Henrique Fantini
     |	
-    |	Description: Sound controller class.
+    |	Description: -
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
 */
 
-
 // == IMPORTS
 // ==================================================================
 
-using Newtonsoft.Json.Linq;
-using RPGMasterTools.Source.Enumeration.State;
-using RPGMasterTools.Source.Interface;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using RPGMasterTools.Source.Util;
 
 // == NAMESPACE
 // ==================================================================
 
-namespace RPGMasterTools.Source.Controller.Sound
+namespace RPGMasterTools.Source.View.Sound
 {
     // == CLASS
     // ==============================================================
 
-    public class SoundController : ComponentController<EnumStateSound>
+    public partial class ViewSoundLeftDetailEmpty : UserControl
     {
-
         // -- CONST -----------------------------------------------------
 
         // -- VAR -------------------------------------------------------
 
-        private JArray _assetsFromTheDisk = null;
-
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public SoundController(IComponent<EnumStateSound> component, GenericController controller) : base(component, controller)
+        public ViewSoundLeftDetailEmpty()
         {
+            InitializeComponent();
 
+            // CONFIGURE COMPONENTS
+            UComponent.applyLanguageToComponent(lblEmpty);
         }
 
         // == METHODS
         // ==============================================================
 
-        // == GETTERS AND SETTERS
-        // ==============================================================]
+        // == EVENTS
+        // ==============================================================
 
-        public JArray assetsFromTheDisk
-        {
-            get { return this._assetsFromTheDisk; }
-            set { this._assetsFromTheDisk = value; }
-        }
+        // == GETTERS AND SETTERS
+        // ==============================================================
     }
 }

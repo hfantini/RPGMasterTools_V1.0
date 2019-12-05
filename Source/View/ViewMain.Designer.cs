@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewMain));
             this.mnuMain = new System.Windows.Forms.MenuStrip();
             this.mItemMain = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuItemExit = new System.Windows.Forms.ToolStripMenuItem();
@@ -104,6 +105,7 @@
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.mnuMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mnuMain;
             this.MaximizeBox = false;
             this.MinimizeBox = false;

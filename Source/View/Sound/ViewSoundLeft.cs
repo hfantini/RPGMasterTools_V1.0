@@ -27,6 +27,7 @@
 // == IMPORTS
 // ==================================================================
 
+using Newtonsoft.Json.Linq;
 using RPGMasterTools.Source.Controller;
 using RPGMasterTools.Source.Controller.Sound;
 using RPGMasterTools.Source.Enumeration.State;
@@ -57,9 +58,13 @@ namespace RPGMasterTools.Source.View.Sound
 
         // -- VAR -------------------------------------------------------
 
+        private ViewSoundLeftDetailEmpty _viewSoundLeftDetailEmpty;
+        private ViewSoundLeftDetailFolder _viewSoundLeftDetailFolder;
+
         private SoundLeftController _controller;
 
         private BackgroundWorker bwUpdateLoad = null;
+        private BackgroundWorker bwUpdateRefresh = null;
         private int updateTimerCount = 0;
 
         // == CONSTRUCTOR(S)
@@ -69,7 +74,25 @@ namespace RPGMasterTools.Source.View.Sound
         {
             InitializeComponent();
 
+            // COMPONENT CREATION
+            this._viewSoundLeftDetailEmpty = new ViewSoundLeftDetailEmpty();
+            this._viewSoundLeftDetailEmpty.Dock = DockStyle.Fill;
+
+            this._viewSoundLeftDetailFolder = new ViewSoundLeftDetailFolder();
+            this._viewSoundLeftDetailFolder.Dock = DockStyle.Fill;
+
+            // COMPONENT CONFIGURATION
+
+            UComponent.applyLanguageToComponent(grpDetail);
+
+            tViewData.AfterSelect += onNodeSelect;
+
+            // CONTROLLER CONFIGURATION
+
             this._controller = new SoundLeftController(this, genericController);
+
+            // UPDATES
+            updateNodeInfo();
         }
 
         // == METHODS
@@ -98,9 +121,93 @@ namespace RPGMasterTools.Source.View.Sound
             }
             else
             {
-                if(currentState == EnumStateSoundLeft.STATE_READY)
+                if (currentState == EnumStateSoundLeft.STATE_REFRESH)
+                {
+                    bwUpdateRefresh = new BackgroundWorker();
+                    bwUpdateRefresh.DoWork += updateRefresh;
+                    bwUpdateRefresh.RunWorkerCompleted += onRefreshTaskFinished;
+
+                    bwUpdateRefresh.RunWorkerAsync();
+                }
+                else if(currentState == EnumStateSoundLeft.STATE_READY)
                 {
                     lblStatus.Text = ULanguage.getStringCurrentLanguage("GENERAL.READY");
+                }
+            }
+        }
+
+        private void insertNodeRecursively(TreeNode currentNode, JArray collection)
+        {
+            if (collection != null)
+            {
+                foreach (JObject obj in collection)
+                {
+                    tViewData.Invoke(new Action(() =>
+                    {
+                        currentNode.Nodes.Add(obj.GetValue("NAME").Value<String>());
+                        var index = currentNode.Nodes.Count - 1;
+                        currentNode.Nodes[index].Tag = obj;
+
+                        // ADD CHILDREN
+
+                        if (obj.ContainsKey("CHILDREN"))
+                        {
+                            JArray children = obj.Value<JArray>("CHILDREN");
+
+                            if (children.Count > 0)
+                            {
+                                insertNodeRecursively(currentNode.Nodes[index], children);
+                            }
+                        }
+
+                        // ADD FILES
+
+                        if (obj.ContainsKey("FILES"))
+                        {
+                            JArray files = obj.Value<JArray>("FILES");
+
+                            if (files.Count > 0)
+                            {
+                                foreach (JObject file in files)
+                                {
+                                    currentNode.Nodes[index].Nodes.Add(file.Value<String>("NAME") );
+                                    var cIndex = currentNode.Nodes[index].Nodes.Count - 1;
+                                    currentNode.Nodes[index].Nodes[cIndex].Tag = file;
+                                }
+                            }
+
+                        }
+                    }));
+                }
+            }
+        }
+
+        private void updateNodeInfo()
+        {
+            UComponent.removeAllChildren(grpDetail);
+            TreeNode currentNode = tViewData.SelectedNode;          
+
+            if (currentNode == null)
+            {
+                grpDetail.Controls.Add(this._viewSoundLeftDetailEmpty);
+            }
+            else
+            {
+                JObject info = (JObject) currentNode.Tag;
+
+                if(info.ContainsKey("TYPE"))
+                {
+                    string iType = info.Value<String>("TYPE");
+
+                    if(iType.ToUpper() == "FOLDER")
+                    {
+                        this._viewSoundLeftDetailFolder.update(info);
+                        grpDetail.Controls.Add(this._viewSoundLeftDetailFolder);
+                    }
+                }
+                else
+                {
+                    grpDetail.Controls.Add(this._viewSoundLeftDetailEmpty);
                 }
             }
         }
@@ -131,12 +238,45 @@ namespace RPGMasterTools.Source.View.Sound
 
                 lblStatus.Invoke(new Action(() =>
                 {
-                    lblStatus.Text = text + " " + this._controller.counter;
+                    lblStatus.Text = text;
                 }));
 
                 this.updateTimerCount++;
                 Thread.Sleep(500);
             }
+        }
+
+        private void updateRefresh(object sender, DoWorkEventArgs e)
+        {
+            lblStatus.Invoke(new Action(() =>
+            {
+                lblStatus.Text = ULanguage.getStringCurrentLanguage("SOUND.LEFT.REFRESH");
+            }));
+
+            JArray data = ((SoundController)this._controller.parentController).assetsFromTheDisk;
+
+            tViewData.Invoke(new Action(() =>
+            {
+                tViewData.Nodes.Add("ALL MEDIA");
+            }));
+
+            insertNodeRecursively(tViewData.Nodes[0], data);
+
+            // EXPANDING NODES
+            tViewData.Invoke(new Action(() =>
+            {
+                tViewData.Nodes[0].Expand();
+            }));
+        }
+
+        private void onRefreshTaskFinished(object sender, RunWorkerCompletedEventArgs e)
+        {
+            this._controller.currentState = EnumStateSoundLeft.STATE_READY;
+        }
+
+        private void onNodeSelect(object sender, EventArgs e)
+        {
+            this.updateNodeInfo();
         }
 
         // == GETTERS AND SETTERS
