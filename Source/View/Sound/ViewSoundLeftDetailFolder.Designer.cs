@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewSoundLeftDetailFolder));
             this.tblDetailFolder = new System.Windows.Forms.TableLayoutPanel();
             this.tblTableRight = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -192,8 +193,7 @@
             // pBoxIcon
             // 
             this.pBoxIcon.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pBoxIcon.Image = global::RPGMasterTools.Properties.Resources.ico_picture;
-            this.pBoxIcon.InitialImage = global::RPGMasterTools.Properties.Resources.ico_picture;
+            this.pBoxIcon.Image = ((System.Drawing.Image)(resources.GetObject("pBoxIcon.Image")));
             this.pBoxIcon.Location = new System.Drawing.Point(40, 40);
             this.pBoxIcon.Margin = new System.Windows.Forms.Padding(15);
             this.pBoxIcon.Name = "pBoxIcon";

@@ -14,16 +14,15 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [SoundController]
+    |	Name: [SoundRightMusicController.cs]
     |	Type: [CONTROLLER]
     |	Author: Henrique Fantini
     |	
-    |	Description: Sound controller class.
+    |	Description: Controller of SoundLeftPanelMusic
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
 */
-
 
 // == IMPORTS
 // ==================================================================
@@ -32,11 +31,15 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RPGMasterTools.Source.Enumeration.State;
 using RPGMasterTools.Source.Interface;
-using RPGMasterTools.Source.Model.Sound;
+using RPGMasterTools.Source.Model.Exception;
+using RPGMasterTools.Source.Util;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 // == NAMESPACE
@@ -44,47 +47,30 @@ using System.Threading.Tasks;
 
 namespace RPGMasterTools.Source.Controller.Sound
 {
-    // == CLASS
-    // ==============================================================
-
-    public class SoundController : ComponentController<EnumStateSound>
+    public class SoundRightMusicController : ComponentController<EnumStateSoundRightMusic>
     {
+        // == DECLARATIONS
+        // ==============================================================
 
         // -- CONST -----------------------------------------------------
 
         // -- VAR -------------------------------------------------------
 
-        private JsonSerializer _jSerializer;
-
-        private JArray _assetsFromTheDisk = null;
-        private List<Music> _musicPlaylist = null;
-
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public SoundController(IComponent<EnumStateSound> component, GenericController controller) : base(component, controller)
+        public SoundRightMusicController(IComponent<EnumStateSoundRightMusic> component, GenericController parentController) : base(component, parentController)
         {
-            this._jSerializer = new JsonSerializer();
 
-            this._musicPlaylist = new List<Music>();
         }
 
         // == METHODS
         // ==============================================================
 
-        public void addMusicToPlaylist(JObject jMusic)
-        {
-            Music music = this._jSerializer.Deserialize<Music>( jMusic.CreateReader() );
-            this._musicPlaylist.Add(music);
-        }
+        // == EVENTS
+        // ==============================================================
 
         // == GETTERS AND SETTERS
         // ==============================================================
-
-        public JArray assetsFromTheDisk
-        {
-            get { return this._assetsFromTheDisk; }
-            set { this._assetsFromTheDisk = value; }
-        }
     }
 }

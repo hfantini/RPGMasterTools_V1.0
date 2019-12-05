@@ -14,11 +14,11 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [ViewSound.cs]
-    |	Type: [COMPONENT]
+    |	Name: [ViewSoundRightMusicPlayer]
+    |	Type: [VIEW]
     |	Author: Henrique Fantini
     |	
-    |	Description: Sound component.
+    |	Description:
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
@@ -37,8 +37,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using RPGMasterTools.Source.Enumeration.State;
-using RPGMasterTools.Source.Interface;
-using RPGMasterTools.Source.Controller.Sound;
 using RPGMasterTools.Source.Controller;
 
 // == NAMESPACE
@@ -49,58 +47,41 @@ namespace RPGMasterTools.Source.View.Sound
     // == CLASS
     // ==============================================================
 
-    public partial class ViewSound : UserControl, IComponent<EnumStateSound>
+    public partial class ViewSoundRightMusicPlayer : UserControl, Interface.IComponent<EnumStateSoundRightMusicPlayer>
     {
-        // == DECLARATIONS
-        // ==============================================================
-
         // -- CONST -----------------------------------------------------
 
         // -- VAR -------------------------------------------------------
 
-        ViewSoundLeft _viewSoundLeft = null;
-        ViewSoundRight _viewSoundRight = null;
-
-        private SoundController _controller = null;
-
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public ViewSound( GenericController parentController )
+        public ViewSoundRightMusicPlayer()
+        {
+            InitializeComponent();
+        }
+
+        public ViewSoundRightMusicPlayer(GenericController parentController)
         {
             InitializeComponent();
 
-            this._controller = new SoundController(this, parentController);
+            // CONFIGURE CONTROLLER
 
-            // ADDING COMPONENTS
-
-            this._viewSoundLeft = new ViewSoundLeft(this._controller);
-            this._viewSoundLeft.Dock = DockStyle.Fill;
-            this.pnlSoundLeft.Controls.Add(this._viewSoundLeft);
-
-            this._viewSoundRight = new ViewSoundRight(this._controller);
-            this._viewSoundRight.Dock = DockStyle.Fill;
-            this.pnlSoundRight.Controls.Add(this._viewSoundRight);
+            // CONFIGURE COMPONENTS
         }
 
         // == METHODS
         // ==============================================================
 
-        public void update(EnumStateSound lastState, EnumStateSound currentState)
+        public void update(EnumStateSoundRightMusicPlayer lastState, EnumStateSoundRightMusicPlayer currentState)
         {
-
+            
         }
 
         // == EVENTS
         // ==============================================================
 
-        private void ViewSound_Load(object sender, EventArgs e)
-        {
-            this._controller.currentState = EnumStateSound.STATE_NONE;
-        }
-
         // == GETTERS AND SETTERS
         // ==============================================================
-
     }
 }

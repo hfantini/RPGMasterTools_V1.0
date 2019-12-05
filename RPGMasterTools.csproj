@@ -56,8 +56,15 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Source\Controller\ComponentController.cs" />
     <Compile Include="Source\Controller\Sound\SoundController.cs" />
+    <Compile Include="Source\Controller\Sound\SoundRightMusicController.cs" />
+    <Compile Include="Source\Controller\Sound\SoundRightController.cs" />
     <Compile Include="Source\Controller\Sound\SoundLeftController.cs" />
     <Compile Include="Source\Controller\ViewController.cs" />
     <Compile Include="Source\Controller\GenericController.cs" />
@@ -65,6 +72,9 @@
     <Compile Include="Source\Enumeration\Controller\EnumControllerType.cs" />
     <Compile Include="Source\Enumeration\Log\EnumLogLevel.cs" />
     <Compile Include="Source\Enumeration\Log\EnumLogType.cs" />
+    <Compile Include="Source\Enumeration\State\EnumStateSoundRightMusicPlayer.cs" />
+    <Compile Include="Source\Enumeration\State\EnumStateSoundRightMusic.cs" />
+    <Compile Include="Source\Enumeration\State\EnumStateSoundRight.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateSoundLeft.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateSound.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateMain.cs" />
@@ -73,6 +83,7 @@
     <Compile Include="Source\Model\Exception\EMasterToolsInvalidStateChangeException.cs" />
     <Compile Include="Source\Model\Exception\EMasterToolsException.cs" />
     <Compile Include="Source\Model\Language\MLanguage.cs" />
+    <Compile Include="Source\Model\Sound\Music.cs" />
     <Compile Include="Source\Util\UAsyncTask.cs" />
     <Compile Include="Source\Util\UComponent.cs" />
     <Compile Include="Source\Util\UExceptionHandler.cs" />
@@ -91,6 +102,12 @@
     <Compile Include="Source\View\Sound\ViewSoundLeft.Designer.cs">
       <DependentUpon>ViewSoundLeft.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source\View\Sound\ViewSoundLeftDetailFile.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\View\Sound\ViewSoundLeftDetailFile.Designer.cs">
+      <DependentUpon>ViewSoundLeftDetailFile.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source\View\Sound\ViewSoundLeftDetailFolder.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -103,6 +120,24 @@
     <Compile Include="Source\View\Sound\ViewSoundLeftDetailEmpty.Designer.cs">
       <DependentUpon>ViewSoundLeftDetailEmpty.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source\View\Sound\ViewSoundRight.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\View\Sound\ViewSoundRight.Designer.cs">
+      <DependentUpon>ViewSoundRight.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\View\Sound\ViewSoundRightMusic.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\View\Sound\ViewSoundRightMusic.Designer.cs">
+      <DependentUpon>ViewSoundRightMusic.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\View\Sound\ViewSoundRightMusicPlayer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\View\Sound\ViewSoundRightMusicPlayer.Designer.cs">
+      <DependentUpon>ViewSoundRightMusicPlayer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source\View\ViewMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,25 +146,32 @@
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="Source\View\Sound\ViewSound.resx">
       <DependentUpon>ViewSound.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\View\Sound\ViewSoundLeft.resx">
       <DependentUpon>ViewSoundLeft.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Source\View\Sound\ViewSoundLeftDetailFile.resx">
+      <DependentUpon>ViewSoundLeftDetailFile.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Source\View\Sound\ViewSoundLeftDetailFolder.resx">
       <DependentUpon>ViewSoundLeftDetailFolder.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\View\Sound\ViewSoundLeftDetailEmpty.resx">
       <DependentUpon>ViewSoundLeftDetailEmpty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\View\Sound\ViewSoundRight.resx">
+      <DependentUpon>ViewSoundRight.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\View\Sound\ViewSoundRightMusic.resx">
+      <DependentUpon>ViewSoundRightMusic.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\View\Sound\ViewSoundRightMusicPlayer.resx">
+      <DependentUpon>ViewSoundRightMusicPlayer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\View\ViewMain.resx">
       <DependentUpon>ViewMain.cs</DependentUpon>
@@ -157,7 +199,15 @@
     <Folder Include="Source\Enumeration\Language\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Images\ico_backward.png" />
+    <None Include="Resources\Images\Icons\ico_back.png" />
     <None Include="Resources\Images\Icons\ico_picture.png" />
+    <None Include="Resources\Images\ico_play_16.png" />
+    <None Include="Resources\Images\Icons\ico_backward_16.png" />
+    <None Include="Resources\Images\Icons\ico_forward_16.png" />
+    <None Include="Resources\Images\Icons\ico_pause_16.png" />
+    <None Include="Resources\Images\Icons\ico_play_16.png" />
+    <None Include="Resources\Images\Icons\ico_stop_16.png" />
     <Content Include="sysicon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

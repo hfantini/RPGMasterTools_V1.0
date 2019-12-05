@@ -33,6 +33,21 @@
 				"DETAIL": "DETAIL",
 				"FILE": "FILE",
 			}
+		},
+		"RIGHT":
+		{
+			"MUSIC":
+			{
+				"TITLE": "MUSIC"
+			},
+			"AMBIENCE":
+			{
+				"TITLE": "AMBIENCE"
+			},
+			"SOUNDFX":
+			{
+				"TITLE": "SOUNDFX"
+			}
 		}
 	}
 }

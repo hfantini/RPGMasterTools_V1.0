@@ -83,9 +83,10 @@
             // 
             // pnlBottom
             // 
-            this.pnlBottom.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pnlBottom.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.pnlBottom.Controls.Add(this.lblStatus);
             this.pnlBottom.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlBottom.ImeMode = System.Windows.Forms.ImeMode.Katakana;
             this.pnlBottom.Location = new System.Drawing.Point(3, 529);
             this.pnlBottom.Name = "pnlBottom";
             this.pnlBottom.Size = new System.Drawing.Size(363, 39);

@@ -60,6 +60,7 @@ namespace RPGMasterTools.Source.View.Sound
 
         private ViewSoundLeftDetailEmpty _viewSoundLeftDetailEmpty;
         private ViewSoundLeftDetailFolder _viewSoundLeftDetailFolder;
+        private ViewSoundLeftDetailFile _viewSoundLeftDetailFile;
 
         private SoundLeftController _controller;
 
@@ -81,11 +82,15 @@ namespace RPGMasterTools.Source.View.Sound
             this._viewSoundLeftDetailFolder = new ViewSoundLeftDetailFolder();
             this._viewSoundLeftDetailFolder.Dock = DockStyle.Fill;
 
+            this._viewSoundLeftDetailFile = new ViewSoundLeftDetailFile();
+            this._viewSoundLeftDetailFile.Dock = DockStyle.Fill;
+
             // COMPONENT CONFIGURATION
 
             UComponent.applyLanguageToComponent(grpDetail);
 
             tViewData.AfterSelect += onNodeSelect;
+            tViewData.NodeMouseDoubleClick += onNodeDoubleClick;
 
             // CONTROLLER CONFIGURATION
 
@@ -195,7 +200,7 @@ namespace RPGMasterTools.Source.View.Sound
             {
                 JObject info = (JObject) currentNode.Tag;
 
-                if(info.ContainsKey("TYPE"))
+                if(info != null && info.ContainsKey("TYPE"))
                 {
                     string iType = info.Value<String>("TYPE");
 
@@ -203,6 +208,27 @@ namespace RPGMasterTools.Source.View.Sound
                     {
                         this._viewSoundLeftDetailFolder.update(info);
                         grpDetail.Controls.Add(this._viewSoundLeftDetailFolder);
+                    }
+                    else if (iType.ToUpper() == "PRESET")
+                    {
+                        grpDetail.Controls.Add(this._viewSoundLeftDetailEmpty);
+                    }
+                    else if (iType.ToUpper() == "MUSIC")
+                    {
+                        this._viewSoundLeftDetailFile.update(info);
+                        grpDetail.Controls.Add(this._viewSoundLeftDetailFile);
+                    }
+                    else if (iType.ToUpper() == "AMBIENCE")
+                    {
+                        grpDetail.Controls.Add(this._viewSoundLeftDetailEmpty);
+                    }
+                    else if (iType.ToUpper() == "SOUNDFX")
+                    {
+                        grpDetail.Controls.Add(this._viewSoundLeftDetailEmpty);
+                    }
+                    else
+                    {
+                        grpDetail.Controls.Add(this._viewSoundLeftDetailEmpty);
                     }
                 }
                 else
@@ -277,6 +303,11 @@ namespace RPGMasterTools.Source.View.Sound
         private void onNodeSelect(object sender, EventArgs e)
         {
             this.updateNodeInfo();
+        }
+
+        private void onNodeDoubleClick(object sender, EventArgs e)
+        {
+
         }
 
         // == GETTERS AND SETTERS

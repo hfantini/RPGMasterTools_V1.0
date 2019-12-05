@@ -98,7 +98,7 @@ namespace RPGMasterTools.Source.Controller.Sound
             base.update();
         }
 
-        private JObject scanDirectory(String path)
+        private JObject scanDirectory(String path, String fileType)
         {
             JObject retValue = new JObject();
 
@@ -124,6 +124,7 @@ namespace RPGMasterTools.Source.Controller.Sound
 
                         JObject jsonFileInfo = new JObject();
                         jsonFileInfo.Add("NAME", fInfo.Name);
+                        jsonFileInfo.Add("TYPE", fileType);
                         jsonFileInfo.Add("PATH", path);
 
                         fileArray.Add(jsonFileInfo);
@@ -138,7 +139,7 @@ namespace RPGMasterTools.Source.Controller.Sound
 
                     foreach( String directory in directories)
                     {
-                        children.Add( scanDirectory(directory) );
+                        children.Add( scanDirectory(directory, fileType) );
                     }
 
                     descriptor.Add("CHILDREN", children);
@@ -160,13 +161,13 @@ namespace RPGMasterTools.Source.Controller.Sound
             JArray loadResult = new JArray();
 
             // SCANNING FOR MUSIC
-            loadResult.Add( scanDirectory( UFileIO.getAssetFolderPath() + "\\music" ) );
+            loadResult.Add( scanDirectory( UFileIO.getAssetFolderPath() + "\\music", "MUSIC") );
 
             // SCANNING FOR AMBIENCE
-            loadResult.Add(scanDirectory(UFileIO.getAssetFolderPath() + "\\ambience"));
+            loadResult.Add( scanDirectory(UFileIO.getAssetFolderPath() + "\\ambience", "AMBIENCE") );
 
             // SCANING FOR SOUNDFX
-            loadResult.Add(scanDirectory(UFileIO.getAssetFolderPath() + "\\soundfx"));
+            loadResult.Add( scanDirectory(UFileIO.getAssetFolderPath() + "\\soundfx", "SOUNDFX") );
 
             ((SoundController)this.parentController).assetsFromTheDisk = loadResult;
         }
