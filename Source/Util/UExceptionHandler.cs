@@ -30,6 +30,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -57,7 +58,14 @@ namespace RPGMasterTools.Source.Util
 
         public static void handleWithException(Exception e)
         {
-            MessageBox.Show(e.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            var stackTrace = new StackTrace(e, true);
+            StackFrame frame = stackTrace.GetFrame(0);
+
+            string msg = "AN ERROR OCCURED: \n\n "
+                         + e.Message + "\n\n\n"
+                         + "AT " + frame.GetMethod();
+
+            MessageBox.Show(msg, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         // == EVENTS

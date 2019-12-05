@@ -14,11 +14,12 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [MainController.cs]
-    |	Type: [CONTROLLER]
+    |	Name: [UAsyncTask]
+    |	Type: [UTIL]
     |	Author: Henrique Fantini
     |	
-    |	Description: Controller of main form.
+    |	Description: Defines a default way to work with async
+    |   tasks.
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
@@ -27,8 +28,6 @@
 // == IMPORTS
 // ==================================================================
 
-using RPGMasterTools.Source.Enumeration.State;
-using RPGMasterTools.Source.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,12 +37,12 @@ using System.Threading.Tasks;
 // == NAMESPACE
 // ==================================================================
 
-namespace RPGMasterTools.Source.Controller
+namespace RPGMasterTools.Source.Util
 {
     // == CLASS
     // ==============================================================
 
-    public class MainController : ViewController<EnumStateMain>
+    public class UAsyncTask
     {
         // == DECLARATIONS
         // ==============================================================
@@ -51,11 +50,13 @@ namespace RPGMasterTools.Source.Controller
         // -- CONST -----------------------------------------------------
 
         // -- VAR -------------------------------------------------------
+        private delegate void _onStartTask();
+        private delegate void _onFinishTask();
 
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public MainController(IView<EnumStateMain> view) : base (view)
+        public UAsyncTask()
         {
 
         }

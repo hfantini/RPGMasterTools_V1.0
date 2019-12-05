@@ -61,7 +61,7 @@ namespace RPGMasterTools.Source.Controller.Sound
 
         // == METHODS
         // ==============================================================
-        
+
         // == GETTERS AND SETTERS
         // ==============================================================
     }

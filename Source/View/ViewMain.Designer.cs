@@ -60,7 +60,7 @@
             // mnuItemExit
             // 
             this.mnuItemExit.Name = "mnuItemExit";
-            this.mnuItemExit.Size = new System.Drawing.Size(252, 30);
+            this.mnuItemExit.Size = new System.Drawing.Size(234, 30);
             this.mnuItemExit.Text = "MAIN.MENU.EXIT";
             // 
             // pnlMain
@@ -109,6 +109,7 @@
             this.MinimizeBox = false;
             this.Name = "ViewMain";
             this.Text = "MAIN.TITLE";
+            this.Load += new System.EventHandler(this.ViewMain_Load);
             this.mnuMain.ResumeLayout(false);
             this.mnuMain.PerformLayout();
             this.pnlMain.ResumeLayout(false);

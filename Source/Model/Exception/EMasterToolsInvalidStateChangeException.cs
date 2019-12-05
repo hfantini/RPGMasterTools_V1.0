@@ -14,21 +14,20 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [MainController.cs]
-    |	Type: [CONTROLLER]
+    |	Name: [EMasterToolsStateException.cs]
+    |	Type: [EXCEPTION]
     |	Author: Henrique Fantini
     |	
-    |	Description: Controller of main form.
+    |	Description: Defines a generic system exception.
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
 */
 
+
 // == IMPORTS
 // ==================================================================
 
-using RPGMasterTools.Source.Enumeration.State;
-using RPGMasterTools.Source.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,35 +37,32 @@ using System.Threading.Tasks;
 // == NAMESPACE
 // ==================================================================
 
-namespace RPGMasterTools.Source.Controller
+
+namespace RPGMasterTools.Source.Model.Exception
 {
     // == CLASS
     // ==============================================================
 
-    public class MainController : ViewController<EnumStateMain>
+    public class EMasterToolsInvalidStateChangeException : EMasterToolsException
     {
         // == DECLARATIONS
         // ==============================================================
 
         // -- CONST -----------------------------------------------------
 
+        private const string MESSAGE = "Invalid State Change.";
+
         // -- VAR -------------------------------------------------------
 
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public MainController(IView<EnumStateMain> view) : base (view)
+        public EMasterToolsInvalidStateChangeException() : base(MESSAGE)
         {
-
+         
         }
 
         // == METHODS
-        // ==============================================================
-
-        // == EVENTS
-        // ==============================================================
-
-        // == GETTERS AND SETTERS
         // ==============================================================
     }
 }

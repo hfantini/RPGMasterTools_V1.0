@@ -55,18 +55,22 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Source\Controller\ComponentController.cs" />
     <Compile Include="Source\Controller\Sound\SoundController.cs" />
+    <Compile Include="Source\Controller\Sound\SoundLeftController.cs" />
     <Compile Include="Source\Controller\ViewController.cs" />
     <Compile Include="Source\Controller\GenericController.cs" />
     <Compile Include="Source\Controller\MainController.cs" />
     <Compile Include="Source\Enumeration\Controller\EnumControllerType.cs" />
     <Compile Include="Source\Enumeration\Log\EnumLogLevel.cs" />
     <Compile Include="Source\Enumeration\Log\EnumLogType.cs" />
+    <Compile Include="Source\Enumeration\State\EnumStateSoundLeft.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateSound.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateMain.cs" />
     <Compile Include="Source\Interface\IComponent.cs" />
     <Compile Include="Source\Interface\IView.cs" />
+    <Compile Include="Source\Model\Exception\EMasterToolsInvalidStateChangeException.cs" />
     <Compile Include="Source\Model\Exception\EMasterToolsException.cs" />
     <Compile Include="Source\Model\Language\MLanguage.cs" />
+    <Compile Include="Source\Util\UAsyncTask.cs" />
     <Compile Include="Source\Util\UFormUtil.cs" />
     <Compile Include="Source\Util\UExceptionHandler.cs" />
     <Compile Include="Source\Util\UFileIO.cs" />
@@ -77,6 +81,12 @@
     </Compile>
     <Compile Include="Source\View\Sound\ViewSound.Designer.cs">
       <DependentUpon>ViewSound.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\View\Sound\ViewSoundLeft.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\View\Sound\ViewSoundLeft.Designer.cs">
+      <DependentUpon>ViewSoundLeft.cs</DependentUpon>
     </Compile>
     <Compile Include="Source\View\ViewMain.cs">
       <SubType>Form</SubType>
@@ -95,6 +105,9 @@
     </Compile>
     <EmbeddedResource Include="Source\View\Sound\ViewSound.resx">
       <DependentUpon>ViewSound.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\View\Sound\ViewSoundLeft.resx">
+      <DependentUpon>ViewSoundLeft.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\View\ViewMain.resx">
       <DependentUpon>ViewMain.cs</DependentUpon>

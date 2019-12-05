@@ -72,13 +72,18 @@ namespace RPGMasterTools.Source.View
 
             this.WindowState = FormWindowState.Maximized;
 
-            this._controller = new MainController(this);
             UFormUtil.applyLanguageToForm(this);
             UFormUtil.applyLanguageToMenu(mnuMain);
             UFormUtil.applyLanguageToTabPanel(tpnlMain);
 
+            // == INIT CONTROLLER
+            this._controller = new MainController(this);
+
             // == ADDING ANOTHER COMPONENTS
-            tabSound.Controls.Add( new ViewSound(this._controller) );
+
+            ViewSound viewSound = new ViewSound(this._controller);
+            viewSound.Dock = DockStyle.Fill;
+            tabSound.Controls.Add( viewSound );
         }
 
         // == METHODS
@@ -91,6 +96,11 @@ namespace RPGMasterTools.Source.View
 
         // == EVENTS
         // ==============================================================
+
+        private void ViewMain_Load(object sender, EventArgs e)
+        {
+            this._controller.update();
+        }
 
         // == GETTERS AND SETTERS
         // ==============================================================

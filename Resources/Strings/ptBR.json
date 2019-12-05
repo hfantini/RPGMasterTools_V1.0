@@ -1,4 +1,8 @@
 ﻿{
+	"GENERAL":
+	{
+	
+	},
 	"MAIN":
 	{
 		"TITLE": "RPG MASTER TOOLS",
@@ -11,5 +15,9 @@
 		{
 			"SOUND": "SOM E MÚSICA"
 		}
+	},
+	"SOUND":
+	{
+		
 	}
 }

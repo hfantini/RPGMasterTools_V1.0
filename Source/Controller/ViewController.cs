@@ -53,7 +53,6 @@ namespace RPGMasterTools.Source.Controller
 
         // -- VAR -------------------------------------------------------
 
-        private ViewController<System.Enum> _parentController;
         private IView<T> _currentView;
         private T _lastState;
         private T _currentState;
@@ -64,19 +63,8 @@ namespace RPGMasterTools.Source.Controller
         public ViewController( IView<T> currentView ) : base(EnumControllerType.TYPE_VIEW)
         {
             this._currentView = currentView;
-            this._parentController = null;
 
             init();
-            this._currentView.update(this._lastState, this._currentState);
-        }
-
-        public ViewController( IView<T> currentView, ViewController<System.Enum> parentController ) : base(EnumControllerType.TYPE_VIEW)
-        {
-            this._currentView = currentView;
-            this._parentController = parentController;
-
-            init();
-            this._currentView.update( this._lastState, this._currentState );
         }
 
         // == METHODS
@@ -90,12 +78,25 @@ namespace RPGMasterTools.Source.Controller
             }
         }
 
+        public override void update()
+        {
+            this._currentView.update(this._lastState, this._currentState);
+
+            foreach( GenericController childController in this.children )
+            {
+                if( childController.allowUpdatePropagation )
+                {
+                    childController.update();
+                }
+            }
+        }
+
         // == GETTERS AND SETTERS
         // ==============================================================
 
-        public ViewController<System.Enum> parentController
+        public override Object getCurrentState()
         {
-            get { return _parentController; }
+            return this._currentState;
         }
 
         public T lastState
@@ -112,7 +113,7 @@ namespace RPGMasterTools.Source.Controller
                 this._lastState = this._currentState;
                 this._currentState = value;
 
-                this._currentView.update(this._lastState, this._currentState);
+                update();
             }
         }
     }

@@ -66,9 +66,17 @@ namespace RPGMasterTools.Source.Controller
         {
             this._currentComponent = currentComponent;
             this._parentController = parentController;
+            parentController.addChildrenController(this);
 
             init();
-            this._currentComponent.update( this._lastState, this._currentState );
+        }
+
+        // == DESTRUCTOR
+        // ==============================================================
+
+        ~ComponentController()
+        {
+            parentController.removeChildrenController(this);
         }
 
         // == METHODS
@@ -84,6 +92,19 @@ namespace RPGMasterTools.Source.Controller
             if (this._currentComponent == null)
             {
                 throw new EMasterToolsException();
+            }
+        }
+
+        public override void update()
+        {
+            this._currentComponent.update(this._lastState, this._currentState);
+
+            foreach (GenericController childController in this.children)
+            {
+                if (childController.allowUpdatePropagation)
+                {
+                    childController.update();
+                }
             }
         }
 
@@ -109,8 +130,13 @@ namespace RPGMasterTools.Source.Controller
                 this._lastState = this._currentState;
                 this._currentState = value;
 
-                this._currentComponent.update(this._lastState, this._currentState);
+                update();
             }
+        }
+
+        public override Object getCurrentState()
+        {
+            return this._currentState;
         }
     }
 }

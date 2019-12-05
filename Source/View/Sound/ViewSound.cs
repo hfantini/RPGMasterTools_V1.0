@@ -67,6 +67,11 @@ namespace RPGMasterTools.Source.View.Sound
             InitializeComponent();
 
             this._controller = new SoundController(this, parentController);
+
+            // ADDING COMPONENTS
+            ViewSoundLeft vSoundLeft = new ViewSoundLeft(this._controller);
+            vSoundLeft.Dock = DockStyle.Fill;
+            pnlSoundLeft.Controls.Add(vSoundLeft);
         }
 
         // == METHODS
@@ -74,14 +79,16 @@ namespace RPGMasterTools.Source.View.Sound
 
         public void update(EnumStateSound lastState, EnumStateSound currentState)
         {
-            if(currentState == EnumStateSound.STATE_START)
-            {
-                label1.Text = "IHIHIHIHI";
-            }
+
         }
 
         // == EVENTS
         // ==============================================================
+
+        private void ViewSound_Load(object sender, EventArgs e)
+        {
+            this._controller.update();
+        }
 
         // == GETTERS AND SETTERS
         // ==============================================================

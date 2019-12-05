@@ -14,11 +14,11 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [EnumStateMain.cs]
+    |	Name: [EnumStateSoundLeft.cs]
     |	Type: [ENUM]
     |	Author: Henrique Fantini
     |	
-    |	Description: Define the state of main controller.
+    |	Description: Define the state of sound controller left.
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
@@ -38,8 +38,11 @@ namespace RPGMasterTools.Source.Enumeration.State
     // ==============================================================
 
     [DefaultValue(STATE_NONE)]
-    public enum EnumStateMain
+    public enum EnumStateSoundLeft
     {
-        STATE_NONE
+        STATE_NONE,
+        STATE_LOADING,
+        STATE_READY,
+        STATE_SEARCH
     }
 }

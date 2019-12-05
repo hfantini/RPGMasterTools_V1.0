@@ -37,11 +37,9 @@ namespace RPGMasterTools.Source.Enumeration.State
     // == ENUM
     // ==============================================================
 
-    [DefaultValue(STATE_START)]
+    [DefaultValue(STATE_NONE)]
     public enum EnumStateSound
     {
-        STATE_START,
-        STATE_LOADING,
-        STATE_READY
+        STATE_NONE
     }
 }

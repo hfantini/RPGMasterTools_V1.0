@@ -1,4 +1,9 @@
 ﻿{
+	"GENERAL":
+	{
+		"LOADING": "LOADING",
+		"READY": "READY",
+	},
 	"MAIN":
 	{
 		"TITLE": "RPG MASTER TOOLS",
@@ -11,5 +16,9 @@
 		{
 			"SOUND": "SOUND AND MUSIC"
 		}
+	},
+	"SOUND":
+	{
+		
 	}
 }

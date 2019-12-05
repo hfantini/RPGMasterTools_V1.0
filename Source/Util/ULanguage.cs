@@ -60,7 +60,7 @@ namespace RPGMasterTools.Source.Util
             } 
         );
 
-        private static MLanguage _currentLanguage = ULanguage._availableLanguageList[1];
+        private static MLanguage _currentLanguage = ULanguage._availableLanguageList[0];
         private static Dictionary<MLanguage, JObject> _loadedLanguageStructure = new Dictionary<MLanguage, JObject>();
 
         // == CONSTRUCTOR(S)
