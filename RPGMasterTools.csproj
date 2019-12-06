@@ -66,6 +66,7 @@
     <Compile Include="Source\Controller\Sound\SoundRightMusicController.cs" />
     <Compile Include="Source\Controller\Sound\SoundRightController.cs" />
     <Compile Include="Source\Controller\Sound\SoundLeftController.cs" />
+    <Compile Include="Source\Controller\Sound\SoundRightMusicPlayerController.cs" />
     <Compile Include="Source\Controller\ViewController.cs" />
     <Compile Include="Source\Controller\GenericController.cs" />
     <Compile Include="Source\Controller\MainController.cs" />
@@ -132,6 +133,12 @@
     <Compile Include="Source\View\Sound\ViewSoundRightMusic.Designer.cs">
       <DependentUpon>ViewSoundRightMusic.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source\View\Sound\ViewSoundRightMusicPlate.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\View\Sound\ViewSoundRightMusicPlate.Designer.cs">
+      <DependentUpon>ViewSoundRightMusicPlate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source\View\Sound\ViewSoundRightMusicPlayer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -169,6 +176,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Source\View\Sound\ViewSoundRightMusic.resx">
       <DependentUpon>ViewSoundRightMusic.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\View\Sound\ViewSoundRightMusicPlate.resx">
+      <DependentUpon>ViewSoundRightMusicPlate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\View\Sound\ViewSoundRightMusicPlayer.resx">
       <DependentUpon>ViewSoundRightMusicPlayer.cs</DependentUpon>
@@ -208,7 +218,21 @@
     <None Include="Resources\Images\Icons\ico_pause_16.png" />
     <None Include="Resources\Images\Icons\ico_play_16.png" />
     <None Include="Resources\Images\Icons\ico_stop_16.png" />
+    <None Include="Resources\btnPausePlayP.BackgroundImage.bmp" />
+    <None Include="Resources\Images\Icons\ico_pause.png" />
+    <None Include="Resources\Images\Icons\ico_play.png" />
     <Content Include="sysicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="WMPLib">
+      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

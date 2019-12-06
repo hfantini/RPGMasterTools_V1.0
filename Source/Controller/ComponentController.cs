@@ -54,7 +54,7 @@ namespace RPGMasterTools.Source.Controller
 
         // -- VAR -------------------------------------------------------
 
-        private GenericController _parentController;
+        
         private IComponent<T> _currentComponent;
         private T _lastState;
         private T _currentState;
@@ -62,10 +62,9 @@ namespace RPGMasterTools.Source.Controller
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public ComponentController( IComponent<T> currentComponent, GenericController parentController ) : base(EnumControllerType.TYPE_COMPONENT)
+        public ComponentController( IComponent<T> currentComponent, GenericController parentController ) : base(EnumControllerType.TYPE_COMPONENT, parentController)
         {
             this._currentComponent = currentComponent;
-            this._parentController = parentController;
             parentController.addChildrenController(this);
 
             init();
@@ -84,7 +83,7 @@ namespace RPGMasterTools.Source.Controller
 
         protected virtual void init()
         {
-            if (this._parentController == null)
+            if (this.parentController == null)
             {
                 throw new EMasterToolsException();
             }
@@ -95,6 +94,11 @@ namespace RPGMasterTools.Source.Controller
             }
         }
 
+        protected virtual bool allowStateChange(T currentState, T nextState)
+        {
+            return true;
+        }
+
         protected override void update()
         {
             this._currentComponent.update(this._lastState, this._currentState);
@@ -102,11 +106,6 @@ namespace RPGMasterTools.Source.Controller
 
         // == GETTERS AND SETTERS
         // ==============================================================
-
-        public GenericController parentController
-        {
-            get { return _parentController; }
-        }
 
         public T lastState
         {
@@ -119,11 +118,14 @@ namespace RPGMasterTools.Source.Controller
 
             set
             {
-                this._lastState = this._currentState;
-                this._currentState = value;
+                if ( !this._currentState.Equals(value) && allowStateChange(this._currentState, value ) )
+                {
+                    this._lastState = this._currentState;
+                    this._currentState = value;
 
-                update();
-                onParentStateChange(this);
+                    onParentStateChange(this);
+                    update();
+                }
             }
         }
 

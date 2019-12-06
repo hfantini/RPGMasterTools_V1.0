@@ -42,10 +42,16 @@ namespace RPGMasterTools.Source.Enumeration.State
     {
         STATE_NONE,
         STATE_IDLE,
+        STATE_UPDATELIST_ADD,
+        STATE_PLAY,
         STATE_PLAYING,
+        STATE_NOTHING_TO_PLAY,
         STATE_STOP,
+        STATE_PAUSE,
         STATE_PAUSED,
+        STATE_RESUME,
         STATE_NEXT,
-        STATE_BACK
+        STATE_BACK,
+        STATE_OPTION_UPDATE,
     }
 }

@@ -40,6 +40,8 @@ namespace RPGMasterTools.Source.Enumeration.State
     [DefaultValue(STATE_NONE)]
     public enum EnumStateSound
     {
-        STATE_NONE
+        STATE_NONE,
+        STATE_IDLE,
+        STATE_MUSIC_LIST_CHANGED
     }
 }

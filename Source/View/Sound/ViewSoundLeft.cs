@@ -238,6 +238,33 @@ namespace RPGMasterTools.Source.View.Sound
             }
         }
 
+        private void addSomethingToList()
+        {
+            TreeNode node = tViewData.SelectedNode;
+
+            if (node.Tag != null && node.Tag is JObject && ((JObject)node.Tag).ContainsKey("TYPE"))
+            {
+                string type = getObjectType( ( (JObject) node.Tag));
+
+                if (type == "MUSIC")
+                {
+                    ((SoundController)this._controller.parentController).addMusicToPlaylist(((JObject)node.Tag));
+                }
+            }
+        }
+
+        private string getObjectType(JObject obj)
+        {
+            string retValue = null;
+
+            if( obj.ContainsKey("TYPE") )
+            {
+                retValue = obj.Value<String>("TYPE");
+            }
+
+            return retValue;
+        }
+
         // == EVENTS
         // ==============================================================
 
@@ -307,7 +334,7 @@ namespace RPGMasterTools.Source.View.Sound
 
         private void onNodeDoubleClick(object sender, EventArgs e)
         {
-
+            this.addSomethingToList();
         }
 
         // == GETTERS AND SETTERS

@@ -1,5 +1,4 @@
-﻿
-/*
+﻿/*
 
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
     |
@@ -15,11 +14,11 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [ViewSoundRightMusic.cs]
-    |	Type: [VIEW
+    |	Name: [ViewSoundRightMusicPlate.cs]
+    |	Type: [VIEW]
     |	Author: Henrique Fantini
     |	
-    |	Description:
+    |	Description: -
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
@@ -39,7 +38,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using RPGMasterTools.Source.Enumeration.State;
 using RPGMasterTools.Source.Controller;
-using RPGMasterTools.Source.Controller.Sound;
 using RPGMasterTools.Source.Model.Sound;
 
 // == NAMESPACE
@@ -50,69 +48,45 @@ namespace RPGMasterTools.Source.View.Sound
     // == CLASS
     // ==============================================================
 
-    public partial class ViewSoundRightMusic : UserControl, RPGMasterTools.Source.Interface.IComponent<EnumStateSoundRightMusic>
+    public partial class ViewSoundRightMusicPlate : UserControl
     {
         // -- CONST -----------------------------------------------------
 
         // -- VAR -------------------------------------------------------
 
-        private ViewSoundRightMusicPlayer _viewMusicPlayer;
-        private SoundRightMusicController _controller = null;
+        private Music _music = null;
 
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public ViewSoundRightMusic()
+        public ViewSoundRightMusicPlate()
         {
             InitializeComponent();
         }
 
-        public ViewSoundRightMusic(GenericController parentController)
+        public ViewSoundRightMusicPlate(Music music)
         {
             InitializeComponent();
 
-            // CONFIGURE CONTROLLER
-
-            this._controller = new SoundRightMusicController(this, parentController);
-
-            // CREATE COMPONENTS
-            this._viewMusicPlayer = new ViewSoundRightMusicPlayer(this._controller);
-
-            // CONFIGURE COMPONENTS
-            this._viewMusicPlayer.Dock = DockStyle.Fill;
-            pnlBottom.Controls.Add(this._viewMusicPlayer);
+            this._music = music;
+            updateInfo();
         }
 
         // == METHODS
         // ==============================================================
 
-        public void update(EnumStateSoundRightMusic lastState, EnumStateSoundRightMusic currentState)
+        public void updateInfo()
         {
-            if (currentState == EnumStateSoundRightMusic.STATE_UPDATELIST_ADD)
+            if (this._music != null)
             {
-                updateMusicList();
+                lblName.Text = this._music.name;
             }
-        }
-
-        private void updateMusicList()
-        {
-            List<Music> lastChangeList = ( (SoundController) this._controller.parentController.parentController).musicLastChange;
-
-            foreach(Music music in lastChangeList)
-            {
-                ViewSoundRightMusicPlate mPlate = new ViewSoundRightMusicPlate(music);
-                mPlate.Width = fLayItems.Width;
-
-                fLayItems.Controls.Add(mPlate);
-            }
-
-            lastChangeList.Clear();
         }
 
         // == EVENTS
         // ==============================================================
 
         // == GETTERS AND SETTERS
-        // ==============================================================
+        // =============================================================
     }
 }

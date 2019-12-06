@@ -31,13 +31,18 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewSoundRightMusicPlayer));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.pnlVisor = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.pBoxPlayerDisplayIcon = new System.Windows.Forms.PictureBox();
+            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblDisplayInfo = new System.Windows.Forms.Label();
+            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblDisplayTiming = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnNext = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
-            this.btnPlay = new System.Windows.Forms.Button();
+            this.btnPausePlay = new System.Windows.Forms.Button();
             this.btnBack = new System.Windows.Forms.Button();
-            this.btnRepeat = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.btnRandom = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -45,7 +50,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.pBoxSoundSpeaker = new System.Windows.Forms.PictureBox();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.btnRepeat = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
+            this.pnlVisor.SuspendLayout();
+            this.tableLayoutPanel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pBoxPlayerDisplayIcon)).BeginInit();
+            this.tableLayoutPanel6.SuspendLayout();
+            this.tableLayoutPanel7.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -75,11 +86,89 @@
             // 
             this.pnlVisor.BackColor = System.Drawing.SystemColors.ControlText;
             this.pnlVisor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnlVisor.Controls.Add(this.tableLayoutPanel5);
             this.pnlVisor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlVisor.Location = new System.Drawing.Point(3, 3);
             this.pnlVisor.Name = "pnlVisor";
             this.pnlVisor.Size = new System.Drawing.Size(374, 70);
             this.pnlVisor.TabIndex = 0;
+            // 
+            // tableLayoutPanel5
+            // 
+            this.tableLayoutPanel5.ColumnCount = 2;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.Controls.Add(this.pBoxPlayerDisplayIcon, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.tableLayoutPanel6, 1, 0);
+            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 1;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(370, 66);
+            this.tableLayoutPanel5.TabIndex = 0;
+            // 
+            // pBoxPlayerDisplayIcon
+            // 
+            this.pBoxPlayerDisplayIcon.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pBoxPlayerDisplayIcon.Location = new System.Drawing.Point(3, 3);
+            this.pBoxPlayerDisplayIcon.Name = "pBoxPlayerDisplayIcon";
+            this.pBoxPlayerDisplayIcon.Size = new System.Drawing.Size(54, 60);
+            this.pBoxPlayerDisplayIcon.TabIndex = 0;
+            this.pBoxPlayerDisplayIcon.TabStop = false;
+            // 
+            // tableLayoutPanel6
+            // 
+            this.tableLayoutPanel6.ColumnCount = 1;
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel6.Controls.Add(this.lblDisplayInfo, 0, 0);
+            this.tableLayoutPanel6.Controls.Add(this.tableLayoutPanel7, 0, 1);
+            this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(63, 3);
+            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
+            this.tableLayoutPanel6.RowCount = 2;
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(304, 60);
+            this.tableLayoutPanel6.TabIndex = 1;
+            // 
+            // lblDisplayInfo
+            // 
+            this.lblDisplayInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblDisplayInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDisplayInfo.ForeColor = System.Drawing.Color.Lime;
+            this.lblDisplayInfo.Location = new System.Drawing.Point(3, 0);
+            this.lblDisplayInfo.Name = "lblDisplayInfo";
+            this.lblDisplayInfo.Size = new System.Drawing.Size(298, 30);
+            this.lblDisplayInfo.TabIndex = 0;
+            this.lblDisplayInfo.Text = "LABEL_STATUS_TEXT";
+            this.lblDisplayInfo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // tableLayoutPanel7
+            // 
+            this.tableLayoutPanel7.ColumnCount = 2;
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel7.Controls.Add(this.lblDisplayTiming, 0, 0);
+            this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(3, 33);
+            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
+            this.tableLayoutPanel7.RowCount = 1;
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(298, 24);
+            this.tableLayoutPanel7.TabIndex = 1;
+            // 
+            // lblDisplayTiming
+            // 
+            this.lblDisplayTiming.AutoSize = true;
+            this.lblDisplayTiming.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblDisplayTiming.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDisplayTiming.ForeColor = System.Drawing.Color.Lime;
+            this.lblDisplayTiming.Location = new System.Drawing.Point(3, 0);
+            this.lblDisplayTiming.Name = "lblDisplayTiming";
+            this.lblDisplayTiming.Size = new System.Drawing.Size(143, 24);
+            this.lblDisplayTiming.TabIndex = 0;
+            this.lblDisplayTiming.Text = "[00:00 / 00:00]";
             // 
             // tableLayoutPanel2
             // 
@@ -94,11 +183,11 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 45F));
             this.tableLayoutPanel2.Controls.Add(this.btnNext, 3, 0);
             this.tableLayoutPanel2.Controls.Add(this.btnStop, 2, 0);
-            this.tableLayoutPanel2.Controls.Add(this.btnPlay, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnPausePlay, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.btnBack, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.btnRepeat, 5, 0);
-            this.tableLayoutPanel2.Controls.Add(this.button6, 6, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnRandom, 6, 0);
             this.tableLayoutPanel2.Controls.Add(this.button7, 7, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnRepeat, 5, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 76);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
@@ -118,6 +207,7 @@
             this.btnNext.Size = new System.Drawing.Size(39, 39);
             this.btnNext.TabIndex = 3;
             this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
             // btnStop
             // 
@@ -129,17 +219,19 @@
             this.btnStop.Size = new System.Drawing.Size(39, 39);
             this.btnStop.TabIndex = 2;
             this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
-            // btnPlay
+            // btnPausePlay
             // 
-            this.btnPlay.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnPlay.BackgroundImage")));
-            this.btnPlay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnPlay.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnPlay.Location = new System.Drawing.Point(48, 3);
-            this.btnPlay.Name = "btnPlay";
-            this.btnPlay.Size = new System.Drawing.Size(39, 39);
-            this.btnPlay.TabIndex = 1;
-            this.btnPlay.UseVisualStyleBackColor = true;
+            this.btnPausePlay.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnPausePlay.BackgroundImage")));
+            this.btnPausePlay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnPausePlay.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnPausePlay.Location = new System.Drawing.Point(48, 3);
+            this.btnPausePlay.Name = "btnPausePlay";
+            this.btnPausePlay.Size = new System.Drawing.Size(39, 39);
+            this.btnPausePlay.TabIndex = 1;
+            this.btnPausePlay.UseVisualStyleBackColor = true;
+            this.btnPausePlay.Click += new System.EventHandler(this.btnPlay_Click);
             // 
             // btnBack
             // 
@@ -151,28 +243,19 @@
             this.btnBack.Size = new System.Drawing.Size(39, 39);
             this.btnBack.TabIndex = 0;
             this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
-            // btnRepeat
+            // btnRandom
             // 
-            this.btnRepeat.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnRepeat.BackgroundImage")));
-            this.btnRepeat.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnRepeat.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnRepeat.Location = new System.Drawing.Point(248, 3);
-            this.btnRepeat.Name = "btnRepeat";
-            this.btnRepeat.Size = new System.Drawing.Size(39, 39);
-            this.btnRepeat.TabIndex = 4;
-            this.btnRepeat.UseVisualStyleBackColor = true;
-            // 
-            // button6
-            // 
-            this.button6.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button6.BackgroundImage")));
-            this.button6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button6.Location = new System.Drawing.Point(293, 3);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(39, 39);
-            this.button6.TabIndex = 5;
-            this.button6.UseVisualStyleBackColor = true;
+            this.btnRandom.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnRandom.BackgroundImage")));
+            this.btnRandom.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnRandom.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnRandom.Location = new System.Drawing.Point(293, 3);
+            this.btnRandom.Name = "btnRandom";
+            this.btnRandom.Size = new System.Drawing.Size(39, 39);
+            this.btnRandom.TabIndex = 5;
+            this.btnRandom.UseVisualStyleBackColor = true;
+            this.btnRandom.Click += new System.EventHandler(this.btnRandom_Click);
             // 
             // button7
             // 
@@ -258,6 +341,19 @@
             this.trackBar1.Size = new System.Drawing.Size(248, 33);
             this.trackBar1.TabIndex = 3;
             // 
+            // btnRepeat
+            // 
+            this.btnRepeat.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnRepeat.BackgroundImage")));
+            this.btnRepeat.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnRepeat.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.btnRepeat.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnRepeat.Location = new System.Drawing.Point(248, 3);
+            this.btnRepeat.Name = "btnRepeat";
+            this.btnRepeat.Size = new System.Drawing.Size(39, 39);
+            this.btnRepeat.TabIndex = 7;
+            this.btnRepeat.UseVisualStyleBackColor = true;
+            this.btnRepeat.Click += new System.EventHandler(this.btnRepeat_Click);
+            // 
             // ViewSoundRightMusicPlayer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -268,6 +364,12 @@
             this.Name = "ViewSoundRightMusicPlayer";
             this.Size = new System.Drawing.Size(380, 166);
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.pnlVisor.ResumeLayout(false);
+            this.tableLayoutPanel5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pBoxPlayerDisplayIcon)).EndInit();
+            this.tableLayoutPanel6.ResumeLayout(false);
+            this.tableLayoutPanel7.ResumeLayout(false);
+            this.tableLayoutPanel7.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
@@ -288,14 +390,20 @@
         private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.Button btnPlay;
-        private System.Windows.Forms.Button btnRepeat;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button btnPausePlay;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox pBoxSoundSpeaker;
         private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
+        private System.Windows.Forms.PictureBox pBoxPlayerDisplayIcon;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
+        private System.Windows.Forms.Label lblDisplayInfo;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
+        private System.Windows.Forms.Label lblDisplayTiming;
+        private System.Windows.Forms.Button btnRandom;
+        private System.Windows.Forms.Button btnRepeat;
     }
 }

@@ -28,18 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tblSoundRightMusic = new System.Windows.Forms.TableLayoutPanel();
-            this.tblList = new System.Windows.Forms.TableLayoutPanel();
             this.pnlBottom = new System.Windows.Forms.Panel();
+            this.tblSoundRightMusic = new System.Windows.Forms.TableLayoutPanel();
+            this.fLayItems = new System.Windows.Forms.FlowLayoutPanel();
             this.tblSoundRightMusic.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // pnlBottom
+            // 
+            this.pnlBottom.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlBottom.Location = new System.Drawing.Point(0, 454);
+            this.pnlBottom.Margin = new System.Windows.Forms.Padding(0);
+            this.pnlBottom.Name = "pnlBottom";
+            this.pnlBottom.Size = new System.Drawing.Size(422, 200);
+            this.pnlBottom.TabIndex = 1;
             // 
             // tblSoundRightMusic
             // 
             this.tblSoundRightMusic.ColumnCount = 1;
             this.tblSoundRightMusic.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblSoundRightMusic.Controls.Add(this.tblList, 0, 0);
             this.tblSoundRightMusic.Controls.Add(this.pnlBottom, 0, 1);
+            this.tblSoundRightMusic.Controls.Add(this.fLayItems, 0, 0);
             this.tblSoundRightMusic.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tblSoundRightMusic.Location = new System.Drawing.Point(0, 0);
             this.tblSoundRightMusic.Margin = new System.Windows.Forms.Padding(0);
@@ -50,36 +59,18 @@
             this.tblSoundRightMusic.Size = new System.Drawing.Size(422, 654);
             this.tblSoundRightMusic.TabIndex = 0;
             // 
-            // tblList
+            // fLayItems
             // 
-            this.tblList.AutoScroll = true;
-            this.tblList.BackColor = System.Drawing.Color.White;
-            this.tblList.ColumnCount = 1;
-            this.tblList.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tblList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tblList.Location = new System.Drawing.Point(0, 0);
-            this.tblList.Margin = new System.Windows.Forms.Padding(0);
-            this.tblList.Name = "tblList";
-            this.tblList.RowCount = 1;
-            this.tblList.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 504F));
-            this.tblList.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 504F));
-            this.tblList.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 504F));
-            this.tblList.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 504F));
-            this.tblList.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 504F));
-            this.tblList.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 504F));
-            this.tblList.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 504F));
-            this.tblList.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 504F));
-            this.tblList.Size = new System.Drawing.Size(422, 454);
-            this.tblList.TabIndex = 0;
-            // 
-            // pnlBottom
-            // 
-            this.pnlBottom.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlBottom.Location = new System.Drawing.Point(0, 454);
-            this.pnlBottom.Margin = new System.Windows.Forms.Padding(0);
-            this.pnlBottom.Name = "pnlBottom";
-            this.pnlBottom.Size = new System.Drawing.Size(422, 200);
-            this.pnlBottom.TabIndex = 1;
+            this.fLayItems.AutoScroll = true;
+            this.fLayItems.BackColor = System.Drawing.Color.White;
+            this.fLayItems.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fLayItems.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.fLayItems.Location = new System.Drawing.Point(0, 0);
+            this.fLayItems.Margin = new System.Windows.Forms.Padding(0);
+            this.fLayItems.Name = "fLayItems";
+            this.fLayItems.Size = new System.Drawing.Size(422, 454);
+            this.fLayItems.TabIndex = 2;
+            this.fLayItems.WrapContents = false;
             // 
             // ViewSoundRightMusic
             // 
@@ -96,8 +87,8 @@
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel tblSoundRightMusic;
-        private System.Windows.Forms.TableLayoutPanel tblList;
         private System.Windows.Forms.Panel pnlBottom;
+        private System.Windows.Forms.TableLayoutPanel tblSoundRightMusic;
+        private System.Windows.Forms.FlowLayoutPanel fLayItems;
     }
 }

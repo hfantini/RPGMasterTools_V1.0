@@ -49,13 +49,15 @@ namespace RPGMasterTools.Source.Controller
         // -- VAR -------------------------------------------------------
         private EnumControllerType _type;
         private List<GenericController> _children;
+        private GenericController _parentController;
 
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public GenericController(EnumControllerType type)
+        public GenericController(EnumControllerType type, GenericController parentController)
         {
             this._type = type;
+            this._parentController = parentController;
             this._children = new List<GenericController>();
         }
 
@@ -93,6 +95,11 @@ namespace RPGMasterTools.Source.Controller
 
         // == GETTERS AND SETTERS
         // ==============================================================
+
+        public GenericController parentController
+        {
+            get { return _parentController; }
+        }
 
         public EnumControllerType type
         {

@@ -58,6 +58,7 @@ namespace RPGMasterTools.Source.Controller.Sound
 
         private JArray _assetsFromTheDisk = null;
         private List<Music> _musicPlaylist = null;
+        private List<Music> _musicLastChange = null;
 
         // == CONSTRUCTOR(S)
         // ==============================================================
@@ -67,6 +68,7 @@ namespace RPGMasterTools.Source.Controller.Sound
             this._jSerializer = new JsonSerializer();
 
             this._musicPlaylist = new List<Music>();
+            this._musicLastChange = new List<Music>();
         }
 
         // == METHODS
@@ -76,6 +78,19 @@ namespace RPGMasterTools.Source.Controller.Sound
         {
             Music music = this._jSerializer.Deserialize<Music>( jMusic.CreateReader() );
             this._musicPlaylist.Add(music);
+            this._musicLastChange.Add(music);
+
+            this.currentState = EnumStateSound.STATE_MUSIC_LIST_CHANGED;
+        }
+
+        protected override void update()
+        {
+            base.update();
+
+            if(this.currentState != EnumStateSound.STATE_IDLE)
+            {
+                this.currentState = EnumStateSound.STATE_IDLE;
+            }
         }
 
         // == GETTERS AND SETTERS
@@ -86,5 +101,15 @@ namespace RPGMasterTools.Source.Controller.Sound
             get { return this._assetsFromTheDisk; }
             set { this._assetsFromTheDisk = value; }
         }
+
+        public List<Music> musicPlaylist
+        {
+            get { return new List<Music>(this._musicPlaylist); }
+        }
+        public List<Music> musicLastChange
+        {
+            get { return this._musicLastChange; }
+        }
+
     }
 }

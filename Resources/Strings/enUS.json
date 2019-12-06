@@ -38,7 +38,10 @@
 		{
 			"MUSIC":
 			{
-				"TITLE": "MUSIC"
+				"TITLE": "MUSIC",
+				"WAITING_FOR_PLAY": "Waiting for Play...",
+				"NOTHING_TO_PLAY": "Nothing to play!",
+				"PAUSED": "PAUSED!"
 			},
 			"AMBIENCE":
 			{

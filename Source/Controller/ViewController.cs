@@ -60,7 +60,7 @@ namespace RPGMasterTools.Source.Controller
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public ViewController( IView<T> currentView ) : base(EnumControllerType.TYPE_VIEW)
+        public ViewController( IView<T> currentView ) : base(EnumControllerType.TYPE_VIEW, null)
         {
             this._currentView = currentView;
 

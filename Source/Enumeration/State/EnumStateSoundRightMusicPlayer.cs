@@ -41,5 +41,7 @@ namespace RPGMasterTools.Source.Enumeration.State
     public enum EnumStateSoundRightMusicPlayer
     {
         STATE_NONE,
+        STATE_IDLE,
+        STATE_UPDATE
     }
 }
