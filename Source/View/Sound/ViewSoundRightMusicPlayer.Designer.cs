@@ -202,6 +202,7 @@
             this.btnNext.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnNext.BackgroundImage")));
             this.btnNext.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnNext.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnNext.Enabled = false;
             this.btnNext.Location = new System.Drawing.Point(138, 3);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(39, 39);
@@ -238,6 +239,7 @@
             this.btnBack.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnBack.BackgroundImage")));
             this.btnBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnBack.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnBack.Enabled = false;
             this.btnBack.Location = new System.Drawing.Point(3, 3);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(39, 39);

@@ -88,7 +88,7 @@ namespace RPGMasterTools.Source.View.Sound
 
         public void update(EnumStateSoundRightMusic lastState, EnumStateSoundRightMusic currentState)
         {
-            if (currentState == EnumStateSoundRightMusic.STATE_UPDATELIST_ADD)
+            if (currentState == EnumStateSoundRightMusic.STATE_UPDATE_LIST)
             {
                 updateMusicList();
             }
