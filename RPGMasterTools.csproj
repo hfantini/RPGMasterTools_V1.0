@@ -222,6 +222,9 @@
     <None Include="Resources\btnPausePlayP.BackgroundImage.bmp" />
     <None Include="Resources\Images\Icons\ico_pause.png" />
     <None Include="Resources\Images\Icons\ico_play.png" />
+    <None Include="Resources\Images\Icons\ico_pause_display.png" />
+    <None Include="Resources\Images\Icons\ico_play_display.png" />
+    <None Include="Resources\Images\Icons\ico_stop_display.png" />
     <Content Include="sysicon.ico" />
   </ItemGroup>
   <ItemGroup>

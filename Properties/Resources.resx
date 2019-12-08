@@ -121,7 +121,16 @@
   <data name="ico_pause" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\Icons\ico_pause.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ico_pause_display" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Icons\ico_pause_display.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ico_play" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Images\Icons\ico_play.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ico_play_display" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Icons\ico_play_display.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ico_stop_display" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Images\Icons\ico_stop_display.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

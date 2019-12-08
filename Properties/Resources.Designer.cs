@@ -73,9 +73,39 @@ namespace RPGMasterTools.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ico_pause_display {
+            get {
+                object obj = ResourceManager.GetObject("ico_pause_display", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ico_play {
             get {
                 object obj = ResourceManager.GetObject("ico_play", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ico_play_display {
+            get {
+                object obj = ResourceManager.GetObject("ico_play_display", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ico_stop_display {
+            get {
+                object obj = ResourceManager.GetObject("ico_stop_display", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -417,5 +417,14 @@ namespace RPGMasterTools.Source.Controller.Sound
         {
             get { return this._currentMusicIndex; }
         }
+
+        public int volume
+        {
+            get { return this._mPlayer.settings.volume; }
+            set
+            {
+                this._mPlayer.settings.volume = value;
+            }
+        }
     }
 }

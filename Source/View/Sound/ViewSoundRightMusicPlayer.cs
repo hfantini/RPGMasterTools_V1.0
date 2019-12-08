@@ -114,8 +114,9 @@ namespace RPGMasterTools.Source.View.Sound
                     {
                         lblDisplayInfo.Text = currentMusic.name;
 
-                        // CHANGE BUTTON IMAGE
+                        // CHANGE IMAGES
                         this.btnPausePlay.BackgroundImage = Properties.Resources.ico_pause;
+                        this.pBoxPlayerDisplayIcon.Image = Properties.Resources.ico_play_display;
 
                         // TRIGGER UPDATE ASYNC TIMER
                         this._timer.Enabled = true;
@@ -129,6 +130,7 @@ namespace RPGMasterTools.Source.View.Sound
                 {
                     lblDisplayInfo.Text = ULanguage.getStringCurrentLanguage("SOUND.RIGHT.MUSIC.PAUSED");
                     this.btnPausePlay.BackgroundImage = Properties.Resources.ico_play;
+                    this.pBoxPlayerDisplayIcon.Image = Properties.Resources.ico_pause_display;
                     this.btnBack.Enabled = false;
                     this.btnNext.Enabled = false;
 
@@ -138,6 +140,7 @@ namespace RPGMasterTools.Source.View.Sound
                 {
                     lblDisplayInfo.Text = ULanguage.getStringCurrentLanguage("SOUND.RIGHT.MUSIC.WAITING_FOR_PLAY");
                     this.btnPausePlay.BackgroundImage = Properties.Resources.ico_play;
+                    this.pBoxPlayerDisplayIcon.Image = Properties.Resources.ico_stop_display;
                     this.btnBack.Enabled = false;
                     this.btnNext.Enabled = false;
 
@@ -269,6 +272,15 @@ namespace RPGMasterTools.Source.View.Sound
             {
                 controller.random = true;
             }
+        }
+
+        private void tbrVolume_Scroll(object sender, EventArgs e)
+        {
+            int value = tbrVolume.Value * 10;
+            lblVolume.Text = Convert.ToString(value) + "%";
+
+            // SEND VALUE TO PLAYER
+            ( (SoundRightMusicController) this._controller.parentController).volume = value;
         }
 
         // == GETTERS AND SETTERS
