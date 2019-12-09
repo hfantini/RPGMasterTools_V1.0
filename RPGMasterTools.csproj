@@ -65,6 +65,7 @@
     <Compile Include="Source\Controller\Sound\SoundController.cs" />
     <Compile Include="Source\Controller\Sound\SoundRightAmbiencePlayerController.cs" />
     <Compile Include="Source\Controller\Sound\SoundRightAmbienceController.cs" />
+    <Compile Include="Source\Controller\Sound\SoundRightFXController.cs" />
     <Compile Include="Source\Controller\Sound\SoundRightMusicController.cs" />
     <Compile Include="Source\Controller\Sound\SoundRightController.cs" />
     <Compile Include="Source\Controller\Sound\SoundLeftController.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Source\Enumeration\Log\EnumLogType.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateSoundRightAmbiencePlayer.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateSoundRightAmbience.cs" />
+    <Compile Include="Source\Enumeration\State\EnumStateSoundRightFX.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateSoundRightMusicPlate.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateSoundRightMusicPlayer.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateSoundRightMusic.cs" />
@@ -89,6 +91,7 @@
     <Compile Include="Source\Model\Exception\EMasterToolsInvalidStateChangeException.cs" />
     <Compile Include="Source\Model\Exception\EMasterToolsException.cs" />
     <Compile Include="Source\Model\Language\MLanguage.cs" />
+    <Compile Include="Source\Model\Sound\SoundFX.cs" />
     <Compile Include="Source\Model\Sound\Ambience.cs" />
     <Compile Include="Source\Model\Sound\Music.cs" />
     <Compile Include="Source\Util\UAsyncTask.cs" />
@@ -146,6 +149,12 @@
     <Compile Include="Source\View\Sound\ViewSoundRightAmbiencePlayer.Designer.cs">
       <DependentUpon>ViewSoundRightAmbiencePlayer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source\View\Sound\ViewSoundRightFX.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\View\Sound\ViewSoundRightFX.Designer.cs">
+      <DependentUpon>ViewSoundRightFX.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source\View\Sound\ViewSoundRightMusic.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -198,6 +207,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Source\View\Sound\ViewSoundRightAmbiencePlayer.resx">
       <DependentUpon>ViewSoundRightAmbiencePlayer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\View\Sound\ViewSoundRightFX.resx">
+      <DependentUpon>ViewSoundRightFX.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\View\Sound\ViewSoundRightMusic.resx">
       <DependentUpon>ViewSoundRightMusic.cs</DependentUpon>

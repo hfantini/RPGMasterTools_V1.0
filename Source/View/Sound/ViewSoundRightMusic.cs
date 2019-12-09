@@ -102,7 +102,7 @@ namespace RPGMasterTools.Source.View.Sound
                 // UPDATE LAST NAMEPLATE
                 if (this._controller.lastMusicIndex != -1)
                 {
-                    ViewSoundRightMusicPlate lastNamePlate = (ViewSoundRightMusicPlate)fLayItems.Controls[this._controller.lastMusicIndex];
+                    ViewSoundRightMusicPlate lastNamePlate = (ViewSoundRightMusicPlate) fLayItems.Controls[this._controller.lastMusicIndex];
                     lastNamePlate.setState(EnumStateSoundRightMusicPlate.STATE_STOPPED);
                 }
             }

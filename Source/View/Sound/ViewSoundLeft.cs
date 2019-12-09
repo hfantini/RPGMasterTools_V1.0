@@ -225,7 +225,8 @@ namespace RPGMasterTools.Source.View.Sound
                     }
                     else if (iType.ToUpper() == "SOUNDFX")
                     {
-                        grpDetail.Controls.Add(this._viewSoundLeftDetailEmpty);
+                        this._viewSoundLeftDetailFile.update(info);
+                        grpDetail.Controls.Add(this._viewSoundLeftDetailFile);
                     }
                     else
                     {
@@ -254,6 +255,10 @@ namespace RPGMasterTools.Source.View.Sound
                 else if(type == "AMBIENCE")
                 {
                     ((SoundController)this._controller.parentController).addAmbienceToPlaylist(((JObject)node.Tag));
+                }
+                else if (type == "SOUNDFX")
+                {
+                    ((SoundController)this._controller.parentController).addSFXToPlaylist(((JObject)node.Tag));
                 }
             }
         }

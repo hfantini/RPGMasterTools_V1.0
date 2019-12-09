@@ -285,5 +285,10 @@ namespace RPGMasterTools.Source.View.Sound
 
         // == GETTERS AND SETTERS
         // ==============================================================
+
+        public SoundRightMusicPlayerController controller
+        {
+            get { return this._controller; }
+        }
     }
 }

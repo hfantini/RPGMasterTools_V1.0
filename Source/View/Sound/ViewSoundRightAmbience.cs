@@ -40,6 +40,7 @@ using RPGMasterTools.Source.Enumeration.State;
 using RPGMasterTools.Source.Controller;
 using RPGMasterTools.Source.Controller.Sound;
 using RPGMasterTools.Source.Model.Sound;
+using RPGMasterTools.Source.Util;
 
 // == NAMESPACE
 // ==================================================================
@@ -81,11 +82,16 @@ namespace RPGMasterTools.Source.View.Sound
 
         public void update(EnumStateSoundRightAmbience lastState, EnumStateSoundRightAmbience currentState)
         {
-            if (currentState == EnumStateSoundRightAmbience.STATE_UPDATE_LIST)
+            if (currentState == EnumStateSoundRightAmbience.STATE_UPDATE_LIST_ADD)
             {
                 updateAmbienceList();
-                this._controller.currentState = lastState;
             }
+            else if (currentState == EnumStateSoundRightAmbience.STATE_UPDATE_LIST_RECREATE)
+            {
+                updateRemoveAmbienceList();
+            }
+
+            this._controller.currentState = EnumStateSoundRightAmbience.STATE_IDLE;
         }
 
 
@@ -105,6 +111,30 @@ namespace RPGMasterTools.Source.View.Sound
             }
 
             lastChangeList.Clear();
+        }
+
+        private void updateRemoveAmbienceList()
+        {
+            SoundController controller = ((SoundController)this._controller.parentController.parentController);
+            List<ViewSoundRightAmbiencePlayer> removeList = new List<ViewSoundRightAmbiencePlayer>();
+
+            // CHECK THE CHANGES
+
+            foreach( ViewSoundRightAmbiencePlayer currentControl in fLayoutAmbience.Controls )
+            {
+                if( !controller.ambiencePlaylist.Contains(currentControl.controller.currentAmbience) )
+                {
+                    currentControl.controller.currentState = EnumStateSoundRightAmbiencePlayer.STATE_REMOVE;
+                    removeList.Add(currentControl);
+                }
+            }
+
+            // REMOVE CONTROLS
+
+            foreach (ViewSoundRightAmbiencePlayer currentControl in removeList)
+            {
+                currentControl.Dispose();
+            }
         }
 
         private void tBarMasterVolume_Scroll(object sender, EventArgs e)

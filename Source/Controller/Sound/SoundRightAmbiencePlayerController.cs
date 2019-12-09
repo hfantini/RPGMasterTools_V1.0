@@ -56,13 +56,15 @@ namespace RPGMasterTools.Source.Controller.Sound
         private int _maxVolume = 100;
         private int _volume = 100;
         private int _finalVolume = 100;
+        private Ambience _currentAmbience = null;
 
         // == CONSTRUCTOR(S)
         // ==============================================================
 
         public SoundRightAmbiencePlayerController(IComponent<EnumStateSoundRightAmbiencePlayer> component, GenericController parentController, Ambience ambience) : base(component, parentController)
         {
-            // INITIALIZING COMPONENTS
+            // INITIALIZING VALUES
+            this._currentAmbience = ambience;
             this._mPlayer = new WindowsMediaPlayer();
 
             // CONFIGURING COMPONENTS
@@ -72,6 +74,15 @@ namespace RPGMasterTools.Source.Controller.Sound
             // VOLUME
             this._maxVolume = ( (SoundRightAmbienceController) parentController ).masterVolume;
             updateVolume();
+        }
+
+        // == DESTRUCTOR
+        // ==============================================================
+
+        ~SoundRightAmbiencePlayerController()
+        {
+            this._mPlayer.controls.stop();
+            this._mPlayer.close();
         }
 
         // == METHODS
@@ -147,6 +158,12 @@ namespace RPGMasterTools.Source.Controller.Sound
             {
                 // SOUND LOOP
                 this.currentState = EnumStateSoundRightAmbiencePlayer.STATE_PLAY;
+            }
+            else if (currentState == EnumStateSoundRightAmbiencePlayer.STATE_REMOVE)
+            {
+                // SOUND LOOP
+                this._mPlayer.controls.stop();
+                this._mPlayer.close();
             }
         }
 
@@ -254,6 +271,11 @@ namespace RPGMasterTools.Source.Controller.Sound
                     this.updateVolume();
                 }
             }
+        }
+
+        public Ambience currentAmbience
+        {
+            get { return this._currentAmbience; }
         }
     }
 }

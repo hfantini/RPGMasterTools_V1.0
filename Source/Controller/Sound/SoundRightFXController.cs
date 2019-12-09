@@ -14,16 +14,15 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [SoundRightAmbienceController]
+    |	Name: [SoundRightFXController.cs]
     |	Type: [CONTROLLER]
     |	Author: Henrique Fantini
     |	
-    |	Description:
+    |	Description: -
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
 */
-
 
 // == IMPORTS
 // ==================================================================
@@ -44,18 +43,16 @@ namespace RPGMasterTools.Source.Controller.Sound
     // == CLASS
     // ==============================================================
 
-    public class SoundRightAmbienceController : ComponentController<EnumStateSoundRightAmbience>
+    public class SoundRightFXController : ComponentController<EnumStateSoundRightFX>
     {
         // -- CONST -----------------------------------------------------
 
         // -- VAR -------------------------------------------------------
 
-        private int _masterVolume = 100;
-
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public SoundRightAmbienceController(IComponent<EnumStateSoundRightAmbience> component, GenericController parentController) : base(component, parentController)
+        public SoundRightFXController(IComponent<EnumStateSoundRightFX> view, GenericController parentController) : base(view, parentController)
         {
 
         }
@@ -67,7 +64,7 @@ namespace RPGMasterTools.Source.Controller.Sound
         {
             base.update();
 
-            this.currentState = EnumStateSoundRightAmbience.STATE_IDLE;
+            this.currentState = EnumStateSoundRightFX.STATE_IDLE;
         }
 
         // == EVENTS
@@ -77,15 +74,15 @@ namespace RPGMasterTools.Source.Controller.Sound
         {
             if (parentController is SoundController)
             {
-                SoundController controller = (SoundController)parentController;
+                SoundController controller = (SoundController) parentController;
 
-                if(controller.currentState == EnumStateSound.STATE_AMBIENCE_LIST_ADDED)
+                if( controller.currentState == EnumStateSound.STATE_SFX_LIST_ADDED )
                 {
-                    this.currentState = EnumStateSoundRightAmbience.STATE_UPDATE_LIST_ADD;
+                    this.currentState = EnumStateSoundRightFX.STATE_UPDATE_LIST_ADD;
                 }
-                if (controller.currentState == EnumStateSound.STATE_AMBIENCE_LIST_REMOVED)
+                else if ( controller.currentState == EnumStateSound.STATE_SFX_LIST_REMOVED )
                 {
-                    this.currentState = EnumStateSoundRightAmbience.STATE_UPDATE_LIST_RECREATE;
+                    this.currentState = EnumStateSoundRightFX.STATE_UPDATE_LIST_REMOVE;
                 }
                 else
                 {
@@ -100,11 +97,5 @@ namespace RPGMasterTools.Source.Controller.Sound
 
         // == GETTERS AND SETTERS
         // ==============================================================
-
-        public int masterVolume
-        {
-            get { return this._masterVolume; }
-            set { this._masterVolume = value; }
-        }
     }
 }

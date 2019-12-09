@@ -14,7 +14,7 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [EnumStateSoundRightAmbience.cs]
+    |	Name: [EnumStateSoundRightFX.cs]
     |	Type: [ENUM]
     |	Author: Henrique Fantini
     |	
@@ -38,15 +38,11 @@ namespace RPGMasterTools.Source.Enumeration.State
     // ==============================================================
 
     [DefaultValue(STATE_NONE)]
-    public enum EnumStateSoundRightAmbience
+    public enum EnumStateSoundRightFX
     {
         STATE_NONE,
         STATE_IDLE,
-        STATE_PLAY,
-        STATE_STOP,
-        STATE_PAUSE,
-        STATE_VOLUME_CHANGE,
         STATE_UPDATE_LIST_ADD,
-        STATE_UPDATE_LIST_RECREATE,
+        STATE_UPDATE_LIST_REMOVE
     }
 }

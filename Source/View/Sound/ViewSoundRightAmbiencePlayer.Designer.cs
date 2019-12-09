@@ -39,7 +39,7 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnStop = new System.Windows.Forms.Button();
             this.btnPausePlay = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnRemove = new System.Windows.Forms.Button();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
@@ -180,7 +180,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.Controls.Add(this.btnStop, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.btnPausePlay, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.button1, 3, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnRemove, 3, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 76);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
@@ -214,16 +214,17 @@
             this.btnPausePlay.UseVisualStyleBackColor = true;
             this.btnPausePlay.Click += new System.EventHandler(this.btnPausePlay_Click);
             // 
-            // button1
+            // btnRemove
             // 
-            this.button1.BackgroundImage = global::RPGMasterTools.Properties.Resources.ico_trash;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Location = new System.Drawing.Point(338, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(39, 39);
-            this.button1.TabIndex = 10;
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnRemove.BackgroundImage = global::RPGMasterTools.Properties.Resources.ico_trash;
+            this.btnRemove.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnRemove.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnRemove.Location = new System.Drawing.Point(338, 3);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(39, 39);
+            this.btnRemove.TabIndex = 10;
+            this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
             // 
             // tableLayoutPanel3
             // 
@@ -347,6 +348,6 @@
         private System.Windows.Forms.Label lblDisplayTiming;
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.Button btnPausePlay;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnRemove;
     }
 }

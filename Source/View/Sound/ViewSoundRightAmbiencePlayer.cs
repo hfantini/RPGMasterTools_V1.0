@@ -70,6 +70,14 @@ namespace RPGMasterTools.Source.View.Sound
             InitializeComponent();
         }
 
+        // == DESTRUCTOR
+        // ==============================================================
+        ~ViewSoundRightAmbiencePlayer()
+        {
+            this._timer.Enabled = false;
+            this._timer.Dispose();
+        }
+
         public ViewSoundRightAmbiencePlayer(GenericController parentController, Ambience ambience)
         {
             InitializeComponent();
@@ -79,14 +87,15 @@ namespace RPGMasterTools.Source.View.Sound
             this._timer.Interval = 250;
             this._timer.Elapsed += OnTimedEvent;
 
-            // CONFIGURING COMPONENTS
-
-            lblDisplayInfo.Text = ambience.name;
-            lblDisplayTiming.Text = DEFAULT_DISPLAY_TIME;
 
             // CONFIGURING CONTROLLER
 
             this._controller = new SoundRightAmbiencePlayerController(this, parentController, ambience);
+
+            // CONFIGURING COMPONENTS
+
+            lblDisplayInfo.Text = ambience.name;
+            lblDisplayTiming.Text = $"[00:00 / {this._controller.totalMusicTime}]";
         }
 
         // == METHODS
@@ -103,6 +112,7 @@ namespace RPGMasterTools.Source.View.Sound
             {
                 pBoxPlayerDisplayIcon.Image = RPGMasterTools.Properties.Resources.ico_stop_display;
                 btnPausePlay.BackgroundImage = RPGMasterTools.Properties.Resources.ico_play;
+                lblDisplayTiming.Text = $"[00:00 / {this._controller.totalMusicTime}]";
             }
             else if (currentState == EnumStateSoundRightAmbiencePlayer.STATE_PAUSE)
             {
@@ -178,7 +188,18 @@ namespace RPGMasterTools.Source.View.Sound
             this._controller.volume = value;
         }
 
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            SoundController controller = (SoundController) this._controller.parentController.parentController.parentController;
+            controller.removeAmbienceFromPlaylist(this._controller.currentAmbience);
+        }
+
         // == GETTERS AND SETTERS
         // ==============================================================
+
+        public SoundRightAmbiencePlayerController controller
+        {
+            get { return this._controller; }
+        }
     }
 }

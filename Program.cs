@@ -13,17 +13,30 @@ namespace RPGMasterTools
         [STAThread]
         static void Main()
         {
-            try
-            {
+            #if (!DEBUG)
+
+                try
+                {
+                    Application.EnableVisualStyles();
+                    Application.SetCompatibleTextRenderingDefault(false);
+                    Application.Run( new ViewMain() );
+                }
+                catch( Exception e )
+                {
+                    // THROW EXCEPTION TO GLOBAL EXCEPTION HANDLER
+
+                    UExceptionHandler.handleWithException(e);
+                }
+
+            #endif
+
+            #if (DEBUG)
+
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run( new ViewMain() );
-            }
-            catch( Exception e )
-            {
-                // THROW EXCEPTION TO GLOBAL EXCEPTION HANDLER
-                UExceptionHandler.handleWithException(e);
-            }
+                Application.Run(new ViewMain());
+
+            #endif
         }
     }
 }

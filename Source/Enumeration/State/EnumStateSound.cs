@@ -44,6 +44,9 @@ namespace RPGMasterTools.Source.Enumeration.State
         STATE_IDLE,
         STATE_MUSIC_LIST_ADDED,
         STATE_MUSIC_LIST_REMOVED,
-        STATE_AMBIENCE_LIST_ADDED
+        STATE_AMBIENCE_LIST_ADDED,
+        STATE_AMBIENCE_LIST_REMOVED,
+        STATE_SFX_LIST_ADDED,
+        STATE_SFX_LIST_REMOVED
     }
 }

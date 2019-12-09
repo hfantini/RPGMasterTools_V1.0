@@ -57,6 +57,7 @@ namespace RPGMasterTools.Source.View.Sound
 
         private ViewSoundRightMusic _viewSoundRightMusic = null;
         private ViewSoundRightAmbience _viewSoundRightAmbience = null;
+        private ViewSoundRightFX _viewSoundRightSFX = null;
 
         private SoundRightController _controller = null;
 
@@ -79,6 +80,7 @@ namespace RPGMasterTools.Source.View.Sound
             // CREATE COMPONENTS
             this._viewSoundRightMusic = new ViewSoundRightMusic(this._controller);
             this._viewSoundRightAmbience = new ViewSoundRightAmbience(this._controller);
+            this._viewSoundRightSFX = new ViewSoundRightFX(this._controller);
 
             // CONFIGURE COMPONENTS
             UComponent.applyLanguageToComponent(lblMusicTitle);
@@ -92,6 +94,10 @@ namespace RPGMasterTools.Source.View.Sound
             this._viewSoundRightAmbience.Dock = DockStyle.Fill;
             this._viewSoundRightAmbience.Margin = new Padding(0);
             pnlAmbienceContent.Controls.Add(this._viewSoundRightAmbience);
+
+            this._viewSoundRightSFX.Dock = DockStyle.Fill;
+            this._viewSoundRightSFX.Margin = new Padding(0);
+            pnlSoundFXContent.Controls.Add(this._viewSoundRightSFX);
 
         }
 

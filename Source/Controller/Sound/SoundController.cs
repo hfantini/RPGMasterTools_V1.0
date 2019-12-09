@@ -61,6 +61,8 @@ namespace RPGMasterTools.Source.Controller.Sound
         private List<Music> _musicLastChange = null;
         private List<Ambience> _ambiencePlaylist = null;
         private List<Ambience> _ambienceLastChange = null;
+        private List<SoundFX> _sfxPlaylist = null;
+        private List<SoundFX> _sfxLastChange = null;
 
         // == CONSTRUCTOR(S)
         // ==============================================================
@@ -108,6 +110,37 @@ namespace RPGMasterTools.Source.Controller.Sound
             this.currentState = EnumStateSound.STATE_AMBIENCE_LIST_ADDED;
         }
 
+        public void removeAmbienceFromPlaylist(Ambience ambience)
+        {
+            int ambienceIndex = this._ambiencePlaylist.IndexOf(ambience);
+
+            if (ambienceIndex != -1)
+            {
+                this._ambiencePlaylist.RemoveAt(ambienceIndex);
+                this.currentState = EnumStateSound.STATE_AMBIENCE_LIST_REMOVED;
+            }
+        }
+
+        public void addSFXToPlaylist(JObject jSoundFX)
+        {
+            SoundFX sfx = this._jSerializer.Deserialize<SoundFX>(jSoundFX.CreateReader());
+            this._sfxPlaylist.Add(sfx);
+            this._sfxLastChange.Add(sfx);
+
+            this.currentState = EnumStateSound.STATE_AMBIENCE_LIST_ADDED;
+        }
+
+        public void removeSFXFromPlaylist(SoundFX soundFX)
+        {
+            int sfxIndex = this._sfxPlaylist.IndexOf(soundFX);
+
+            if (sfxIndex != -1)
+            {
+                this._ambiencePlaylist.RemoveAt(sfxIndex);
+                this.currentState = EnumStateSound.STATE_SFX_LIST_ADDED;
+            }
+        }
+
         protected override void update()
         {
             base.update();
@@ -139,12 +172,22 @@ namespace RPGMasterTools.Source.Controller.Sound
 
         public List<Ambience> ambiencePlaylist
         {
-            get { return new List<Ambience>(this.ambiencePlaylist); }
+            get { return new List<Ambience>(this._ambiencePlaylist); }
         }
 
         public List<Ambience> ambienceLastChange
         {
             get { return this._ambienceLastChange; }
+        }
+
+        public List<SoundFX> soundFXPlaylist
+        {
+            get { return new List<SoundFX>(this._sfxPlaylist); }
+        }
+
+        public List<SoundFX> soundFXLastChange
+        {
+            get { return this._sfxLastChange; }
         }
     }
 }

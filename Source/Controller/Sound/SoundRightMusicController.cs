@@ -61,9 +61,7 @@ namespace RPGMasterTools.Source.Controller.Sound
         // -- VAR -------------------------------------------------------
 
         private WindowsMediaPlayer _mPlayer;
-        private List<Int32> _pastPlayedMusicIndex;
-        private int _lastMusicIndex = -1;
-        private int _currentMusicIndex = -1;
+        private List<Music> _pastPlayedMusicIndex;
         private Music _currentMusic;
 
         private bool _repeat = false;
@@ -76,7 +74,7 @@ namespace RPGMasterTools.Source.Controller.Sound
         {
             // INITIALIZING VALUES
             this._mPlayer = new WMPLib.WindowsMediaPlayer();
-            this._pastPlayedMusicIndex = new List<Int32>();
+            this._pastPlayedMusicIndex = new List<Music>();
         }
 
         // == METHODS
@@ -212,17 +210,15 @@ namespace RPGMasterTools.Source.Controller.Sound
 
         private void startPlayMusic()
         {
-            int lastMusicIndex = currentMusicIndex;
             List<Music> currentMusicList = ((SoundController)this.parentController.parentController).musicPlaylist;
- 
-            if (currentMusicList.Count > 0)
+
+            if (currentMusic != null || currentMusicList.Count > 0)
             {
-                if (currentMusicIndex == -1)
+                if (this._currentMusic == null)
                 {
                     processNextSound();
                 }
 
-                this._currentMusic = currentMusicList[this.currentMusicIndex];
                 this._mPlayer.URL = this.currentMusic.path + "\\" + this.currentMusic.name;
                 this._mPlayer.controls.play();
 
@@ -238,8 +234,6 @@ namespace RPGMasterTools.Source.Controller.Sound
         private void stopMusic()
         {
             this._mPlayer.controls.stop();
-            this._lastMusicIndex = this._currentMusicIndex;
-            this._currentMusicIndex = -1;
             this._currentMusic = null;
 
             this.currentState = EnumStateSoundRightMusic.STATE_IDLE;
@@ -259,22 +253,46 @@ namespace RPGMasterTools.Source.Controller.Sound
 
         private void backMusic()
         {
-            if( this._mPlayer.controls.currentPosition < 5 && this._pastPlayedMusicIndex.Count > 0 )
+            List<Music> currentMusicList = ((SoundController)this.parentController.parentController).musicPlaylist;
+
+            if ( this._mPlayer.controls.currentPosition < 5 && this._pastPlayedMusicIndex.Count > 0 )
             {
-                // GO TO PREVIOUS MUSIC
-                int lastIndex = this._pastPlayedMusicIndex[this._pastPlayedMusicIndex.Count - 1];
+                // GO TO PREVIOUS MUSIC (IF IT ALREADY EXISTS)
+                bool exists = false;
+                Music lastMusic = null;
+
+                do
+                {
+                    lastMusic = this._pastPlayedMusicIndex[this._pastPlayedMusicIndex.Count - 1];
+
+                    if( currentMusicList.Contains(lastMusic) )
+                    {
+                        exists = true;
+                    }
+                    else
+                    {
+                        this._pastPlayedMusicIndex.RemoveAll( item => item == lastMusic );
+                    }
+                }
+                while (!exists);
+
+                if( currentMusicList.Contains(lastMusic) )
+                {
+
+                }
+
                 this.currentState = EnumStateSoundRightMusic.STATE_STOP;
-                this._lastMusicIndex = this._currentMusicIndex;
-                this._currentMusicIndex = lastIndex;
+                this._currentMusic = lastMusic;
                 this._pastPlayedMusicIndex.RemoveAt(this._pastPlayedMusicIndex.Count - 1);
                 this.currentState = EnumStateSoundRightMusic.STATE_PLAY;
             }
             else
             {
                 // REPEAT THE SAME MUSIC
-                int index = this._currentMusicIndex;
+
+                Music currentMusic = this._currentMusic;
                 this.currentState = EnumStateSoundRightMusic.STATE_STOP;
-                this._currentMusicIndex = index;
+                this._currentMusic = currentMusic;
                 this.currentState = EnumStateSoundRightMusic.STATE_PLAY;
             }
         }
@@ -285,16 +303,16 @@ namespace RPGMasterTools.Source.Controller.Sound
 
             if (this._pastPlayedMusicIndex.Count > 0)
             {
-                int lastIndex = this._pastPlayedMusicIndex[this._pastPlayedMusicIndex.Count - 1];
+                Music lastMusic = this._pastPlayedMusicIndex[this._pastPlayedMusicIndex.Count - 1];
 
-                if (this._currentMusicIndex != lastIndex)
+                if (this._currentMusic != lastMusic)
                 {
-                    this._pastPlayedMusicIndex.Add(_currentMusicIndex);
+                    this._pastPlayedMusicIndex.Add(this._currentMusic);
                 }
             }
             else
             {
-                this._pastPlayedMusicIndex.Add(this._currentMusicIndex);
+                this._pastPlayedMusicIndex.Add(this._currentMusic);
             }
 
             // GO TO NEXT MUSIC
@@ -310,15 +328,10 @@ namespace RPGMasterTools.Source.Controller.Sound
         {
             List<Music> currentMusicList = ((SoundController)this.parentController.parentController).musicPlaylist;
 
-            // FINDING MUSIC INDEX
-            int index = currentMusicList.IndexOf(music);
-
-            if(index != -1)
+            if ( currentMusicList.Contains(music) )
             {
                 this.currentState = EnumStateSoundRightMusic.STATE_STOP;
-
-                this._currentMusicIndex = index;
-
+                this._currentMusic = music;
                 this.currentState = EnumStateSoundRightMusic.STATE_PLAY;
             }
         }
@@ -329,30 +342,36 @@ namespace RPGMasterTools.Source.Controller.Sound
 
             if (random && currentMusicList.Count > 1)
             {
-                int nextIndex = -1;
+                Music nextMusic = null;
 
                 // AVOIDING THE SAME SONG BEING CHOOSE ON RANDOM.
 
                 do
                 {
-                    nextIndex = URandom.generateRandomNumberInRange(0, currentMusicList.Count);
+                    nextMusic = currentMusicList[ URandom.generateRandomNumberInRange(0, currentMusicList.Count) ];
                 }
-                while (nextIndex == this._currentMusicIndex);
+                while (nextMusic == this._currentMusic);
 
-                this._lastMusicIndex = this._currentMusicIndex;
-                this._currentMusicIndex = nextIndex;
+                this._currentMusic = nextMusic;
             }
             else
             {
-                if( this._currentMusicIndex < (currentMusicList.Count - 1) )
+                if (currentMusic != null)
                 {
-                    this._lastMusicIndex = this._currentMusicIndex;
-                    this._currentMusicIndex++;
+                    int currentMusicIndex = currentMusicList.IndexOf(this._currentMusic);
+
+                    if (currentMusicIndex != (currentMusicList.Count - 1))
+                    {
+                        this._currentMusic = currentMusicList[currentMusicIndex];
+                    }
+                    else
+                    {
+                        this._currentMusic = currentMusicList[0];
+                    }
                 }
                 else
                 {
-                    this._lastMusicIndex = this._currentMusicIndex;
-                    this._currentMusicIndex = 0;
+                    this._currentMusic = currentMusicList[0];
                 }
             }
         }
@@ -401,16 +420,6 @@ namespace RPGMasterTools.Source.Controller.Sound
             get { return this._currentMusic; }
         }
 
-        public int currentMusicIndex
-        {
-            get { return this._currentMusicIndex; }
-        }
-
-        public int lastMusicIndex
-        {
-            get { return this._lastMusicIndex; }
-        }
-
         public bool repeat
         {
             get { return this._repeat; }
@@ -428,6 +437,40 @@ namespace RPGMasterTools.Source.Controller.Sound
             {
                 this._random = value;
                 this.currentState = EnumStateSoundRightMusic.STATE_OPTION_UPDATE;
+            }
+        }
+
+        public int lastMusicIndex
+        {
+            get
+            {
+                int retValue = -1;
+
+                if (this._pastPlayedMusicIndex.Count > 0)
+                {
+                    Music lastMusic = this._pastPlayedMusicIndex[this._pastPlayedMusicIndex.Count - 1];
+
+                    List<Music> currentMusicList = ((SoundController)this.parentController.parentController).musicPlaylist;
+                    retValue = currentMusicList.IndexOf(lastMusic);
+                }
+
+                return retValue;
+            }
+        }
+
+        public int currentMusicIndex
+        {
+            get
+            {
+                int retValue = -1;
+
+                if (this._currentMusic != null)
+                {
+                    List<Music> currentMusicList = ((SoundController)this.parentController.parentController).musicPlaylist;
+                    retValue = currentMusicList.IndexOf(this._currentMusic);
+                }
+
+                return retValue;
             }
         }
 
