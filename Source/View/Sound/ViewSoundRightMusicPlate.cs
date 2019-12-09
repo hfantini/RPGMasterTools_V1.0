@@ -119,6 +119,13 @@ namespace RPGMasterTools.Source.View.Sound
             this._controller.jumpToMusic(this._music);
         }
 
+        private void pBoxActionDelete_Click(object sender, EventArgs e)
+        {
+            SoundController controller = ( (SoundController) this._controller.parentController.parentController);
+
+            controller.removeMusicFromPlaylist(this._music);
+        }
+
         // == EVENTS
         // ==============================================================
 

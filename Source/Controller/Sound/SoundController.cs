@@ -85,7 +85,18 @@ namespace RPGMasterTools.Source.Controller.Sound
             this._musicPlaylist.Add(music);
             this._musicLastChange.Add(music);
 
-            this.currentState = EnumStateSound.STATE_MUSIC_LIST_CHANGED;
+            this.currentState = EnumStateSound.STATE_MUSIC_LIST_ADDED;
+        }
+
+        public void removeMusicFromPlaylist(Music music)
+        {
+            int musicIndex = this._musicPlaylist.IndexOf(music);
+
+            if( musicIndex != -1)
+            {
+                this._musicPlaylist.RemoveAt(musicIndex);
+                this.currentState = EnumStateSound.STATE_MUSIC_LIST_REMOVED;
+            }
         }
 
         public void addAmbienceToPlaylist(JObject jAmbience)
@@ -94,7 +105,7 @@ namespace RPGMasterTools.Source.Controller.Sound
             this._ambiencePlaylist.Add(ambience);
             this._ambienceLastChange.Add(ambience);
 
-            this.currentState = EnumStateSound.STATE_AMBIENCE_LIST_CHANGED;
+            this.currentState = EnumStateSound.STATE_AMBIENCE_LIST_ADDED;
         }
 
         protected override void update()

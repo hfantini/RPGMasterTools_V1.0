@@ -65,6 +65,7 @@
             this.pBoxActionDelete.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pBoxActionDelete.TabIndex = 2;
             this.pBoxActionDelete.TabStop = false;
+            this.pBoxActionDelete.Click += new System.EventHandler(this.pBoxActionDelete_Click);
             // 
             // lblMscName
             // 

@@ -107,6 +107,28 @@ namespace RPGMasterTools.Source.View.Sound
             lastChangeList.Clear();
         }
 
+        private void tBarMasterVolume_Scroll(object sender, EventArgs e)
+        {
+            lblVolume.Text = (tBarMasterVolume.Value * 10) + "%";
+            this._controller.masterVolume = tBarMasterVolume.Value * 10;
+            this._controller.currentState = EnumStateSoundRightAmbience.STATE_VOLUME_CHANGE;
+        }
+
+        private void btnMasterPlay_Click(object sender, EventArgs e)
+        {
+            this._controller.currentState = EnumStateSoundRightAmbience.STATE_PLAY;
+        }
+
+        private void btnPause_Click(object sender, EventArgs e)
+        {
+            this._controller.currentState = EnumStateSoundRightAmbience.STATE_PAUSE;
+        }
+
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            this._controller.currentState = EnumStateSoundRightAmbience.STATE_STOP;
+        }
+
         // == EVENTS
         // ==============================================================
 

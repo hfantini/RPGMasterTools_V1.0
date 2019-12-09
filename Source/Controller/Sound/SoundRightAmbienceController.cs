@@ -50,6 +50,8 @@ namespace RPGMasterTools.Source.Controller.Sound
 
         // -- VAR -------------------------------------------------------
 
+        private int _masterVolume = 100;
+
         // == CONSTRUCTOR(S)
         // ==============================================================
 
@@ -61,6 +63,13 @@ namespace RPGMasterTools.Source.Controller.Sound
         // == METHODS
         // ==============================================================
 
+        protected override void update()
+        {
+            base.update();
+
+            this.currentState = EnumStateSoundRightAmbience.STATE_IDLE;
+        }
+
         // == EVENTS
         // ==============================================================
 
@@ -70,9 +79,13 @@ namespace RPGMasterTools.Source.Controller.Sound
             {
                 SoundController controller = (SoundController)parentController;
 
-                if(controller.currentState == EnumStateSound.STATE_AMBIENCE_LIST_CHANGED)
+                if(controller.currentState == EnumStateSound.STATE_AMBIENCE_LIST_ADDED)
                 {
                     this.currentState = EnumStateSoundRightAmbience.STATE_UPDATE_LIST;
+                }
+                else
+                {
+                    base.onParentStateChange(parentController);
                 }
             }
             else
@@ -83,5 +96,11 @@ namespace RPGMasterTools.Source.Controller.Sound
 
         // == GETTERS AND SETTERS
         // ==============================================================
+
+        public int masterVolume
+        {
+            get { return this._masterVolume; }
+            set { this._masterVolume = value; }
+        }
     }
 }

@@ -53,19 +53,25 @@ namespace RPGMasterTools.Source.Controller.Sound
         // -- VAR -------------------------------------------------------
 
         private WindowsMediaPlayer _mPlayer;
+        private int _maxVolume = 100;
+        private int _volume = 100;
+        private int _finalVolume = 100;
 
         // == CONSTRUCTOR(S)
         // ==============================================================
 
         public SoundRightAmbiencePlayerController(IComponent<EnumStateSoundRightAmbiencePlayer> component, GenericController parentController, Ambience ambience) : base(component, parentController)
         {
-
             // INITIALIZING COMPONENTS
             this._mPlayer = new WindowsMediaPlayer();
 
             // CONFIGURING COMPONENTS
 
             this._mPlayer.URL = ambience.path + "\\" + ambience.name;
+
+            // VOLUME
+            this._maxVolume = ( (SoundRightAmbienceController) parentController ).masterVolume;
+            updateVolume();
         }
 
         // == METHODS
@@ -162,8 +168,52 @@ namespace RPGMasterTools.Source.Controller.Sound
             this.currentState = EnumStateSoundRightAmbiencePlayer.STATE_PAUSED;
         }
 
+        private void updateVolume()
+        {
+            if (this._volume > this._maxVolume)
+            {
+                this._finalVolume = this._maxVolume;
+            }
+            else
+            {
+                this._finalVolume = _volume;
+            }
+
+            this._mPlayer.settings.volume = this._finalVolume;
+        }
+
         // == EVENTS
         // ==============================================================
+
+        protected override void onParentStateChange(GenericController parentController)
+        {
+            if (parentController is SoundRightAmbienceController)
+            {
+                SoundRightAmbienceController controller = (SoundRightAmbienceController) parentController;
+
+                if (controller.currentState == EnumStateSoundRightAmbience.STATE_VOLUME_CHANGE)
+                {
+                    this._maxVolume = ( (SoundRightAmbienceController) parentController).masterVolume;
+                    this.updateVolume();
+                }
+                else if (controller.currentState == EnumStateSoundRightAmbience.STATE_PLAY)
+                {
+                    this.currentState = EnumStateSoundRightAmbiencePlayer.STATE_PLAY;
+                }
+                else if (controller.currentState == EnumStateSoundRightAmbience.STATE_STOP)
+                {
+                    this.currentState = EnumStateSoundRightAmbiencePlayer.STATE_STOP;
+                }
+                else if (controller.currentState == EnumStateSoundRightAmbience.STATE_PAUSE)
+                {
+                    this.currentState = EnumStateSoundRightAmbiencePlayer.STATE_PAUSE;
+                }
+            }
+            else
+            {
+                base.onParentStateChange(parentController);
+            }
+        }
 
         // == GETTERS AND SETTERS
         // ==============================================================
@@ -195,12 +245,13 @@ namespace RPGMasterTools.Source.Controller.Sound
 
         public int volume
         {
-            get { return this._mPlayer.settings.volume; }
+            get { return this._volume; }
             set
             {
                 if (value >= 0 && value <= 100)
                 {
-                    this._mPlayer.settings.volume = value;
+                    this._volume = value;
+                    this.updateVolume();
                 }
             }
         }

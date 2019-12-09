@@ -95,7 +95,7 @@ namespace RPGMasterTools.Source.Controller.Sound
             }
             else if (nextState == EnumStateSoundRightMusic.STATE_PLAYING)
             {
-                if (currentState != EnumStateSoundRightMusic.STATE_PLAY && currentState != EnumStateSoundRightMusic.STATE_RESUME && currentState != EnumStateSoundRightMusic.STATE_OPTION_UPDATE && currentState != EnumStateSoundRightMusic.STATE_UPDATE_LIST)
+                if (currentState != EnumStateSoundRightMusic.STATE_PLAY && currentState != EnumStateSoundRightMusic.STATE_RESUME && currentState != EnumStateSoundRightMusic.STATE_OPTION_UPDATE && currentState != EnumStateSoundRightMusic.STATE_UPDATE_LIST_ADD && currentState != EnumStateSoundRightMusic.STATE_UPDATE_LIST_RECREATE)
                 {
                     retValue = false;
                 }
@@ -123,7 +123,7 @@ namespace RPGMasterTools.Source.Controller.Sound
             }
             else if (nextState == EnumStateSoundRightMusic.STATE_PAUSED)
             {
-                if (currentState != EnumStateSoundRightMusic.STATE_PAUSE && currentState != EnumStateSoundRightMusic.STATE_OPTION_UPDATE && currentState != EnumStateSoundRightMusic.STATE_UPDATE_LIST)
+                if (currentState != EnumStateSoundRightMusic.STATE_PAUSE && currentState != EnumStateSoundRightMusic.STATE_OPTION_UPDATE && currentState != EnumStateSoundRightMusic.STATE_UPDATE_LIST_ADD && currentState != EnumStateSoundRightMusic.STATE_UPDATE_LIST_RECREATE)
                 {
                     retValue = false;
                 }
@@ -164,7 +164,11 @@ namespace RPGMasterTools.Source.Controller.Sound
         {
             base.update();
 
-            if(this.currentState == EnumStateSoundRightMusic.STATE_UPDATE_LIST)
+            if(this.currentState == EnumStateSoundRightMusic.STATE_UPDATE_LIST_ADD)
+            {
+                this.currentState = this.lastState;
+            }
+            else if (this.currentState == EnumStateSoundRightMusic.STATE_UPDATE_LIST_RECREATE)
             {
                 this.currentState = this.lastState;
             }
@@ -362,9 +366,13 @@ namespace RPGMasterTools.Source.Controller.Sound
             {
                 SoundController pController = (SoundController) parentController;
 
-                if(pController.currentState == EnumStateSound.STATE_MUSIC_LIST_CHANGED)
+                if(pController.currentState == EnumStateSound.STATE_MUSIC_LIST_ADDED)
                 {
-                    this.currentState = EnumStateSoundRightMusic.STATE_UPDATE_LIST;
+                    this.currentState = EnumStateSoundRightMusic.STATE_UPDATE_LIST_ADD;
+                }
+                else if(pController.currentState == EnumStateSound.STATE_MUSIC_LIST_REMOVED)
+                {
+                    this.currentState = EnumStateSoundRightMusic.STATE_UPDATE_LIST_RECREATE;
                 }
             }
             else

@@ -110,12 +110,7 @@ namespace RPGMasterTools.Source.Util
 
         public static void removeAllChildren(Control control)
         {
-            ControlCollection controlCollect = control.Controls;
-
-            foreach( Control cControl in controlCollect )
-            {
-                control.Controls.Remove(cControl);
-            }
+            control.Controls.Clear();
         }
 
         // == EVENTS

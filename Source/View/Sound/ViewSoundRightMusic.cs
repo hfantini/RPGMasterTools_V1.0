@@ -41,6 +41,7 @@ using RPGMasterTools.Source.Enumeration.State;
 using RPGMasterTools.Source.Controller;
 using RPGMasterTools.Source.Controller.Sound;
 using RPGMasterTools.Source.Model.Sound;
+using RPGMasterTools.Source.Util;
 
 // == NAMESPACE
 // ==================================================================
@@ -88,9 +89,13 @@ namespace RPGMasterTools.Source.View.Sound
 
         public void update(EnumStateSoundRightMusic lastState, EnumStateSoundRightMusic currentState)
         {
-            if (currentState == EnumStateSoundRightMusic.STATE_UPDATE_LIST)
+            if (currentState == EnumStateSoundRightMusic.STATE_UPDATE_LIST_ADD)
             {
                 updateMusicList();
+            }
+            else if (currentState == EnumStateSoundRightMusic.STATE_UPDATE_LIST_RECREATE)
+            {
+                recreateMusicList();
             }
             else if (currentState == EnumStateSoundRightMusic.STATE_PLAY)
             {
@@ -146,6 +151,24 @@ namespace RPGMasterTools.Source.View.Sound
             }
 
             lastChangeList.Clear();
+        }
+
+        private void recreateMusicList()
+        {
+            UComponent.removeAllChildren(fLayItems);
+
+            SoundController controller = ((SoundController)this._controller.parentController.parentController);
+            List<Music> musicList = controller.musicPlaylist;
+
+            for (int count = 0; count < musicList.Count; count++)
+            {
+                Music music = musicList[count];
+
+                ViewSoundRightMusicPlate mPlate = new ViewSoundRightMusicPlate(this._controller, music);
+                mPlate.Width = fLayItems.Width;
+
+                fLayItems.Controls.Add(mPlate);
+            }
         }
 
         // == EVENTS
