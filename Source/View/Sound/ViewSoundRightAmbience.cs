@@ -14,7 +14,7 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [ViewSoundRight.cs]
+    |	Name: [ViewSoundRightAmbience.cs]
     |	Type: [VIEW]
     |	Author: Henrique Fantini
     |	
@@ -36,10 +36,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using RPGMasterTools.Source.Controller;
-using RPGMasterTools.Source.Util;
 using RPGMasterTools.Source.Enumeration.State;
+using RPGMasterTools.Source.Controller;
 using RPGMasterTools.Source.Controller.Sound;
+using RPGMasterTools.Source.Model.Sound;
 
 // == NAMESPACE
 // ==================================================================
@@ -49,58 +49,62 @@ namespace RPGMasterTools.Source.View.Sound
     // == CLASS
     // ==============================================================
 
-    public partial class ViewSoundRight : UserControl, RPGMasterTools.Source.Interface.IComponent<EnumStateSoundRight>
+    public partial class ViewSoundRightAmbience : UserControl, Interface.IComponent<EnumStateSoundRightAmbience>
     {
         // -- CONST -----------------------------------------------------
 
         // -- VAR -------------------------------------------------------
 
-        private ViewSoundRightMusic _viewSoundRightMusic = null;
-        private ViewSoundRightAmbience _viewSoundRightAmbience = null;
-
-        private SoundRightController _controller = null;
+        private SoundRightAmbienceController _controller;
 
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public ViewSoundRight()
+        public ViewSoundRightAmbience()
         {
             InitializeComponent();
         }
 
-        public ViewSoundRight(GenericController controller)
+        public ViewSoundRightAmbience(GenericController parentController)
         {
             InitializeComponent();
 
-            // CONFIGURE CONTROLLER
+            // CONFIGURING COMPONENTS
 
-            this._controller = new SoundRightController(this, controller);
+            // CONFIGURING CONTROLLER
 
-            // CREATE COMPONENTS
-            this._viewSoundRightMusic = new ViewSoundRightMusic(this._controller);
-            this._viewSoundRightAmbience = new ViewSoundRightAmbience(this._controller);
-
-            // CONFIGURE COMPONENTS
-            UComponent.applyLanguageToComponent(lblMusicTitle);
-            UComponent.applyLanguageToComponent(lblAmbienceTitle);
-            UComponent.applyLanguageToComponent(lblSoundFXTitle);
-
-            this._viewSoundRightMusic.Dock = DockStyle.Fill;
-            this._viewSoundRightMusic.Margin = new Padding(0);
-            pnlMusicContent.Controls.Add(this._viewSoundRightMusic);
-
-            this._viewSoundRightAmbience.Dock = DockStyle.Fill;
-            this._viewSoundRightAmbience.Margin = new Padding(0);
-            pnlAmbienceContent.Controls.Add(this._viewSoundRightAmbience);
-
+            this._controller = new SoundRightAmbienceController(this, parentController);
         }
 
         // == METHODS
         // ==============================================================
 
-        public void update(EnumStateSoundRight lastState, EnumStateSoundRight currentState)
+        public void update(EnumStateSoundRightAmbience lastState, EnumStateSoundRightAmbience currentState)
         {
-            
+            if (currentState == EnumStateSoundRightAmbience.STATE_UPDATE_LIST)
+            {
+                updateAmbienceList();
+                this._controller.currentState = lastState;
+            }
+        }
+
+
+        private void updateAmbienceList()
+        {
+            SoundController controller = ((SoundController)this._controller.parentController.parentController);
+            List<Ambience> lastChangeList = controller.ambienceLastChange;
+
+            for (int count = 0; count < lastChangeList.Count; count++)
+            {
+                Ambience ambience = lastChangeList[count];
+
+                ViewSoundRightAmbiencePlayer aPlayer = new ViewSoundRightAmbiencePlayer(this._controller, ambience);
+                aPlayer.Width = fLayoutAmbience.Width;
+
+                fLayoutAmbience.Controls.Add(aPlayer);
+            }
+
+            lastChangeList.Clear();
         }
 
         // == EVENTS

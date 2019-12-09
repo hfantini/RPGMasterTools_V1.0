@@ -63,6 +63,8 @@
     </Compile>
     <Compile Include="Source\Controller\ComponentController.cs" />
     <Compile Include="Source\Controller\Sound\SoundController.cs" />
+    <Compile Include="Source\Controller\Sound\SoundRightAmbiencePlayerController.cs" />
+    <Compile Include="Source\Controller\Sound\SoundRightAmbienceController.cs" />
     <Compile Include="Source\Controller\Sound\SoundRightMusicController.cs" />
     <Compile Include="Source\Controller\Sound\SoundRightController.cs" />
     <Compile Include="Source\Controller\Sound\SoundLeftController.cs" />
@@ -73,6 +75,8 @@
     <Compile Include="Source\Enumeration\Controller\EnumControllerType.cs" />
     <Compile Include="Source\Enumeration\Log\EnumLogLevel.cs" />
     <Compile Include="Source\Enumeration\Log\EnumLogType.cs" />
+    <Compile Include="Source\Enumeration\State\EnumStateSoundRightAmbiencePlayer.cs" />
+    <Compile Include="Source\Enumeration\State\EnumStateSoundRightAmbience.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateSoundRightMusicPlate.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateSoundRightMusicPlayer.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateSoundRightMusic.cs" />
@@ -85,6 +89,7 @@
     <Compile Include="Source\Model\Exception\EMasterToolsInvalidStateChangeException.cs" />
     <Compile Include="Source\Model\Exception\EMasterToolsException.cs" />
     <Compile Include="Source\Model\Language\MLanguage.cs" />
+    <Compile Include="Source\Model\Sound\Ambience.cs" />
     <Compile Include="Source\Model\Sound\Music.cs" />
     <Compile Include="Source\Util\UAsyncTask.cs" />
     <Compile Include="Source\Util\UComponent.cs" />
@@ -128,6 +133,18 @@
     </Compile>
     <Compile Include="Source\View\Sound\ViewSoundRight.Designer.cs">
       <DependentUpon>ViewSoundRight.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\View\Sound\ViewSoundRightAmbience.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\View\Sound\ViewSoundRightAmbience.Designer.cs">
+      <DependentUpon>ViewSoundRightAmbience.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\View\Sound\ViewSoundRightAmbiencePlayer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\View\Sound\ViewSoundRightAmbiencePlayer.Designer.cs">
+      <DependentUpon>ViewSoundRightAmbiencePlayer.cs</DependentUpon>
     </Compile>
     <Compile Include="Source\View\Sound\ViewSoundRightMusic.cs">
       <SubType>UserControl</SubType>
@@ -175,6 +192,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Source\View\Sound\ViewSoundRight.resx">
       <DependentUpon>ViewSoundRight.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\View\Sound\ViewSoundRightAmbience.resx">
+      <DependentUpon>ViewSoundRightAmbience.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\View\Sound\ViewSoundRightAmbiencePlayer.resx">
+      <DependentUpon>ViewSoundRightAmbiencePlayer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\View\Sound\ViewSoundRightMusic.resx">
       <DependentUpon>ViewSoundRightMusic.cs</DependentUpon>
@@ -228,6 +251,7 @@
     <None Include="Resources\Images\Icons\ico_stop_display.png" />
     <None Include="Resources\Images\Icons\ico_trash.png" />
     <None Include="Resources\Images\Icons\ico_stop.png" />
+    <None Include="Resources\Images\Icons\ico_speaker_withsound.png" />
     <Content Include="sysicon.ico" />
   </ItemGroup>
   <ItemGroup>

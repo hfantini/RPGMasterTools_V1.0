@@ -220,7 +220,8 @@ namespace RPGMasterTools.Source.View.Sound
                     }
                     else if (iType.ToUpper() == "AMBIENCE")
                     {
-                        grpDetail.Controls.Add(this._viewSoundLeftDetailEmpty);
+                        this._viewSoundLeftDetailFile.update(info);
+                        grpDetail.Controls.Add(this._viewSoundLeftDetailFile);
                     }
                     else if (iType.ToUpper() == "SOUNDFX")
                     {
@@ -242,13 +243,17 @@ namespace RPGMasterTools.Source.View.Sound
         {
             TreeNode node = tViewData.SelectedNode;
 
-            if (node.Tag != null && node.Tag is JObject && ((JObject)node.Tag).ContainsKey("TYPE"))
+            if (node != null && node.Tag != null && node.Tag is JObject && ((JObject)node.Tag).ContainsKey("TYPE"))
             {
                 string type = getObjectType( ( (JObject) node.Tag));
 
                 if (type == "MUSIC")
                 {
                     ((SoundController)this._controller.parentController).addMusicToPlaylist(((JObject)node.Tag));
+                }
+                else if(type == "AMBIENCE")
+                {
+                    ((SoundController)this._controller.parentController).addAmbienceToPlaylist(((JObject)node.Tag));
                 }
             }
         }

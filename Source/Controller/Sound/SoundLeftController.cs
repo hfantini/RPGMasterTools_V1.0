@@ -111,7 +111,9 @@ namespace RPGMasterTools.Source.Controller.Sound
                 if (File.Exists(descriptorPath) )
                 {
                     JsonSerializer serializer = new JsonSerializer();
-                    descriptor = (JObject) serializer.Deserialize( new JsonTextReader( new StreamReader(descriptorPath) ) );
+                    StreamReader sReader = new StreamReader(descriptorPath);
+
+                    descriptor = (JObject) serializer.Deserialize( new JsonTextReader(sReader) );
 
                     // SEARCH AUDIO FILES IN THE DIRECTORY
 
@@ -147,6 +149,7 @@ namespace RPGMasterTools.Source.Controller.Sound
                     // ATTACHING COLLETED INFO TO RETURN
 
                     retValue = descriptor;
+                    sReader.Close();
                 }
             }
 

@@ -14,11 +14,11 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [EnumStateSound.cs]
+    |	Name: [EnumStateSoundRightAmbiencePlayer.cs]
     |	Type: [ENUM]
     |	Author: Henrique Fantini
     |	
-    |	Description: Define the state of sound controller.
+    |	Description: -
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
@@ -38,11 +38,15 @@ namespace RPGMasterTools.Source.Enumeration.State
     // ==============================================================
 
     [DefaultValue(STATE_NONE)]
-    public enum EnumStateSound
+    public enum EnumStateSoundRightAmbiencePlayer
     {
         STATE_NONE,
         STATE_IDLE,
-        STATE_MUSIC_LIST_CHANGED,
-        STATE_AMBIENCE_LIST_CHANGED
+        STATE_PLAY,
+        STATE_PLAYING,
+        STATE_STOP,
+        STATE_PAUSE,
+        STATE_PAUSED,
+        STATE_MEDIA_END
     }
 }

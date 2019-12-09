@@ -59,6 +59,8 @@ namespace RPGMasterTools.Source.Controller.Sound
         private JArray _assetsFromTheDisk = null;
         private List<Music> _musicPlaylist = null;
         private List<Music> _musicLastChange = null;
+        private List<Ambience> _ambiencePlaylist = null;
+        private List<Ambience> _ambienceLastChange = null;
 
         // == CONSTRUCTOR(S)
         // ==============================================================
@@ -69,6 +71,9 @@ namespace RPGMasterTools.Source.Controller.Sound
 
             this._musicPlaylist = new List<Music>();
             this._musicLastChange = new List<Music>();
+
+            this._ambiencePlaylist = new List<Ambience>();
+            this._ambienceLastChange = new List<Ambience>();
         }
 
         // == METHODS
@@ -81,6 +86,15 @@ namespace RPGMasterTools.Source.Controller.Sound
             this._musicLastChange.Add(music);
 
             this.currentState = EnumStateSound.STATE_MUSIC_LIST_CHANGED;
+        }
+
+        public void addAmbienceToPlaylist(JObject jAmbience)
+        {
+            Ambience ambience = this._jSerializer.Deserialize<Ambience>(jAmbience.CreateReader());
+            this._ambiencePlaylist.Add(ambience);
+            this._ambienceLastChange.Add(ambience);
+
+            this.currentState = EnumStateSound.STATE_AMBIENCE_LIST_CHANGED;
         }
 
         protected override void update()
@@ -106,10 +120,20 @@ namespace RPGMasterTools.Source.Controller.Sound
         {
             get { return new List<Music>(this._musicPlaylist); }
         }
+
         public List<Music> musicLastChange
         {
             get { return this._musicLastChange; }
         }
 
+        public List<Ambience> ambiencePlaylist
+        {
+            get { return new List<Ambience>(this.ambiencePlaylist); }
+        }
+
+        public List<Ambience> ambienceLastChange
+        {
+            get { return this._ambienceLastChange; }
+        }
     }
 }

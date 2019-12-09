@@ -103,6 +103,16 @@ namespace RPGMasterTools.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ico_speaker_withsound {
+            get {
+                object obj = ResourceManager.GetObject("ico_speaker_withsound", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ico_stop {
             get {
                 object obj = ResourceManager.GetObject("ico_stop", resourceCulture);
