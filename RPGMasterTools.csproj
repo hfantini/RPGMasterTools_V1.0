@@ -73,6 +73,7 @@
     <Compile Include="Source\Enumeration\Controller\EnumControllerType.cs" />
     <Compile Include="Source\Enumeration\Log\EnumLogLevel.cs" />
     <Compile Include="Source\Enumeration\Log\EnumLogType.cs" />
+    <Compile Include="Source\Enumeration\State\EnumStateSoundRightMusicPlate.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateSoundRightMusicPlayer.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateSoundRightMusic.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateSoundRight.cs" />
@@ -225,6 +226,8 @@
     <None Include="Resources\Images\Icons\ico_pause_display.png" />
     <None Include="Resources\Images\Icons\ico_play_display.png" />
     <None Include="Resources\Images\Icons\ico_stop_display.png" />
+    <None Include="Resources\Images\Icons\ico_trash.png" />
+    <None Include="Resources\Images\Icons\ico_stop.png" />
     <Content Include="sysicon.ico" />
   </ItemGroup>
   <ItemGroup>

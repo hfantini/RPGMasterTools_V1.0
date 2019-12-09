@@ -39,7 +39,7 @@
 			"MUSIC":
 			{
 				"TITLE": "MUSIC",
-				"WAITING_FOR_PLAY": "Waiting for Play...",
+				"WAITING_FOR_PLAY": "Waiting...",
 				"NOTHING_TO_PLAY": "Nothing to play!",
 				"PAUSED": "PAUSED!"
 			},

@@ -92,15 +92,54 @@ namespace RPGMasterTools.Source.View.Sound
             {
                 updateMusicList();
             }
+            else if (currentState == EnumStateSoundRightMusic.STATE_PLAY)
+            {
+                // UPDATE LAST NAMEPLATE
+                if (this._controller.lastMusicIndex != -1)
+                {
+                    ViewSoundRightMusicPlate lastNamePlate = (ViewSoundRightMusicPlate)fLayItems.Controls[this._controller.lastMusicIndex];
+                    lastNamePlate.setState(EnumStateSoundRightMusicPlate.STATE_STOPPED);
+                }
+            }
+            else if (currentState == EnumStateSoundRightMusic.STATE_PLAYING)
+            {
+                if (this._controller.currentMusicIndex != -1)
+                {
+                    // UPDATE CURRRENT NAMEPLATE
+                    ViewSoundRightMusicPlate currentNamePlate = (ViewSoundRightMusicPlate)fLayItems.Controls[this._controller.currentMusicIndex];
+                    currentNamePlate.setState(EnumStateSoundRightMusicPlate.STATE_PLAYING);
+                }
+            }
+            else if (currentState == EnumStateSoundRightMusic.STATE_STOP)
+            {
+                if (this._controller.currentMusicIndex != -1)
+                {
+                    // UPDATE CURRRENT NAMEPLATE
+                    ViewSoundRightMusicPlate currentNamePlate = (ViewSoundRightMusicPlate)fLayItems.Controls[this._controller.currentMusicIndex];
+                    currentNamePlate.setState(EnumStateSoundRightMusicPlate.STATE_STOPPED);
+                }
+            }
+            else if (currentState == EnumStateSoundRightMusic.STATE_PAUSED)
+            {
+                if (this._controller.currentMusicIndex != -1)
+                {
+                    // UPDATE CURRRENT NAMEPLATE
+                    ViewSoundRightMusicPlate currentNamePlate = (ViewSoundRightMusicPlate)fLayItems.Controls[this._controller.currentMusicIndex];
+                    currentNamePlate.setState(EnumStateSoundRightMusicPlate.STATE_PAUSED);
+                }
+            }
         }
 
         private void updateMusicList()
         {
-            List<Music> lastChangeList = ( (SoundController) this._controller.parentController.parentController).musicLastChange;
+            SoundController controller = ( (SoundController) this._controller.parentController.parentController);
+            List<Music> lastChangeList = controller.musicLastChange;
 
-            foreach(Music music in lastChangeList)
+            for(int count = 0; count < lastChangeList.Count; count++)
             {
-                ViewSoundRightMusicPlate mPlate = new ViewSoundRightMusicPlate(music);
+                Music music = lastChangeList[count];
+
+                ViewSoundRightMusicPlate mPlate = new ViewSoundRightMusicPlate(this._controller, music);
                 mPlate.Width = fLayItems.Width;
 
                 fLayItems.Controls.Add(mPlate);

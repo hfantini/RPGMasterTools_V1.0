@@ -65,10 +65,10 @@
             this.fLayItems.BackColor = System.Drawing.Color.White;
             this.fLayItems.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fLayItems.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.fLayItems.Location = new System.Drawing.Point(0, 0);
-            this.fLayItems.Margin = new System.Windows.Forms.Padding(0);
+            this.fLayItems.Location = new System.Drawing.Point(0, 5);
+            this.fLayItems.Margin = new System.Windows.Forms.Padding(0, 5, 0, 0);
             this.fLayItems.Name = "fLayItems";
-            this.fLayItems.Size = new System.Drawing.Size(422, 454);
+            this.fLayItems.Size = new System.Drawing.Size(422, 449);
             this.fLayItems.TabIndex = 2;
             this.fLayItems.WrapContents = false;
             // 

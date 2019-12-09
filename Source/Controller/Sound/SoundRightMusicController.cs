@@ -34,6 +34,7 @@ using RPGMasterTools.Source.Interface;
 using RPGMasterTools.Source.Model.Exception;
 using RPGMasterTools.Source.Model.Sound;
 using RPGMasterTools.Source.Util;
+using RPGMasterTools.Source.View.Sound;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -61,6 +62,7 @@ namespace RPGMasterTools.Source.Controller.Sound
 
         private WindowsMediaPlayer _mPlayer;
         private List<Int32> _pastPlayedMusicIndex;
+        private int _lastMusicIndex = -1;
         private int _currentMusicIndex = -1;
         private Music _currentMusic;
 
@@ -206,6 +208,7 @@ namespace RPGMasterTools.Source.Controller.Sound
 
         private void startPlayMusic()
         {
+            int lastMusicIndex = currentMusicIndex;
             List<Music> currentMusicList = ((SoundController)this.parentController.parentController).musicPlaylist;
  
             if (currentMusicList.Count > 0)
@@ -218,7 +221,7 @@ namespace RPGMasterTools.Source.Controller.Sound
                 this._currentMusic = currentMusicList[this.currentMusicIndex];
                 this._mPlayer.URL = this.currentMusic.path + "\\" + this.currentMusic.name;
                 this._mPlayer.controls.play();
- 
+
                 this.currentState = EnumStateSoundRightMusic.STATE_PLAYING;
             }
             else
@@ -231,6 +234,7 @@ namespace RPGMasterTools.Source.Controller.Sound
         private void stopMusic()
         {
             this._mPlayer.controls.stop();
+            this._lastMusicIndex = this._currentMusicIndex;
             this._currentMusicIndex = -1;
             this._currentMusic = null;
 
@@ -256,6 +260,7 @@ namespace RPGMasterTools.Source.Controller.Sound
                 // GO TO PREVIOUS MUSIC
                 int lastIndex = this._pastPlayedMusicIndex[this._pastPlayedMusicIndex.Count - 1];
                 this.currentState = EnumStateSoundRightMusic.STATE_STOP;
+                this._lastMusicIndex = this._currentMusicIndex;
                 this._currentMusicIndex = lastIndex;
                 this._pastPlayedMusicIndex.RemoveAt(this._pastPlayedMusicIndex.Count - 1);
                 this.currentState = EnumStateSoundRightMusic.STATE_PLAY;
@@ -297,6 +302,23 @@ namespace RPGMasterTools.Source.Controller.Sound
             this.currentState = EnumStateSoundRightMusic.STATE_PLAY;
         }
 
+        public void jumpToMusic(Music music)
+        {
+            List<Music> currentMusicList = ((SoundController)this.parentController.parentController).musicPlaylist;
+
+            // FINDING MUSIC INDEX
+            int index = currentMusicList.IndexOf(music);
+
+            if(index != -1)
+            {
+                this.currentState = EnumStateSoundRightMusic.STATE_STOP;
+
+                this._currentMusicIndex = index;
+
+                this.currentState = EnumStateSoundRightMusic.STATE_PLAY;
+            }
+        }
+
         public void processNextSound()
         {
             List<Music> currentMusicList = ((SoundController)this.parentController.parentController).musicPlaylist;
@@ -313,16 +335,19 @@ namespace RPGMasterTools.Source.Controller.Sound
                 }
                 while (nextIndex == this._currentMusicIndex);
 
+                this._lastMusicIndex = this._currentMusicIndex;
                 this._currentMusicIndex = nextIndex;
             }
             else
             {
                 if( this._currentMusicIndex < (currentMusicList.Count - 1) )
                 {
+                    this._lastMusicIndex = this._currentMusicIndex;
                     this._currentMusicIndex++;
                 }
                 else
                 {
+                    this._lastMusicIndex = this._currentMusicIndex;
                     this._currentMusicIndex = 0;
                 }
             }
@@ -368,6 +393,16 @@ namespace RPGMasterTools.Source.Controller.Sound
             get { return this._currentMusic; }
         }
 
+        public int currentMusicIndex
+        {
+            get { return this._currentMusicIndex; }
+        }
+
+        public int lastMusicIndex
+        {
+            get { return this._lastMusicIndex; }
+        }
+
         public bool repeat
         {
             get { return this._repeat; }
@@ -411,11 +446,6 @@ namespace RPGMasterTools.Source.Controller.Sound
         public WMPPlayState wmpIsPlaying
         {
             get { return this._mPlayer.playState; }
-        }
-
-        private int currentMusicIndex
-        {
-            get { return this._currentMusicIndex; }
         }
 
         public int volume

@@ -39,6 +39,7 @@ using System.Windows.Forms;
 using RPGMasterTools.Source.Enumeration.State;
 using RPGMasterTools.Source.Controller;
 using RPGMasterTools.Source.Model.Sound;
+using RPGMasterTools.Source.Controller.Sound;
 
 // == NAMESPACE
 // ==================================================================
@@ -54,7 +55,9 @@ namespace RPGMasterTools.Source.View.Sound
 
         // -- VAR -------------------------------------------------------
 
+        private SoundRightMusicController _controller = null;
         private Music _music = null;
+        private EnumStateSoundRightMusicPlate _currentState = new EnumStateSoundRightMusicPlate();
 
         // == CONSTRUCTOR(S)
         // ==============================================================
@@ -64,11 +67,13 @@ namespace RPGMasterTools.Source.View.Sound
             InitializeComponent();
         }
 
-        public ViewSoundRightMusicPlate(Music music)
+        public ViewSoundRightMusicPlate(SoundRightMusicController controller, Music music)
         {
             InitializeComponent();
 
+            this._controller = controller;
             this._music = music;
+
             updateInfo();
         }
 
@@ -79,8 +84,39 @@ namespace RPGMasterTools.Source.View.Sound
         {
             if (this._music != null)
             {
-                lblName.Text = this._music.name;
+                lblMscName.Text = this._music.name;
             }
+        }
+
+        public void setState(EnumStateSoundRightMusicPlate state)
+        {
+            this._currentState = state;
+
+            if(this._currentState == EnumStateSoundRightMusicPlate.STATE_PLAYING)
+            {
+                pBoxImageStatus.Image = RPGMasterTools.Properties.Resources.ico_play;
+                this.BackColor = SystemColors.InactiveCaption;
+            }
+            else if( this._currentState == EnumStateSoundRightMusicPlate.STATE_STOPPED )
+            {
+                pBoxImageStatus.Image = RPGMasterTools.Properties.Resources.ico_stop;
+                this.BackColor = SystemColors.Control;
+            }
+            else if (this._currentState == EnumStateSoundRightMusicPlate.STATE_PAUSED)
+            {
+                pBoxImageStatus.Image = RPGMasterTools.Properties.Resources.ico_pause;
+                this.BackColor = SystemColors.Control;
+            }
+        }
+
+        private void ViewSoundRightMusicPlate_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this._controller.jumpToMusic(this._music);
+        }
+
+        private void lblMscName_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this._controller.jumpToMusic(this._music);
         }
 
         // == EVENTS
