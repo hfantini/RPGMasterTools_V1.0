@@ -115,24 +115,51 @@ namespace RPGMasterTools.Source.Controller.Sound
 
                     descriptor = (JObject) serializer.Deserialize( new JsonTextReader(sReader) );
 
-                    // SEARCH AUDIO FILES IN THE DIRECTORY
-
-                    string[] files = Directory.GetFiles(path, "*.mp3");
-                    JArray fileArray = new JArray();
-
-                    foreach( String file in files )
+                    if (fileType != "PRESET")
                     {
-                        FileInfo fInfo = new FileInfo(file);
+                        // SEARCH AUDIO FILES IN THE DIRECTORY
 
-                        JObject jsonFileInfo = new JObject();
-                        jsonFileInfo.Add("NAME", fInfo.Name);
-                        jsonFileInfo.Add("TYPE", fileType);
-                        jsonFileInfo.Add("PATH", path);
+                        string[] files = Directory.GetFiles(path, "*.mp3");
+                        JArray fileArray = new JArray();
 
-                        fileArray.Add(jsonFileInfo);
+                        foreach (String file in files)
+                        {
+                            FileInfo fInfo = new FileInfo(file);
+
+                            JObject jsonFileInfo = new JObject();
+                            jsonFileInfo.Add("NAME", fInfo.Name);
+                            jsonFileInfo.Add("TYPE", fileType);
+                            jsonFileInfo.Add("PATH", path);
+
+                            fileArray.Add(jsonFileInfo);
+                        }
+
+                        descriptor.Add("FILES", fileArray);
                     }
+                    else
+                    {
+                        // SEARCH FOR PRESET FILES IN THE DIRECTORY
 
-                    descriptor.Add("FILES", fileArray);
+                        string[] files = Directory.GetFiles(path, "*.json");
+                        JArray fileArray = new JArray();
+
+                        foreach (String file in files)
+                        {
+                            FileInfo fInfo = new FileInfo(file);
+
+                            if (fInfo.Name != "descriptor.json")
+                            {
+                                JObject jsonFileInfo = new JObject();
+                                jsonFileInfo.Add("NAME", fInfo.Name);
+                                jsonFileInfo.Add("TYPE", fileType);
+                                jsonFileInfo.Add("PATH", path);
+
+                                fileArray.Add(jsonFileInfo);
+                            }
+                        }
+
+                        descriptor.Add("FILES", fileArray);
+                    }
 
                     // SCANING SUBFOLDERS
 
@@ -171,6 +198,9 @@ namespace RPGMasterTools.Source.Controller.Sound
 
             // SCANING FOR SOUNDFX
             loadResult.Add( scanDirectory(UFileIO.getAssetFolderPath() + "\\soundfx", "SOUNDFX") );
+
+            // SCANING FOR PRESETS
+            loadResult.Add(scanDirectory(UFileIO.getAssetFolderPath() + "\\preset", "PRESET"));
 
             ((SoundController)this.parentController).assetsFromTheDisk = loadResult;
         }

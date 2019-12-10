@@ -70,15 +70,10 @@ namespace RPGMasterTools.Source.View.Sound
         // == DESTRUCTOR
         // ==============================================================
 
-        ~ViewSoundRightFXPlayer()
-        {
-            this._timer.Enabled = false;
-            this._timer.Dispose();
-        }
-
         public ViewSoundRightFXPlayer(GenericController parentController, SoundFX sfx)
         {
             InitializeComponent();
+            Disposed += onDispose;
 
             // INITIALIZE VALUES
             this._controller = new SoundRightFXPlayerController(this, parentController, sfx);
@@ -92,6 +87,7 @@ namespace RPGMasterTools.Source.View.Sound
             // CONFIGURE COMPONENTS
             this.lblSFXName.Text = sfx.name;
             this.tBarVolume.Value = (sfx.volume / 10);
+            this.lblVolume.Text = sfx.volume + "%";
         }
 
         // == METHODS
@@ -151,12 +147,22 @@ namespace RPGMasterTools.Source.View.Sound
         private void tBarVolume_Scroll(object sender, EventArgs e)
         {
             int value = tBarVolume.Value * 10;
+            lblVolume.Text = value + "%";
             this._controller.volume = value;
         }
 
         private void lblSFXName_DoubleClick(object sender, EventArgs e)
         {
             this._controller.currentState = EnumStateSoundRightFXPlayer.STATE_PLAY;
+        }
+
+        private void onDispose(object sender, EventArgs e)
+        {
+            this._timer.Enabled = false;
+            this._timer.Dispose();
+
+            this._controller.Dispose();
+            this._controller = null;
         }
 
         // == GETTERS AND SETTERS

@@ -71,6 +71,7 @@ namespace RPGMasterTools.Source.View.Sound
         public ViewSoundRightMusic(GenericController parentController)
         {
             InitializeComponent();
+            Disposed += onDispose;
 
             // CONFIGURE CONTROLLER
 
@@ -94,6 +95,10 @@ namespace RPGMasterTools.Source.View.Sound
                 updateMusicList();
             }
             else if (currentState == EnumStateSoundRightMusic.STATE_UPDATE_LIST_RECREATE)
+            {
+                recreateMusicList();
+            }
+            else if (currentState == EnumStateSoundRightMusic.STATE_PRESET_LOADED)
             {
                 recreateMusicList();
             }
@@ -171,8 +176,19 @@ namespace RPGMasterTools.Source.View.Sound
             }
         }
 
+        private void ViewSoundRightMusic_Load(object sender, EventArgs e)
+        {
+            this._controller.currentState = EnumStateSoundRightMusic.STATE_IDLE;
+        }
+
         // == EVENTS
         // ==============================================================
+
+        public void onDispose(object sender, EventArgs args)
+        {
+            this._controller.Dispose();
+            this._controller = null;
+        }
 
         // == GETTERS AND SETTERS
         // ==============================================================

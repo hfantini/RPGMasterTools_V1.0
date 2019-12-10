@@ -29,6 +29,7 @@
 
 using RPGMasterTools.Source.Enumeration.State;
 using RPGMasterTools.Source.Interface;
+using RPGMasterTools.Source.Model.Sound;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,6 +67,14 @@ namespace RPGMasterTools.Source.Controller.Sound
         {
             base.update();
 
+            if(this.currentState == EnumStateSoundRightFX.STATE_PRESET_LOADED)
+            {
+                PresetSoundFX preset = ((SoundController)this.parentController.parentController).currentPreset.sfxPreset;
+                this._masterVolumeFX = preset.masterVolume;
+
+                this.currentState = EnumStateSoundRightFX.STATE_MASTER_VOLUME_CHANGED;
+            }
+
             this.currentState = EnumStateSoundRightFX.STATE_IDLE;
         }
 
@@ -86,6 +95,10 @@ namespace RPGMasterTools.Source.Controller.Sound
                 {
                     this.currentState = EnumStateSoundRightFX.STATE_UPDATE_LIST_REMOVE;
                 }
+                else if (controller.currentState == EnumStateSound.STATE_PRESET_LOADED)
+                {
+                    this.currentState = EnumStateSoundRightFX.STATE_PRESET_LOADED;
+                }
                 else
                 {
                     base.onParentStateChange(parentController);
@@ -105,11 +118,20 @@ namespace RPGMasterTools.Source.Controller.Sound
             get { return this._masterVolumeFX; }
             set
             {
-                if(value >= 0 && value <= 100)
+                if(value < 0)
+                {
+                    this._masterVolumeFX = 0;
+                }
+                else if(value > 100)
+                {
+                    this._masterVolumeFX = 100;
+                }
+                else
                 {
                     this._masterVolumeFX = value;
-                    this.currentState = EnumStateSoundRightFX.STATE_MASTER_VOLUME_CHANGED;
                 }
+
+                this.currentState = EnumStateSoundRightFX.STATE_MASTER_VOLUME_CHANGED;
             }
         }
     }

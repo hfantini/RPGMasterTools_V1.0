@@ -42,7 +42,7 @@ namespace RPGMasterTools.Source.Controller
     // == CLASS
     // ==============================================================
 
-    public abstract class GenericController
+    public abstract class GenericController : IDisposable
     {
         // -- CONST -----------------------------------------------------
 
@@ -80,6 +80,11 @@ namespace RPGMasterTools.Source.Controller
             {
                 this._children.Remove(controller);
             }
+        }
+
+        public virtual void Dispose()
+        {
+            
         }
 
         // == EVENTS

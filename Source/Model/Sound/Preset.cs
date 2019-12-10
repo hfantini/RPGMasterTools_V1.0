@@ -14,11 +14,11 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [Ambience.cs]
+    |	Name: [Preset.cs]
     |	Type: [MODEL]
     |	Author: Henrique Fantini
     |	
-    |	Description: Represents an ambience in the system.
+    |	Description: Define a preset for sound configuration.
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
@@ -27,30 +27,25 @@
 // == IMPORTS
 // ==================================================================
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 // == NAMESPACE
 // ==================================================================
+
+using System.Collections.Generic;
 
 namespace RPGMasterTools.Source.Model.Sound
 {
     // == CLASS
     // ==============================================================
 
-    public class Ambience
+    public class Preset
     {
         // -- CONST -----------------------------------------------------
 
         // -- VAR -------------------------------------------------------
-        private string _name;
-        private string _path;
-        private string _type;
-        private bool _autoPlay = false;
-        private int _volume = 100;
+
+        private PresetMusic _musicPreset = new PresetMusic();
+        private PresetAmbience _ambiencePreset = new PresetAmbience();
+        private PresetSoundFX _sfxPreset = new PresetSoundFX();
 
         // == CONSTRUCTOR(S)
         // ==============================================================
@@ -64,48 +59,22 @@ namespace RPGMasterTools.Source.Model.Sound
         // == GETTERS AND SETTERS
         // ==============================================================
 
-        public string name
+        public PresetMusic musicPreset
         {
-            get { return _name; }
-            set { this._name = value; }
+            get { return this._musicPreset; }
+            set { this._musicPreset = value; }
         }
 
-        public string path
+        public PresetAmbience ambiencePreset
         {
-            get { return _path; }
-            set { this._path = value; }
+            get { return this._ambiencePreset; }
+            set { this._ambiencePreset = value; }
         }
 
-        public string type
+        public PresetSoundFX sfxPreset
         {
-            get { return _type; }
-            set { this._type = value; }
-        }
-
-        public bool autoPlay
-        {
-            get { return _autoPlay; }
-            set { this._autoPlay = value; }
-        }
-
-        public int volume
-        {
-            get { return _volume; }
-            set
-            {
-                if (volume < 0)
-                {
-                    volume = 0;
-                }
-                else if (volume > 100)
-                {
-                    volume = 100;
-                }
-                else
-                {
-                    this._volume = value;
-                }
-            }
+            get { return this._sfxPreset; }
+            set { this._sfxPreset = value; }
         }
     }
 }

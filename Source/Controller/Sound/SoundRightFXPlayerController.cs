@@ -66,6 +66,9 @@ namespace RPGMasterTools.Source.Controller.Sound
             this._sfxPlayer.URL = sfx.path + "\\" + sfx.name;
         }
 
+        // == DESTRUCTOR
+        // ==============================================================
+
         // == METHODS
         // ==============================================================
 
@@ -156,6 +159,14 @@ namespace RPGMasterTools.Source.Controller.Sound
             }
 
             this._sfxPlayer.settings.volume = finalVolume;
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+
+            this._sfxPlayer.controls.stop();
+            this._sfxPlayer.close();
         }
 
         // == EVENTS

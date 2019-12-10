@@ -47,6 +47,8 @@ namespace RPGMasterTools.Source.Enumeration.State
         STATE_PAUSE,
         STATE_VOLUME_CHANGE,
         STATE_UPDATE_LIST_ADD,
+        STATE_UPDATE_LIST_REMOVE,
         STATE_UPDATE_LIST_RECREATE,
+        STATE_PRESET_LOADED,
     }
 }

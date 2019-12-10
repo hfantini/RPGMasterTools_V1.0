@@ -260,6 +260,10 @@ namespace RPGMasterTools.Source.View.Sound
                 {
                     ((SoundController)this._controller.parentController).addSFXToPlaylist(((JObject)node.Tag));
                 }
+                else if (type == "PRESET")
+                {
+                    ((SoundController)this._controller.parentController).loadPresetFromFile( ( (JObject) node.Tag) );
+                }
             }
         }
 

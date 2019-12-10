@@ -147,7 +147,7 @@ namespace RPGMasterTools.Source.View.Sound
                     this._timer.Enabled = false;
                     lblDisplayTiming.Text = DEFAULT_DISPLAY_TIMER;
                 }
-                else if (state == EnumStateSoundRightMusic.STATE_OPTION_UPDATE)
+                else if (state == EnumStateSoundRightMusic.STATE_OPTION_UPDATE || state == EnumStateSoundRightMusic.STATE_PRESET_LOADED) 
                 {
                     // REPEAT
 
@@ -170,6 +170,11 @@ namespace RPGMasterTools.Source.View.Sound
                     {
                         btnRandom.BackColor = SystemColors.Control;
                     }
+
+                    // VOLUME
+                    lblVolume.Text = pController.volume + "%";
+                    int vValue = pController.volume / 10;
+                    tbrVolume.Value = vValue;
                 }
                 else if (state == EnumStateSoundRightMusic.STATE_MEDIA_END)
                 {
@@ -179,10 +184,6 @@ namespace RPGMasterTools.Source.View.Sound
                 {
                     this._timer.Enabled = false;
                 }
-
-                // RETURNS TO IDLE STATE
-
-                this._controller.currentState = EnumStateSoundRightMusicPlayer.STATE_IDLE;
             }
         }
 
@@ -191,25 +192,32 @@ namespace RPGMasterTools.Source.View.Sound
 
         private void OnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
         {
-            SoundRightMusicController controller = ((SoundRightMusicController)this._controller.parentController);
-
-            string currentTime = controller.currentMusicPositionTime;
-            string totalTime = controller.totalMusicTime;
-            WMPLib.WMPPlayState pState = controller.wmpIsPlaying;
-
-            if (pState == WMPLib.WMPPlayState.wmppsPlaying)
+            try
             {
-                lblDisplayTiming.Invoke(new Action(() =>
+                SoundRightMusicController controller = ((SoundRightMusicController)this._controller.parentController);
+
+                string currentTime = controller.currentMusicPositionTime;
+                string totalTime = controller.totalMusicTime;
+                WMPLib.WMPPlayState pState = controller.wmpIsPlaying;
+
+                if (pState == WMPLib.WMPPlayState.wmppsPlaying)
                 {
-                    lblDisplayTiming.Text = $"[{currentTime} / {totalTime}]";
-                }));
+                    lblDisplayTiming.Invoke(new Action(() =>
+                    {
+                        lblDisplayTiming.Text = $"[{currentTime} / {totalTime}]";
+                    }));
+                }
+                else if (pState == WMPLib.WMPPlayState.wmppsStopped)
+                {
+                    this.Invoke(new Action(() =>
+                  {
+                      controller.currentState = EnumStateSoundRightMusic.STATE_MEDIA_END;
+                  }));
+                }
             }
-            else if (pState == WMPLib.WMPPlayState.wmppsStopped)
+            catch(Exception ex)
             {
-                this.Invoke( new Action( () =>
-                {
-                    controller.currentState = EnumStateSoundRightMusic.STATE_MEDIA_END;
-                }) );
+                ULog.writeLog(ex.Message);
             }
         }
 
@@ -258,6 +266,8 @@ namespace RPGMasterTools.Source.View.Sound
             {
                 controller.repeat = true;
             }
+
+            controller.currentState = EnumStateSoundRightMusic.STATE_OPTION_UPDATE;
         }
 
         private void btnRandom_Click(object sender, EventArgs e)
@@ -272,6 +282,8 @@ namespace RPGMasterTools.Source.View.Sound
             {
                 controller.random = true;
             }
+
+            controller.currentState = EnumStateSoundRightMusic.STATE_OPTION_UPDATE;
         }
 
         private void tbrVolume_Scroll(object sender, EventArgs e)

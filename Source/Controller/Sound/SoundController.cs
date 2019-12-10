@@ -33,8 +33,10 @@ using Newtonsoft.Json.Linq;
 using RPGMasterTools.Source.Enumeration.State;
 using RPGMasterTools.Source.Interface;
 using RPGMasterTools.Source.Model.Sound;
+using RPGMasterTools.Source.Util;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -63,6 +65,8 @@ namespace RPGMasterTools.Source.Controller.Sound
         private List<Ambience> _ambienceLastChange = null;
         private List<SoundFX> _sfxPlaylist = null;
         private List<SoundFX> _sfxLastChange = null;
+
+        private Preset _currentPreset = null;
 
         // == CONSTRUCTOR(S)
         // ==============================================================
@@ -144,6 +148,24 @@ namespace RPGMasterTools.Source.Controller.Sound
             }
         }
 
+        public void loadPresetFromFile( JObject jPreset )
+        {
+            String presetPath = jPreset.Value<String>("PATH") + "\\" + jPreset.Value<String>("NAME");
+
+            StreamReader sReader = new StreamReader(presetPath);
+            JObject obj = (JObject) this._jSerializer.Deserialize(new JsonTextReader(sReader));
+            sReader.Close();
+
+            Preset presetFromFile = this._jSerializer.Deserialize<Preset>(obj.CreateReader() );
+            this._currentPreset = presetFromFile;
+
+            this._musicPlaylist = this._currentPreset.musicPreset.musicList;
+            this._ambiencePlaylist = this._currentPreset.ambiencePreset.ambienceList;
+            this._sfxPlaylist = this._currentPreset.sfxPreset.sfxList;
+
+            this.currentState = EnumStateSound.STATE_PRESET_LOADED;
+        }
+
         protected override void update()
         {
             base.update();
@@ -191,6 +213,11 @@ namespace RPGMasterTools.Source.Controller.Sound
         public List<SoundFX> soundFXLastChange
         {
             get { return this._sfxLastChange; }
+        }
+
+        public Preset currentPreset
+        {
+            get { return this._currentPreset; }
         }
     }
 }

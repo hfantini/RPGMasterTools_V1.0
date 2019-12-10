@@ -30,6 +30,7 @@
 
 using RPGMasterTools.Source.Enumeration.State;
 using RPGMasterTools.Source.Interface;
+using RPGMasterTools.Source.Model.Sound;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -67,6 +68,13 @@ namespace RPGMasterTools.Source.Controller.Sound
         {
             base.update();
 
+            if(this.currentState == EnumStateSoundRightAmbience.STATE_PRESET_LOADED)
+            {
+                PresetAmbience preset = ( (SoundController) this.parentController.parentController).currentPreset.ambiencePreset;
+                this.masterVolume = preset.masterVolume;
+                this.currentState = EnumStateSoundRightAmbience.STATE_VOLUME_CHANGE;
+            }
+
             this.currentState = EnumStateSoundRightAmbience.STATE_IDLE;
         }
 
@@ -83,9 +91,13 @@ namespace RPGMasterTools.Source.Controller.Sound
                 {
                     this.currentState = EnumStateSoundRightAmbience.STATE_UPDATE_LIST_ADD;
                 }
-                if (controller.currentState == EnumStateSound.STATE_AMBIENCE_LIST_REMOVED)
+                else if (controller.currentState == EnumStateSound.STATE_AMBIENCE_LIST_REMOVED)
                 {
-                    this.currentState = EnumStateSoundRightAmbience.STATE_UPDATE_LIST_RECREATE;
+                    this.currentState = EnumStateSoundRightAmbience.STATE_UPDATE_LIST_REMOVE;
+                }
+                else if (controller.currentState == EnumStateSound.STATE_PRESET_LOADED)
+                {
+                    this.currentState = EnumStateSoundRightAmbience.STATE_PRESET_LOADED;
                 }
                 else
                 {

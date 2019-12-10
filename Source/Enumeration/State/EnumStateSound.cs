@@ -47,6 +47,7 @@ namespace RPGMasterTools.Source.Enumeration.State
         STATE_AMBIENCE_LIST_ADDED,
         STATE_AMBIENCE_LIST_REMOVED,
         STATE_SFX_LIST_ADDED,
-        STATE_SFX_LIST_REMOVED
+        STATE_SFX_LIST_REMOVED,
+        STATE_PRESET_LOADED
     }
 }

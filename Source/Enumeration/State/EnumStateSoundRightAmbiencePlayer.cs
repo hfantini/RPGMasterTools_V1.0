@@ -48,6 +48,7 @@ namespace RPGMasterTools.Source.Enumeration.State
         STATE_PAUSE,
         STATE_PAUSED,
         STATE_MEDIA_END,
-        STATE_REMOVE
+        STATE_REMOVE,
+        STATE_PRESET_LOADED
     }
 }

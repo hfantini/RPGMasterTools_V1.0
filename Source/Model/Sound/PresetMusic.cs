@@ -14,11 +14,11 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [Ambience.cs]
+    |	Name: [PresetMusic.cs]
     |	Type: [MODEL]
     |	Author: Henrique Fantini
     |	
-    |	Description: Represents an ambience in the system.
+    |	Description: -
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
@@ -27,30 +27,27 @@
 // == IMPORTS
 // ==================================================================
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 // == NAMESPACE
 // ==================================================================
+
+using System.Collections.Generic;
 
 namespace RPGMasterTools.Source.Model.Sound
 {
     // == CLASS
     // ==============================================================
 
-    public class Ambience
+    public class PresetMusic
     {
         // -- CONST -----------------------------------------------------
 
         // -- VAR -------------------------------------------------------
-        private string _name;
-        private string _path;
-        private string _type;
+
+        private int _masterVolume = 100;
+        private bool _repeat = false;
+        private bool _random = false;
         private bool _autoPlay = false;
-        private int _volume = 100;
+        private List<Music> _musicList = new List<Music>();
 
         // == CONSTRUCTOR(S)
         // ==============================================================
@@ -64,48 +61,34 @@ namespace RPGMasterTools.Source.Model.Sound
         // == GETTERS AND SETTERS
         // ==============================================================
 
-        public string name
+        public int masterVolume
         {
-            get { return _name; }
-            set { this._name = value; }
+            get { return this._masterVolume; }
+            set { this._masterVolume = value; }
         }
 
-        public string path
+        public bool repeat
         {
-            get { return _path; }
-            set { this._path = value; }
+            get { return this._repeat; }
+            set { this._repeat = value; }
         }
 
-        public string type
+        public bool random
         {
-            get { return _type; }
-            set { this._type = value; }
+            get { return this._random; }
+            set { this._random = value; }
         }
 
         public bool autoPlay
         {
-            get { return _autoPlay; }
+            get { return this._autoPlay; }
             set { this._autoPlay = value; }
         }
 
-        public int volume
+        public List<Music> musicList
         {
-            get { return _volume; }
-            set
-            {
-                if (volume < 0)
-                {
-                    volume = 0;
-                }
-                else if (volume > 100)
-                {
-                    volume = 100;
-                }
-                else
-                {
-                    this._volume = value;
-                }
-            }
+            get { return this._musicList; }
+            set { this._musicList = value; }
         }
     }
 }

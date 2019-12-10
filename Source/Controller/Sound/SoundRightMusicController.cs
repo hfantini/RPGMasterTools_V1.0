@@ -77,6 +77,9 @@ namespace RPGMasterTools.Source.Controller.Sound
             this._pastPlayedMusicIndex = new List<Music>();
         }
 
+        // == DESTRUCTOR
+        // ==============================================================
+
         // == METHODS
         // ==============================================================
 
@@ -107,7 +110,7 @@ namespace RPGMasterTools.Source.Controller.Sound
             }
             else if (nextState == EnumStateSoundRightMusic.STATE_STOP)
             {
-                if (currentState != EnumStateSoundRightMusic.STATE_PLAYING)
+                if (currentState != EnumStateSoundRightMusic.STATE_PLAYING && currentState != EnumStateSoundRightMusic.STATE_PRESET_LOADED)
                 {
                     retValue = false;
                 }
@@ -205,6 +208,26 @@ namespace RPGMasterTools.Source.Controller.Sound
             else if(this.currentState == EnumStateSoundRightMusic.STATE_MEDIA_END)
             {
                 onMediaPlayFinish();
+            }
+            else if (this.currentState == EnumStateSoundRightMusic.STATE_PRESET_LOADED)
+            {
+                PresetMusic preset = ((SoundController)this.parentController.parentController).currentPreset.musicPreset;
+
+                if (this.lastState == EnumStateSoundRightMusic.STATE_PLAYING)
+                {
+                    this.currentState = EnumStateSoundRightMusic.STATE_STOP;
+                }
+                else
+                {
+                    this.currentState = EnumStateSoundRightMusic.STATE_IDLE;
+                }
+
+                // AUTO-PLAY
+
+                if (preset.autoPlay)
+                {
+                    this.currentState = EnumStateSoundRightMusic.STATE_PLAY;
+                }
             }
         }
 
@@ -360,9 +383,9 @@ namespace RPGMasterTools.Source.Controller.Sound
                 {
                     int currentMusicIndex = currentMusicList.IndexOf(this._currentMusic);
 
-                    if (currentMusicIndex != (currentMusicList.Count - 1))
+                    if (currentMusicIndex < (currentMusicList.Count - 1))
                     {
-                        this._currentMusic = currentMusicList[currentMusicIndex];
+                        this._currentMusic = currentMusicList[++currentMusicIndex];
                     }
                     else
                     {
@@ -374,6 +397,14 @@ namespace RPGMasterTools.Source.Controller.Sound
                     this._currentMusic = currentMusicList[0];
                 }
             }
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+
+            this._mPlayer.controls.stop();
+            this._mPlayer.close();
         }
 
         // == EVENTS
@@ -393,6 +424,14 @@ namespace RPGMasterTools.Source.Controller.Sound
                 {
                     this.currentState = EnumStateSoundRightMusic.STATE_UPDATE_LIST_RECREATE;
                 }
+                else if (pController.currentState == EnumStateSound.STATE_PRESET_LOADED)
+                {
+                    this.currentState = EnumStateSoundRightMusic.STATE_PRESET_LOADED;
+                }
+                else
+                {
+                    base.onParentStateChange(parentController);
+                }
             }
             else
             {
@@ -404,12 +443,18 @@ namespace RPGMasterTools.Source.Controller.Sound
         {
             if(repeat)
             {
-                currentState = EnumStateSoundRightMusic.STATE_PLAY;
+                this.currentState = EnumStateSoundRightMusic.STATE_PLAY;
             }
             else
             {
-                currentState = EnumStateSoundRightMusic.STATE_NEXT;
+                this.currentState = EnumStateSoundRightMusic.STATE_NEXT;
             }
+        }
+
+        private void onPresetLoad()
+        {
+            this.currentState = EnumStateSoundRightMusic.STATE_STOP;
+            Preset preset = ( (SoundController) this.parentController.parentController).currentPreset;
         }
 
         // == GETTERS AND SETTERS
@@ -426,7 +471,6 @@ namespace RPGMasterTools.Source.Controller.Sound
             set
             {
                 this._repeat = value;
-                this.currentState = EnumStateSoundRightMusic.STATE_OPTION_UPDATE;
             }
         }
 
@@ -436,7 +480,6 @@ namespace RPGMasterTools.Source.Controller.Sound
             set
             {
                 this._random = value;
-                this.currentState = EnumStateSoundRightMusic.STATE_OPTION_UPDATE;
             }
         }
 

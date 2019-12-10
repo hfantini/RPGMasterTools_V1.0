@@ -41,6 +41,7 @@ using RPGMasterTools.Source.Enumeration.State;
 using RPGMasterTools.Source.Controller;
 using RPGMasterTools.Source.Controller.Sound;
 using RPGMasterTools.Source.Model.Sound;
+using RPGMasterTools.Source.Util;
 
 // == NAMESPACE
 // ==================================================================
@@ -91,6 +92,15 @@ namespace RPGMasterTools.Source.View.Sound
             {
 
             }
+            else if (currentState == EnumStateSoundRightFX.STATE_PRESET_LOADED)
+            {
+                this.recreateListOfSoundFX();
+            }
+            else if (currentState == EnumStateSoundRightFX.STATE_MASTER_VOLUME_CHANGED)
+            {
+                lblVolume.Text = this._controller.masterVolumeFX + "%";
+                tBarMasterVolume.Value = this._controller.masterVolumeFX / 10;
+            }
         }
 
         private void updateListOfSoundFX()
@@ -111,9 +121,28 @@ namespace RPGMasterTools.Source.View.Sound
             lastChangeList.Clear();
         }
 
+        private void recreateListOfSoundFX()
+        {
+            UComponent.removeAllChildren(this.fLayoutSFX);
+
+            SoundController controller = ((SoundController)this._controller.parentController.parentController);
+            List<SoundFX> sfxPlaylist = controller.soundFXPlaylist;
+
+            for (int count = 0; count < sfxPlaylist.Count; count++)
+            {
+                SoundFX sfx = sfxPlaylist[count];
+
+                ViewSoundRightFXPlayer aPlayer = new ViewSoundRightFXPlayer(this._controller, sfx);
+                aPlayer.Width = fLayoutSFX.Width;
+
+                fLayoutSFX.Controls.Add(aPlayer);
+            }
+        }
+
         private void tBarMasterVolume_Scroll(object sender, EventArgs e)
         {
             int value = tBarMasterVolume.Value * 10;
+            this.lblVolume.Text = value + "%";
             this._controller.masterVolumeFX = value;
         }
 

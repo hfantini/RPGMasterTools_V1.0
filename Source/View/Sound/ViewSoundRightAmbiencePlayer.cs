@@ -42,6 +42,7 @@ using RPGMasterTools.Source.Controller;
 using RPGMasterTools.Source.Controller.Sound;
 using RPGMasterTools.Source.Model.Sound;
 using WMPLib;
+using RPGMasterTools.Source.Util;
 
 // == NAMESPACE
 // ==================================================================
@@ -72,17 +73,14 @@ namespace RPGMasterTools.Source.View.Sound
 
         // == DESTRUCTOR
         // ==============================================================
-        ~ViewSoundRightAmbiencePlayer()
-        {
-            this._timer.Enabled = false;
-            this._timer.Dispose();
-        }
 
         public ViewSoundRightAmbiencePlayer(GenericController parentController, Ambience ambience)
         {
             InitializeComponent();
+            Disposed += onDispose;
 
             // INITIALIZING VALUES
+
             this._timer = new System.Timers.Timer();
             this._timer.Interval = 250;
             this._timer.Elapsed += OnTimedEvent;
@@ -95,6 +93,8 @@ namespace RPGMasterTools.Source.View.Sound
 
             lblDisplayInfo.Text = ambience.name;
             lblDisplayTiming.Text = $"[00:00 / {this._controller.totalMusicTime}]";
+            tbrVolume.Value = (this._controller.volume / 10);
+            lblVolume.Text = this._controller.volume + "%";
         }
 
         // == METHODS
@@ -158,23 +158,30 @@ namespace RPGMasterTools.Source.View.Sound
 
         private void OnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
         {
-            string currentTime = this._controller.currentMusicPositionTime;
-            string totalTime = this._controller.totalMusicTime;
-            WMPLib.WMPPlayState pState = this._controller.wmpIsPlaying;
+            try
+            {
+                string currentTime = this._controller.currentMusicPositionTime;
+                string totalTime = this._controller.totalMusicTime;
+                WMPLib.WMPPlayState pState = this._controller.wmpIsPlaying;
 
-            if (pState == WMPLib.WMPPlayState.wmppsPlaying)
-            {
-                lblDisplayTiming.Invoke(new Action(() =>
+                if (pState == WMPLib.WMPPlayState.wmppsPlaying)
                 {
-                    lblDisplayTiming.Text = $"[{currentTime} / {totalTime}]";
-                }));
+                    lblDisplayTiming.Invoke(new Action(() =>
+                    {
+                        lblDisplayTiming.Text = $"[{currentTime} / {totalTime}]";
+                    }));
+                }
+                else if (pState == WMPLib.WMPPlayState.wmppsStopped)
+                {
+                    this.Invoke(new Action(() =>
+                    {
+                        this._controller.currentState = EnumStateSoundRightAmbiencePlayer.STATE_MEDIA_END;
+                    }));
+                }
             }
-            else if (pState == WMPLib.WMPPlayState.wmppsStopped)
+            catch(Exception ex)
             {
-                this.Invoke(new Action(() =>
-                {
-                    this._controller.currentState = EnumStateSoundRightAmbiencePlayer.STATE_MEDIA_END;
-                }));
+                ULog.writeLog(ex.Message);
             }
         }
 
@@ -191,6 +198,15 @@ namespace RPGMasterTools.Source.View.Sound
         {
             SoundController controller = (SoundController) this._controller.parentController.parentController.parentController;
             controller.removeAmbienceFromPlaylist(this._controller.currentAmbience);
+        }
+
+        private void onDispose(object sender, EventArgs e)
+        {
+            this._timer.Enabled = false;
+            this._timer.Dispose();
+
+            this._controller.Dispose();
+            this._controller = null;
         }
 
         // == GETTERS AND SETTERS

@@ -55,5 +55,6 @@ namespace RPGMasterTools.Source.Enumeration.State
         STATE_NEXT,
         STATE_BACK,
         STATE_OPTION_UPDATE,
+        STATE_PRESET_LOADED
     }
 }

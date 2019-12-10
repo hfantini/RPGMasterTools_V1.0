@@ -53,8 +53,6 @@ namespace RPGMasterTools.Source.Controller.Sound
         // -- VAR -------------------------------------------------------
 
         private WindowsMediaPlayer _mPlayer;
-        private int _maxVolume = 100;
-        private int _volume = 100;
         private int _finalVolume = 100;
         private Ambience _currentAmbience = null;
 
@@ -72,17 +70,7 @@ namespace RPGMasterTools.Source.Controller.Sound
             this._mPlayer.URL = ambience.path + "\\" + ambience.name;
 
             // VOLUME
-            this._maxVolume = ( (SoundRightAmbienceController) parentController ).masterVolume;
             updateVolume();
-        }
-
-        // == DESTRUCTOR
-        // ==============================================================
-
-        ~SoundRightAmbiencePlayerController()
-        {
-            this._mPlayer.controls.stop();
-            this._mPlayer.close();
         }
 
         // == METHODS
@@ -161,7 +149,6 @@ namespace RPGMasterTools.Source.Controller.Sound
             }
             else if (currentState == EnumStateSoundRightAmbiencePlayer.STATE_REMOVE)
             {
-                // SOUND LOOP
                 this._mPlayer.controls.stop();
                 this._mPlayer.close();
             }
@@ -187,16 +174,26 @@ namespace RPGMasterTools.Source.Controller.Sound
 
         private void updateVolume()
         {
-            if (this._volume > this._maxVolume)
+            int masterVolume = ( (SoundRightAmbienceController) this.parentController).masterVolume;
+
+            if (this.currentAmbience.volume > masterVolume)
             {
-                this._finalVolume = this._maxVolume;
+                this._finalVolume = masterVolume;
             }
             else
             {
-                this._finalVolume = this._volume;
+                this._finalVolume = this.currentAmbience.volume;
             }
 
             this._mPlayer.settings.volume = this._finalVolume;
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+
+            this.currentState = EnumStateSoundRightAmbiencePlayer.STATE_STOP;
+            this._mPlayer.close();
         }
 
         // == EVENTS
@@ -210,7 +207,6 @@ namespace RPGMasterTools.Source.Controller.Sound
 
                 if (controller.currentState == EnumStateSoundRightAmbience.STATE_VOLUME_CHANGE)
                 {
-                    this._maxVolume = ( (SoundRightAmbienceController) parentController).masterVolume;
                     this.updateVolume();
                 }
                 else if (controller.currentState == EnumStateSoundRightAmbience.STATE_PLAY)
@@ -224,6 +220,10 @@ namespace RPGMasterTools.Source.Controller.Sound
                 else if (controller.currentState == EnumStateSoundRightAmbience.STATE_PAUSE)
                 {
                     this.currentState = EnumStateSoundRightAmbiencePlayer.STATE_PAUSE;
+                }
+                else
+                {
+                    base.onParentStateChange(parentController);
                 }
             }
             else
@@ -262,14 +262,11 @@ namespace RPGMasterTools.Source.Controller.Sound
 
         public int volume
         {
-            get { return this._volume; }
+            get { return this.currentAmbience.volume; }
             set
             {
-                if (value >= 0 && value <= 100)
-                {
-                    this._volume = value;
-                    this.updateVolume();
-                }
+                this.currentAmbience.volume = value;
+                this.updateVolume();
             }
         }
 

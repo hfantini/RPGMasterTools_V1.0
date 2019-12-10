@@ -86,12 +86,20 @@ namespace RPGMasterTools.Source.View.Sound
             {
                 updateAmbienceList();
             }
-            else if (currentState == EnumStateSoundRightAmbience.STATE_UPDATE_LIST_RECREATE)
+            else if (currentState == EnumStateSoundRightAmbience.STATE_UPDATE_LIST_REMOVE)
             {
                 updateRemoveAmbienceList();
             }
-
-            this._controller.currentState = EnumStateSoundRightAmbience.STATE_IDLE;
+            else if (currentState == EnumStateSoundRightAmbience.STATE_PRESET_LOADED)
+            {
+                recreateAmbienceList();
+            }
+            else if(currentState == EnumStateSoundRightAmbience.STATE_VOLUME_CHANGE)
+            {
+                //UPDATE VOLUME CONTROL
+                tBarMasterVolume.Value = (this._controller.masterVolume / 10);
+                lblVolume.Text = this._controller.masterVolume + "%";
+            }
         }
 
 
@@ -137,10 +145,29 @@ namespace RPGMasterTools.Source.View.Sound
             }
         }
 
+        private void recreateAmbienceList()
+        {
+            UComponent.removeAllChildren(this.fLayoutAmbience);
+
+            SoundController controller = ((SoundController)this._controller.parentController.parentController);
+            List<Ambience> ambiencePlaylist = controller.ambiencePlaylist;
+
+            for (int count = 0; count < ambiencePlaylist.Count; count++)
+            {
+                Ambience ambience = ambiencePlaylist[count];
+
+                ViewSoundRightAmbiencePlayer aPlayer = new ViewSoundRightAmbiencePlayer(this._controller, ambience);
+                aPlayer.Width = fLayoutAmbience.Width;
+
+                fLayoutAmbience.Controls.Add(aPlayer);
+            }
+        }
+
         private void tBarMasterVolume_Scroll(object sender, EventArgs e)
         {
             lblVolume.Text = (tBarMasterVolume.Value * 10) + "%";
             this._controller.masterVolume = tBarMasterVolume.Value * 10;
+
             this._controller.currentState = EnumStateSoundRightAmbience.STATE_VOLUME_CHANGE;
         }
 

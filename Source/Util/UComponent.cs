@@ -110,7 +110,11 @@ namespace RPGMasterTools.Source.Util
 
         public static void removeAllChildren(Control control)
         {
-            control.Controls.Clear();
+
+            while(control.Controls.Count > 0)
+            {
+                control.Controls[0].Dispose();
+            }
         }
 
         // == EVENTS

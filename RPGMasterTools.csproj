@@ -37,6 +37,7 @@
   <PropertyGroup>
     <ApplicationIcon>sysicon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -93,9 +94,13 @@
     <Compile Include="Source\Model\Exception\EMasterToolsInvalidStateChangeException.cs" />
     <Compile Include="Source\Model\Exception\EMasterToolsException.cs" />
     <Compile Include="Source\Model\Language\MLanguage.cs" />
+    <Compile Include="Source\Model\Sound\PresetSoundFX.cs" />
+    <Compile Include="Source\Model\Sound\PresetAmbience.cs" />
+    <Compile Include="Source\Model\Sound\PresetMusic.cs" />
     <Compile Include="Source\Model\Sound\SoundFX.cs" />
     <Compile Include="Source\Model\Sound\Ambience.cs" />
     <Compile Include="Source\Model\Sound\Music.cs" />
+    <Compile Include="Source\Model\Sound\Preset.cs" />
     <Compile Include="Source\Util\UAsyncTask.cs" />
     <Compile Include="Source\Util\UComponent.cs" />
     <Compile Include="Source\Util\UExceptionHandler.cs" />

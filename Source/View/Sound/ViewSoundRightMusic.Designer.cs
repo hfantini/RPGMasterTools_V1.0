@@ -80,6 +80,7 @@
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "ViewSoundRightMusic";
             this.Size = new System.Drawing.Size(422, 654);
+            this.Load += new System.EventHandler(this.ViewSoundRightMusic_Load);
             this.tblSoundRightMusic.ResumeLayout(false);
             this.ResumeLayout(false);
 

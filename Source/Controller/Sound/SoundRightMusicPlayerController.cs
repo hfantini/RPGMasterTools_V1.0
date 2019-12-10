@@ -29,6 +29,7 @@
 
 using RPGMasterTools.Source.Enumeration.State;
 using RPGMasterTools.Source.Interface;
+using RPGMasterTools.Source.Model.Sound;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,16 +61,48 @@ namespace RPGMasterTools.Source.Controller.Sound
         // == METHODS
         // ==============================================================
 
+        protected override void update()
+        {
+            base.update();
+
+            if (this.currentState == EnumStateSoundRightMusicPlayer.STATE_PRESET_LOADED)
+            {
+                SoundRightMusicController controller = (SoundRightMusicController)this.parentController;
+                PresetMusic preset = ((SoundController)this.parentController.parentController.parentController).currentPreset.musicPreset;
+
+                controller.repeat = preset.repeat;
+                controller.random = preset.random;
+                controller.volume = preset.masterVolume;
+
+                this.currentState = EnumStateSoundRightMusicPlayer.STATE_UPDATE;
+            }
+            else if( this.currentState == EnumStateSoundRightMusicPlayer.STATE_UPDATE )
+            {
+                this.currentState = EnumStateSoundRightMusicPlayer.STATE_IDLE;
+            }
+        }
+
         // == EVENTS
         // ==============================================================
 
         protected override void onParentStateChange(GenericController parentController)
         {
-            if(parentController is SoundRightMusicController)
+            if (parentController is SoundRightMusicController)
             {
-                SoundRightMusicController controller = (SoundRightMusicController) parentController;
+                SoundRightMusicController controller = (SoundRightMusicController)parentController;
 
-                this.currentState = EnumStateSoundRightMusicPlayer.STATE_UPDATE;
+                if (controller.currentState == EnumStateSoundRightMusic.STATE_PRESET_LOADED)
+                {
+                    this.currentState = EnumStateSoundRightMusicPlayer.STATE_PRESET_LOADED;
+                }
+                else
+                {
+                    this.currentState = EnumStateSoundRightMusicPlayer.STATE_UPDATE;
+                }
+            }
+            else
+            {
+                base.onParentStateChange(parentController);
             }
         }
 

@@ -14,11 +14,11 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [Ambience.cs]
+    |	Name: [PresetSoundFX.cs]
     |	Type: [MODEL]
     |	Author: Henrique Fantini
     |	
-    |	Description: Represents an ambience in the system.
+    |	Description: -
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
@@ -27,30 +27,24 @@
 // == IMPORTS
 // ==================================================================
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 // == NAMESPACE
 // ==================================================================
+
+using System.Collections.Generic;
 
 namespace RPGMasterTools.Source.Model.Sound
 {
     // == CLASS
     // ==============================================================
 
-    public class Ambience
+    public class PresetSoundFX
     {
         // -- CONST -----------------------------------------------------
 
         // -- VAR -------------------------------------------------------
-        private string _name;
-        private string _path;
-        private string _type;
-        private bool _autoPlay = false;
-        private int _volume = 100;
+
+        private int _masterVolume = 100;
+        private List<SoundFX> _sfxList = new List<SoundFX>();
 
         // == CONSTRUCTOR(S)
         // ==============================================================
@@ -64,48 +58,16 @@ namespace RPGMasterTools.Source.Model.Sound
         // == GETTERS AND SETTERS
         // ==============================================================
 
-        public string name
+        public int masterVolume
         {
-            get { return _name; }
-            set { this._name = value; }
+            get { return this._masterVolume; }
+            set { this._masterVolume = value; }
         }
 
-        public string path
+        public List<SoundFX> sfxList
         {
-            get { return _path; }
-            set { this._path = value; }
-        }
-
-        public string type
-        {
-            get { return _type; }
-            set { this._type = value; }
-        }
-
-        public bool autoPlay
-        {
-            get { return _autoPlay; }
-            set { this._autoPlay = value; }
-        }
-
-        public int volume
-        {
-            get { return _volume; }
-            set
-            {
-                if (volume < 0)
-                {
-                    volume = 0;
-                }
-                else if (volume > 100)
-                {
-                    volume = 100;
-                }
-                else
-                {
-                    this._volume = value;
-                }
-            }
+            get { return this._sfxList; }
+            set { this._sfxList = value; }
         }
     }
 }
