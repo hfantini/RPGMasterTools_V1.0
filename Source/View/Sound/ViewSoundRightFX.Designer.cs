@@ -96,6 +96,7 @@
             this.tBarMasterVolume.Size = new System.Drawing.Size(313, 44);
             this.tBarMasterVolume.TabIndex = 1;
             this.tBarMasterVolume.Value = 10;
+            this.tBarMasterVolume.Scroll += new System.EventHandler(this.tBarMasterVolume_Scroll);
             // 
             // panel1
             // 

@@ -193,7 +193,7 @@ namespace RPGMasterTools.Source.Controller.Sound
             }
             else
             {
-                this._finalVolume = _volume;
+                this._finalVolume = this._volume;
             }
 
             this._mPlayer.settings.volume = this._finalVolume;

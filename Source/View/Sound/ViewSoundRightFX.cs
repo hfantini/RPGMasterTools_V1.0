@@ -85,7 +85,7 @@ namespace RPGMasterTools.Source.View.Sound
         {
             if(currentState == EnumStateSoundRightFX.STATE_UPDATE_LIST_ADD)
             {
-
+                this.updateListOfSoundFX();
             }
             else if (currentState == EnumStateSoundRightFX.STATE_UPDATE_LIST_REMOVE)
             {
@@ -95,20 +95,26 @@ namespace RPGMasterTools.Source.View.Sound
 
         private void updateListOfSoundFX()
         {
-            SoundController sController = (SoundController) this._controller.parentController;
+            SoundController sController = (SoundController) this._controller.parentController.parentController;
             List<SoundFX> lastChangeList = sController.soundFXLastChange;
 
             for (int count = 0; count < lastChangeList.Count; count++)
             {
                 SoundFX sfx = lastChangeList[count];
 
-                //ViewSoundRightAmbiencePlayer aPlayer = new ViewSoundRightAmbiencePlayer(this._controller, ambience);
-                //aPlayer.Width = fLayoutAmbience.Width;
+                ViewSoundRightFXPlayer sfxPlayer = new ViewSoundRightFXPlayer(this._controller, sfx);
+                sfxPlayer.Width = fLayoutSFX.Width;
 
-                //fLayoutAmbience.Controls.Add(aPlayer);
+                fLayoutSFX.Controls.Add(sfxPlayer);
             }
 
             lastChangeList.Clear();
+        }
+
+        private void tBarMasterVolume_Scroll(object sender, EventArgs e)
+        {
+            int value = tBarMasterVolume.Value * 10;
+            this._controller.masterVolumeFX = value;
         }
 
         // == EVENTS

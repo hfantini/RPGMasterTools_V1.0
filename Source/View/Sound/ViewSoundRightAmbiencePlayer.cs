@@ -87,7 +87,6 @@ namespace RPGMasterTools.Source.View.Sound
             this._timer.Interval = 250;
             this._timer.Elapsed += OnTimedEvent;
 
-
             // CONFIGURING CONTROLLER
 
             this._controller = new SoundRightAmbiencePlayerController(this, parentController, ambience);

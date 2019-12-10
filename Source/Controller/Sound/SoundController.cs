@@ -76,6 +76,9 @@ namespace RPGMasterTools.Source.Controller.Sound
 
             this._ambiencePlaylist = new List<Ambience>();
             this._ambienceLastChange = new List<Ambience>();
+
+            this._sfxPlaylist = new List<SoundFX>();
+            this._sfxLastChange = new List<SoundFX>();
         }
 
         // == METHODS
@@ -127,7 +130,7 @@ namespace RPGMasterTools.Source.Controller.Sound
             this._sfxPlaylist.Add(sfx);
             this._sfxLastChange.Add(sfx);
 
-            this.currentState = EnumStateSound.STATE_AMBIENCE_LIST_ADDED;
+            this.currentState = EnumStateSound.STATE_SFX_LIST_ADDED;
         }
 
         public void removeSFXFromPlaylist(SoundFX soundFX)
@@ -137,7 +140,7 @@ namespace RPGMasterTools.Source.Controller.Sound
             if (sfxIndex != -1)
             {
                 this._ambiencePlaylist.RemoveAt(sfxIndex);
-                this.currentState = EnumStateSound.STATE_SFX_LIST_ADDED;
+                this.currentState = EnumStateSound.STATE_SFX_LIST_REMOVED;
             }
         }
 

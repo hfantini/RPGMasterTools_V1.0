@@ -49,6 +49,7 @@ namespace RPGMasterTools.Source.Model.Sound
         private string _name;
         private string _path;
         private string _type;
+        private int _volume = 100;
 
         // == CONSTRUCTOR(S)
         // ==============================================================
@@ -64,20 +65,32 @@ namespace RPGMasterTools.Source.Model.Sound
 
         public string name
         {
-            get { return _name; }
+            get { return this._name; }
             set { this._name = value; }
         }
 
         public string path
         {
-            get { return _path; }
+            get { return this._path; }
             set { this._path = value; }
         }
 
         public string type
         {
-            get { return _type; }
+            get { return this._type; }
             set { this._type = value; }
+        }
+
+        public int volume
+        {
+            get { return this._volume; }
+            set
+            {
+                if(value >= 0 && value <= 100)
+                {
+                    this._volume = value;
+                }
+            }
         }
     }
 }

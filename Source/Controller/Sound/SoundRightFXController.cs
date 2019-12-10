@@ -49,6 +49,8 @@ namespace RPGMasterTools.Source.Controller.Sound
 
         // -- VAR -------------------------------------------------------
 
+        private int _masterVolumeFX = 100;
+
         // == CONSTRUCTOR(S)
         // ==============================================================
 
@@ -97,5 +99,18 @@ namespace RPGMasterTools.Source.Controller.Sound
 
         // == GETTERS AND SETTERS
         // ==============================================================
+
+        public int masterVolumeFX
+        {
+            get { return this._masterVolumeFX; }
+            set
+            {
+                if(value >= 0 && value <= 100)
+                {
+                    this._masterVolumeFX = value;
+                    this.currentState = EnumStateSoundRightFX.STATE_MASTER_VOLUME_CHANGED;
+                }
+            }
+        }
     }
 }
