@@ -14,11 +14,11 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [EMasterToolsException.cs]
+    |	Name: [EMasterToolsPresetException.cs]
     |	Type: [EXCEPTION]
     |	Author: Henrique Fantini
     |	
-    |	Description: Defines a generic system exception.
+    |	Description: -
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
@@ -44,50 +44,39 @@ namespace RPGMasterTools.Source.Model.Exception
     // == CLASS
     // ==============================================================
 
-    public class EMasterToolsException : System.Exception
+    public class EMasterToolsPresetException : EMasterToolsException
     {
         // == DECLARATIONS
         // ==============================================================
 
         // -- CONST -----------------------------------------------------
-        private const String GENERIC_EXCEPTION_MESSAGE = "Unknown error!";
 
         // -- VAR -------------------------------------------------------
-
-        private ExceptionType _type;
 
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public EMasterToolsException() : base(GENERIC_EXCEPTION_MESSAGE)
+        public EMasterToolsPresetException(System.Exception e) : base(e, ExceptionType.TYPE_FATAL, e.Message)
         {
-            this._type = ExceptionType.TYPE_FATAL;
+
         }
 
-        public EMasterToolsException(System.Exception e) : base(e.Message, e)
+        public EMasterToolsPresetException(string message) : base(null, ExceptionType.TYPE_FATAL, message)
         {
-            this._type = ExceptionType.TYPE_FATAL;
+
         }
 
-        public EMasterToolsException(System.Exception e, ExceptionType type) : base(e.Message, e)
+        public EMasterToolsPresetException(System.Exception e, string message) : base(e, ExceptionType.TYPE_FATAL, message)
         {
-            this._type = type;
+         
         }
 
-        public EMasterToolsException(System.Exception e, ExceptionType type, String message) : base(message, e)
+        public EMasterToolsPresetException(System.Exception e, ExceptionType type, string message) : base(e, type, message)
         {
-            this._type = type;
+
         }
 
         // == METHODS
         // ==============================================================
-
-        // == GETTER(S) AND SETTER(S)
-        // ==============================================================
-
-        public ExceptionType type
-        {
-            get { return this._type; }
-        }
     }
 }

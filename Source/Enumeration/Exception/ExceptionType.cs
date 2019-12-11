@@ -14,11 +14,11 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [EnumStateSound.cs]
+    |	Name: [ExceptionType.cs]
     |	Type: [ENUM]
     |	Author: Henrique Fantini
     |	
-    |	Description: Define the state of sound controller.
+    |	Description: Defines all type of system exceptions
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
@@ -27,29 +27,26 @@
 // == IMPORTS
 // ==================================================================
 
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 // == NAMESPACE
 // ==================================================================
 
-namespace RPGMasterTools.Source.Enumeration.State
+namespace RPGMasterTools.Source.Enumeration.Exception
 {
     // == ENUM
     // ==============================================================
 
-    [DefaultValue(STATE_NONE)]
-    public enum EnumStateSound
+    [DefaultValue(TYPE_FATAL)]
+    public enum ExceptionType
     {
-        STATE_NONE,
-        STATE_IDLE,
-        STATE_MUSIC_LIST_ADDED,
-        STATE_MUSIC_LIST_REMOVED,
-        STATE_AMBIENCE_LIST_ADDED,
-        STATE_AMBIENCE_LIST_REMOVED,
-        STATE_SFX_LIST_ADDED,
-        STATE_SFX_LIST_REMOVED,
-        STATE_PRESET_LOADED,
-        STATE_PRESET_PREPARE_SAVE,
-        STATE_PRESET_SAVE,
+        TYPE_FATAL,
+        TYPE_ERROR,
+        TYPE_WARNING
     }
 }

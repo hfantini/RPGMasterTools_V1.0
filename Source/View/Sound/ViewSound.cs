@@ -99,6 +99,11 @@ namespace RPGMasterTools.Source.View.Sound
             this._controller.currentState = EnumStateSound.STATE_IDLE;
         }
 
+        private void btnSavePreset_Click(object sender, EventArgs e)
+        {
+            this._controller.currentState = EnumStateSound.STATE_PRESET_PREPARE_SAVE;
+        }
+
         // == GETTERS AND SETTERS
         // ==============================================================
 

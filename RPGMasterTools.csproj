@@ -39,6 +39,7 @@
   </PropertyGroup>
   <PropertyGroup />
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -76,6 +77,7 @@
     <Compile Include="Source\Controller\GenericController.cs" />
     <Compile Include="Source\Controller\MainController.cs" />
     <Compile Include="Source\Enumeration\Controller\EnumControllerType.cs" />
+    <Compile Include="Source\Enumeration\Exception\ExceptionType.cs" />
     <Compile Include="Source\Enumeration\Log\EnumLogLevel.cs" />
     <Compile Include="Source\Enumeration\Log\EnumLogType.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateSoundRightAmbiencePlayer.cs" />
@@ -91,6 +93,7 @@
     <Compile Include="Source\Enumeration\State\EnumStateMain.cs" />
     <Compile Include="Source\Interface\IComponent.cs" />
     <Compile Include="Source\Interface\IView.cs" />
+    <Compile Include="Source\Model\Exception\EMasterToolsPresetException.cs" />
     <Compile Include="Source\Model\Exception\EMasterToolsInvalidStateChangeException.cs" />
     <Compile Include="Source\Model\Exception\EMasterToolsException.cs" />
     <Compile Include="Source\Model\Language\MLanguage.cs" />
@@ -108,6 +111,7 @@
     <Compile Include="Source\Util\ULanguage.cs" />
     <Compile Include="Source\Util\ULog.cs" />
     <Compile Include="Source\Util\URandom.cs" />
+    <Compile Include="Source\Util\USystemMessage.cs" />
     <Compile Include="Source\View\Sound\ViewSound.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -280,6 +284,7 @@
     <None Include="Resources\Images\Icons\ico_trash.png" />
     <None Include="Resources\Images\Icons\ico_stop.png" />
     <None Include="Resources\Images\Icons\ico_speaker_withsound.png" />
+    <None Include="Resources\Images\Icons\ico_save.png" />
     <Content Include="sysicon.ico" />
   </ItemGroup>
   <ItemGroup>

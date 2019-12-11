@@ -14,29 +14,25 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [UFileIO.cs]
-    |	Type: [UTIL]
+    |	Name: [USystemMessage.cs]
+    |	Type: [TYPE]
     |	Author: Henrique Fantini
     |	
-    |	Description: Defines a Class who helps with File I/O
-    |   operations
+    |	Description:
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
 */
 
-// == IMPORTS
-// ==================================================================
-
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+
+// == IMPORTS
+// ==================================================================
 
 // == NAMESPACE
 // ==================================================================
@@ -46,14 +42,14 @@ namespace RPGMasterTools.Source.Util
     // == CLASS
     // ==============================================================
 
-    public class UFileIO
+    public class USystemMessage
     {
+        // == DECLARATIONS
+        // ==============================================================
 
         // -- CONST -----------------------------------------------------
 
         // -- VAR -------------------------------------------------------
-        private static Assembly _assembly = Assembly.GetExecutingAssembly();
-        private static string _defaultNamespace = "RPGMasterTools";
 
         // == CONSTRUCTOR(S)
         // ==============================================================
@@ -61,29 +57,28 @@ namespace RPGMasterTools.Source.Util
         // == METHODS
         // ==============================================================
 
-        public static Stream getEmbeddedResourceStream( String name )
+        public static bool createQuestionDialog(String title, String question)
         {
-            return UFileIO._assembly.GetManifestResourceStream( UFileIO._defaultNamespace + "." + name );
+            bool retValue = false;
+
+            DialogResult result = MessageBox.Show(question, title, MessageBoxButtons.YesNo);
+
+            if(result == DialogResult.Yes)
+            {
+                retValue = true;
+            }
+
+            return retValue;
         }
 
-        public static String getAssetFolderPath()
+        public static String createInputDialog(String title, String question)
         {
-            return AppDomain.CurrentDomain.BaseDirectory + "assets";
+            return Microsoft.VisualBasic.Interaction.InputBox(question, title);
         }
 
-        public static string getUserCustomPresetFolder()
+        public static void createMessageBox(String title, String text)
         {
-            return AppDomain.CurrentDomain.BaseDirectory + "assets\\preset\\user";
-        }
-
-        public static void writeJsonToFile( string path, JObject content )
-        {
-            StreamWriter sWriter = File.CreateText(path);
-
-            String value = JsonConvert.SerializeObject(content, Newtonsoft.Json.Formatting.None, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
-
-            sWriter.WriteLine(value);
-            sWriter.Close();
+            MessageBox.Show(text, title, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
 
         // == EVENTS

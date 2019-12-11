@@ -82,6 +82,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tpnlMain.Controls.Add(this.tabSound);
             this.tpnlMain.Location = new System.Drawing.Point(3, 3);
+            this.tpnlMain.Margin = new System.Windows.Forms.Padding(0);
             this.tpnlMain.Name = "tpnlMain";
             this.tpnlMain.SelectedIndex = 0;
             this.tpnlMain.Size = new System.Drawing.Size(1250, 580);
@@ -90,8 +91,8 @@
             // tabSound
             // 
             this.tabSound.Location = new System.Drawing.Point(4, 29);
+            this.tabSound.Margin = new System.Windows.Forms.Padding(0);
             this.tabSound.Name = "tabSound";
-            this.tabSound.Padding = new System.Windows.Forms.Padding(3);
             this.tabSound.Size = new System.Drawing.Size(1242, 547);
             this.tabSound.TabIndex = 0;
             this.tabSound.Text = "MAIN.TAB.SOUND";

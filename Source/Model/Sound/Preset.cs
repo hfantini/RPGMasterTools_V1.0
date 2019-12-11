@@ -30,6 +30,7 @@
 // == NAMESPACE
 // ==================================================================
 
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace RPGMasterTools.Source.Model.Sound
@@ -43,6 +44,8 @@ namespace RPGMasterTools.Source.Model.Sound
 
         // -- VAR -------------------------------------------------------
 
+        private string _parentPreset = null;
+        private string _path = null;
         private PresetMusic _musicPreset = new PresetMusic();
         private PresetAmbience _ambiencePreset = new PresetAmbience();
         private PresetSoundFX _sfxPreset = new PresetSoundFX();
@@ -58,6 +61,19 @@ namespace RPGMasterTools.Source.Model.Sound
 
         // == GETTERS AND SETTERS
         // ==============================================================
+
+        public string parentPreset
+        {
+            get { return this._parentPreset; }
+            set { this._parentPreset = value; }
+        }
+
+        [JsonIgnore]
+        public string path
+        {
+            get { return this._path; }
+            set { this._path = value; }
+        }
 
         public PresetMusic musicPreset
         {

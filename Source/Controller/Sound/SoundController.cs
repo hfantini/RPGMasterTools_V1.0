@@ -30,8 +30,10 @@
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using RPGMasterTools.Source.Enumeration.Exception;
 using RPGMasterTools.Source.Enumeration.State;
 using RPGMasterTools.Source.Interface;
+using RPGMasterTools.Source.Model.Exception;
 using RPGMasterTools.Source.Model.Sound;
 using RPGMasterTools.Source.Util;
 using System;
@@ -67,6 +69,7 @@ namespace RPGMasterTools.Source.Controller.Sound
         private List<SoundFX> _sfxLastChange = null;
 
         private Preset _currentPreset = null;
+        private Preset _savePreset = null;
 
         // == CONSTRUCTOR(S)
         // ==============================================================
@@ -150,14 +153,23 @@ namespace RPGMasterTools.Source.Controller.Sound
 
         public void loadPresetFromFile( JObject jPreset )
         {
-            String presetPath = jPreset.Value<String>("PATH") + "\\" + jPreset.Value<String>("NAME");
-            this._currentPreset = parsePresetFile(presetPath);
+            try
+            {
+                String presetPath = jPreset.Value<String>("PATH") + "\\" + jPreset.Value<String>("NAME");
+                this._currentPreset = parsePresetFile(presetPath);
+                this._currentPreset.path = presetPath;
 
-            this._musicPlaylist = this._currentPreset.musicPreset.musicList;
-            this._ambiencePlaylist = this._currentPreset.ambiencePreset.ambienceList;
-            this._sfxPlaylist = this._currentPreset.sfxPreset.sfxList;
+                this._musicPlaylist = new List<Music>( this._currentPreset.musicPreset.musicList );
+                this._ambiencePlaylist = new List<Ambience>( this._currentPreset.ambiencePreset.ambienceList );
+                this._sfxPlaylist = new List<SoundFX>( this._currentPreset.sfxPreset.sfxList );
 
-            this.currentState = EnumStateSound.STATE_PRESET_LOADED;
+                this.currentState = EnumStateSound.STATE_PRESET_LOADED;
+            }
+            catch (Exception e)
+            {
+                UExceptionHandler.handleWithException( new EMasterToolsPresetException(e, ExceptionType.TYPE_ERROR, e.Message) );
+            }
+
         }
 
         private Preset parsePresetFile( String path )
@@ -168,9 +180,10 @@ namespace RPGMasterTools.Source.Controller.Sound
             JObject obj = (JObject)this._jSerializer.Deserialize(new JsonTextReader(sReader));
             sReader.Close();
 
-            if (obj.ContainsKey("parentPreset"))
+            if (obj.ContainsKey("parentPreset") && obj.Value<String>("parentPreset") != null)
             {
                 retValue = parsePresetFile(obj.Value<String>("parentPreset"));
+                retValue.parentPreset = path;
 
                 // == PROCESS THE INHERITANCE
 
@@ -228,7 +241,7 @@ namespace RPGMasterTools.Source.Controller.Sound
                     JObject jAmbience = obj.Value<JObject>("ambiencePreset");
 
                     // MASTER VOLUME
-                    if ( jAmbience.ContainsKey("masterVolume") )
+                    if (jAmbience.ContainsKey("masterVolume"))
                     {
                         retValue.ambiencePreset.masterVolume = jAmbience.Value<int>("masterVolume");
                     }
@@ -288,6 +301,102 @@ namespace RPGMasterTools.Source.Controller.Sound
             else
             {
                 retValue = this._jSerializer.Deserialize<Preset>(obj.CreateReader());
+            }            
+
+            return retValue;
+        }
+
+        private void saveCurrentPreset()
+        {
+            bool inheritFromPreset = false;
+
+            if(currentPreset != null)
+            {
+                inheritFromPreset = USystemMessage.createQuestionDialog("Question", "Inherit?");
+            }
+
+            if(inheritFromPreset)
+            {
+                this._savePreset.parentPreset = this._currentPreset.path;
+
+                // == ADDING NON REPEATING TRACKS
+
+                // MUSIC
+
+                foreach(Music music in this._musicPlaylist)
+                {
+                    if( !this._currentPreset.musicPreset.musicList.Contains(music) )
+                    {
+                        this._savePreset.musicPreset.musicList.Add(music);
+                    }
+                }
+
+                // AMBIENCE
+
+                foreach (Ambience ambience in this._ambiencePlaylist)
+                {
+                    if (!this._currentPreset.ambiencePreset.ambienceList.Contains(ambience))
+                    {
+                        this._savePreset.ambiencePreset.ambienceList.Add(ambience);
+                    }
+                }
+
+                // SFX
+
+                foreach (SoundFX sfx in this._sfxPlaylist)
+                {
+                    if (!this._currentPreset.sfxPreset.sfxList.Contains(sfx))
+                    {
+                        this._savePreset.sfxPreset.sfxList.Add(sfx);
+                    }
+                }
+            }
+            else
+            {
+                // ADDING TRACKS
+
+                this._savePreset.musicPreset.musicList = this._musicPlaylist;
+                this._savePreset.ambiencePreset.ambienceList = this._ambiencePlaylist;
+                this._savePreset.sfxPreset.sfxList = this._sfxPlaylist;
+            }
+
+            // DEFINE TARGET FILE OPTIONS
+
+            string filename = USystemMessage.createInputDialog("Input", "Set the filename") + ".json";
+            string filePath = UFileIO.getUserCustomPresetFolder() + "\\" + filename;
+
+            bool overWrite = true;
+
+            if ( File.Exists(filePath) )
+            {
+                if( !USystemMessage.createQuestionDialog("Question", "Overwrite?") )
+                {
+                    overWrite = false;
+                }
+            }
+
+            if (overWrite)
+            {
+                // WRITES THE FILE TO DISK
+
+                JObject jSavePreset = JObject.FromObject(this._savePreset);
+                UFileIO.writeJsonToFile(filePath, jSavePreset);
+
+                // DISPLAY SUCCESS MESSAGEBOX
+                USystemMessage.createMessageBox("Success!", "Preset saved!");
+            }
+        }
+
+        protected override bool allowStateChange(EnumStateSound currentState, EnumStateSound nextState)
+        {
+            bool retValue = true;
+
+            if(nextState == EnumStateSound.STATE_PRESET_SAVE)
+            {
+                if(currentState != EnumStateSound.STATE_PRESET_PREPARE_SAVE)
+                {
+                    retValue = false;
+                }
             }
 
             return retValue;
@@ -296,6 +405,18 @@ namespace RPGMasterTools.Source.Controller.Sound
         protected override void update()
         {
             base.update();
+
+            if (this.currentState == EnumStateSound.STATE_PRESET_PREPARE_SAVE)
+            {
+                this._savePreset = new Preset();
+                this.currentState = EnumStateSound.STATE_PRESET_SAVE;
+            }
+            else if (this.currentState == EnumStateSound.STATE_PRESET_SAVE)
+            {
+                saveCurrentPreset();
+            }
+
+            // DEFAULT STATE
 
             if(this.currentState != EnumStateSound.STATE_IDLE)
             {

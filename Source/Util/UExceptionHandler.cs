@@ -28,6 +28,7 @@
 // == IMPORTS
 // ==================================================================
 
+using RPGMasterTools.Source.Model.Exception;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -58,14 +59,42 @@ namespace RPGMasterTools.Source.Util
 
         public static void handleWithException(Exception e)
         {
-            var stackTrace = new StackTrace(e, true);
-            StackFrame frame = stackTrace.GetFrame(0);
+            EMasterToolsException currentException = null;
 
-            string msg = "AN ERROR OCCURED: \n\n "
-                         + e.Message + "\n\n\n"
-                         + "AT " + frame.GetMethod();
+            // EXCEPTION CONVERTION
 
-            MessageBox.Show(msg, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            if( !(e is EMasterToolsException) )
+            {
+                currentException = new EMasterToolsException(e);
+            }
+            else
+            {
+                currentException = (EMasterToolsException) e;
+            }
+
+            if (currentException.type == Enumeration.Exception.ExceptionType.TYPE_WARNING || currentException.type == Enumeration.Exception.ExceptionType.TYPE_ERROR)
+            {
+                var stackTrace = new StackTrace(e, true);
+                StackFrame frame = stackTrace.GetFrame(0);
+
+                string msg = "AN ERROR OCCURED: \n\n "
+                             + e.Message;
+
+                MessageBox.Show(msg, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                var stackTrace = new StackTrace(e, true);
+                StackFrame frame = stackTrace.GetFrame(0);
+
+                string msg = "AN ERROR OCCURED: \n\n "
+                             + e.Message + "\n\n\n"
+                             + "AT " + frame.GetMethod();
+
+                MessageBox.Show(msg, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                Application.Exit();
+            }
         }
 
         // == EVENTS

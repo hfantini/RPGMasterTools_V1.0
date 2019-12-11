@@ -28,6 +28,7 @@
 // == IMPORTS
 // ==================================================================
 
+using RPGMasterTools.Source.Enumeration.Exception;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,9 +58,19 @@ namespace RPGMasterTools.Source.Model.Exception
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public EMasterToolsInvalidStateChangeException() : base(MESSAGE)
+        public EMasterToolsInvalidStateChangeException() : base(null, ExceptionType.TYPE_WARNING, MESSAGE)
         {
-         
+
+        }
+
+        public EMasterToolsInvalidStateChangeException(string message) : base(null, ExceptionType.TYPE_WARNING, message)
+        {
+
+        }
+
+        public EMasterToolsInvalidStateChangeException(System.Exception e, string message) : base(e, ExceptionType.TYPE_WARNING, message)
+        {
+
         }
 
         // == METHODS

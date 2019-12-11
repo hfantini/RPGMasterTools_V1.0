@@ -28,6 +28,7 @@
 // == IMPORTS
 // ==================================================================
 
+using RPGMasterTools.Source.Enumeration.Exception;
 using RPGMasterTools.Source.Model.Exception;
 using System;
 using System.Collections.Generic;
@@ -103,7 +104,7 @@ namespace RPGMasterTools.Source.Util
             }
             else
             {
-                throw new EMasterToolsException("applyLanguageToMenu: Invalid parameter type.");
+                throw new EMasterToolsException(null, ExceptionType.TYPE_FATAL, "applyLanguageToMenu: Invalid parameter type.");
             }
 
         }
