@@ -58,6 +58,33 @@ namespace RPGMasterTools.Source.Model.Sound
         // == METHODS
         // ==============================================================
 
+        public override bool Equals(object obj)
+        {
+            bool retValue = false;
+
+            if (this._name == null || this._path == null)
+            {
+                retValue = base.Equals(obj);
+            }
+            else
+            {
+                if (obj is Ambience)
+                {
+                    Ambience compAmbience = (Ambience) obj;
+
+                    if (this._name == compAmbience._name && this._path == compAmbience.path)
+                    {
+                        retValue = true;
+                    }
+                    else
+                    {
+                        retValue = false;
+                    }
+                }
+            }
+
+            return retValue;
+        }
         // == EVENTS
         // ==============================================================
 

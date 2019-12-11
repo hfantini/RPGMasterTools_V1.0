@@ -151,19 +151,146 @@ namespace RPGMasterTools.Source.Controller.Sound
         public void loadPresetFromFile( JObject jPreset )
         {
             String presetPath = jPreset.Value<String>("PATH") + "\\" + jPreset.Value<String>("NAME");
-
-            StreamReader sReader = new StreamReader(presetPath);
-            JObject obj = (JObject) this._jSerializer.Deserialize(new JsonTextReader(sReader));
-            sReader.Close();
-
-            Preset presetFromFile = this._jSerializer.Deserialize<Preset>(obj.CreateReader() );
-            this._currentPreset = presetFromFile;
+            this._currentPreset = parsePresetFile(presetPath);
 
             this._musicPlaylist = this._currentPreset.musicPreset.musicList;
             this._ambiencePlaylist = this._currentPreset.ambiencePreset.ambienceList;
             this._sfxPlaylist = this._currentPreset.sfxPreset.sfxList;
 
             this.currentState = EnumStateSound.STATE_PRESET_LOADED;
+        }
+
+        private Preset parsePresetFile( String path )
+        {
+            Preset retValue = null;
+
+            StreamReader sReader = new StreamReader(path);
+            JObject obj = (JObject)this._jSerializer.Deserialize(new JsonTextReader(sReader));
+            sReader.Close();
+
+            if (obj.ContainsKey("parentPreset"))
+            {
+                retValue = parsePresetFile(obj.Value<String>("parentPreset"));
+
+                // == PROCESS THE INHERITANCE
+
+                // MUSIC
+
+                if (obj.ContainsKey("musicPreset"))
+                {
+                    JObject jMusic = obj.Value<JObject>("musicPreset");
+
+                    // MASTER VOLUME
+                    if (jMusic.ContainsKey("masterVolume"))
+                    {
+                        retValue.musicPreset.masterVolume = jMusic.Value<int>("masterVolume");
+                    }
+
+                    // REPEAT
+                    if (jMusic.ContainsKey("repeat"))
+                    {
+                        retValue.musicPreset.repeat = jMusic.Value<bool>("repeat");
+                    }
+
+                    // RANDOM
+                    if (jMusic.ContainsKey("random"))
+                    {
+                        retValue.musicPreset.random = jMusic.Value<bool>("random");
+                    }
+
+                    // AUTOPLAY
+                    if (jMusic.ContainsKey("autoPlay"))
+                    {
+                        retValue.musicPreset.autoPlay = jMusic.Value<bool>("autoPlay");
+                    }
+
+                    // MUSIC LIST
+                    JArray mArray = jMusic.Value<JArray>("musicList");
+
+                    if (mArray != null && mArray.Count > 0)
+                    {
+                        foreach (JObject musicObject in mArray)
+                        {
+                            Music music = this._jSerializer.Deserialize<Music>(musicObject.CreateReader());
+
+                            if (!retValue.musicPreset.musicList.Contains(music))
+                            {
+                                retValue.musicPreset.musicList.Add(music);
+                            }
+                        }
+                    }
+                }
+
+                // AMBIENCE
+
+                if (obj.ContainsKey("ambiencePreset"))
+                {
+                    JObject jAmbience = obj.Value<JObject>("ambiencePreset");
+
+                    // MASTER VOLUME
+                    if ( jAmbience.ContainsKey("masterVolume") )
+                    {
+                        retValue.ambiencePreset.masterVolume = jAmbience.Value<int>("masterVolume");
+                    }
+
+                    // AUTOPLAY
+                    if (jAmbience.ContainsKey("autoPlay"))
+                    {
+                        retValue.ambiencePreset.autoPlay = jAmbience.Value<bool>("autoPlay");
+                    }
+
+                    // AMBIENCE LIST
+                    JArray aArray = jAmbience.Value<JArray>("ambienceList");
+
+                    if (aArray != null && aArray.Count > 0)
+                    {
+                        foreach (JObject ambienceObject in aArray)
+                        {
+                            Ambience ambience = this._jSerializer.Deserialize<Ambience>(ambienceObject.CreateReader());
+
+                            if (!retValue.ambiencePreset.ambienceList.Contains(ambience))
+                            {
+                                retValue.ambiencePreset.ambienceList.Add(ambience);
+                            }
+                        }
+                    }
+                }
+
+                // SOUNDFX
+
+                if (obj.ContainsKey("sfxPreset"))
+                {
+                    JObject jSoundFX = obj.Value<JObject>("sfxPreset");
+
+                    // MASTER VOLUME
+                    if (jSoundFX.ContainsKey("masterVolume"))
+                    {
+                        retValue.sfxPreset.masterVolume = jSoundFX.Value<int>("masterVolume");
+                    }
+
+                    // SFX LIST
+                    JArray sfxArray = jSoundFX.Value<JArray>("sfxList");
+
+                    if (sfxArray != null && sfxArray.Count > 0)
+                    {
+                        foreach (JObject sfxObject in sfxArray)
+                        {
+                            SoundFX sfx = this._jSerializer.Deserialize<SoundFX>(sfxObject.CreateReader());
+
+                            if (!retValue.sfxPreset.sfxList.Contains(sfx))
+                            {
+                                retValue.sfxPreset.sfxList.Add(sfx);
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                retValue = this._jSerializer.Deserialize<Preset>(obj.CreateReader());
+            }
+
+            return retValue;
         }
 
         protected override void update()

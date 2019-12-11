@@ -246,7 +246,7 @@ namespace RPGMasterTools.Source.View.Sound
 
             if (node != null && node.Tag != null && node.Tag is JObject && ((JObject)node.Tag).ContainsKey("TYPE"))
             {
-                string type = getObjectType( ( (JObject) node.Tag));
+                string type = getObjectType( ( (JObject) node.Tag ) );
 
                 if (type == "MUSIC")
                 {
@@ -264,6 +264,29 @@ namespace RPGMasterTools.Source.View.Sound
                 {
                     ((SoundController)this._controller.parentController).loadPresetFromFile( ( (JObject) node.Tag) );
                 }
+                else if(type == "FOLDER")
+                {
+                    foreach (TreeNode cNode in node.Nodes)
+                    {
+                        if ( cNode.Tag != null && cNode.Tag is JObject && ( (JObject) cNode.Tag ).ContainsKey("TYPE"))
+                        {
+                            type = getObjectType(((JObject)cNode.Tag));
+
+                            if (type == "MUSIC")
+                            {
+                                ((SoundController)this._controller.parentController).addMusicToPlaylist(((JObject)cNode.Tag));
+                            }
+                            else if (type == "AMBIENCE")
+                            {
+                                ((SoundController)this._controller.parentController).addAmbienceToPlaylist(((JObject)cNode.Tag));
+                            }
+                            else if (type == "SOUNDFX")
+                            {
+                                ((SoundController)this._controller.parentController).addSFXToPlaylist(((JObject)cNode.Tag));
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -274,6 +297,18 @@ namespace RPGMasterTools.Source.View.Sound
             if( obj.ContainsKey("TYPE") )
             {
                 retValue = obj.Value<String>("TYPE");
+            }
+
+            return retValue;
+        }
+
+        private string getObjectFileType(JObject obj)
+        {
+            string retValue = null;
+
+            if (obj.ContainsKey("FILETYPE"))
+            {
+                retValue = obj.Value<String>("FILETYPE");
             }
 
             return retValue;
