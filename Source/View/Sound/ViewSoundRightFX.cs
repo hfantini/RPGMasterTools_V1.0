@@ -90,7 +90,7 @@ namespace RPGMasterTools.Source.View.Sound
             }
             else if (currentState == EnumStateSoundRightFX.STATE_UPDATE_LIST_REMOVE)
             {
-
+                updateRemoveSFXList();
             }
             else if (currentState == EnumStateSoundRightFX.STATE_PRESET_LOADED)
             {
@@ -103,16 +103,48 @@ namespace RPGMasterTools.Source.View.Sound
             }
         }
 
+        private void updateRemoveSFXList()
+        {
+            SoundController controller = ((SoundController)this._controller.parentController.parentController);
+            List<ViewSoundRightFXPlayer> removeList = new List<ViewSoundRightFXPlayer>();
+
+            int idRegen = 0;
+
+            // CHECK THE CHANGES
+
+            foreach (ViewSoundRightFXPlayer currentControl in fLayoutSFX.Controls)
+            {
+                if (!controller.soundFXPlaylist.Contains(currentControl.controller.currentSFX))
+                {
+                    currentControl.controller.currentState = EnumStateSoundRightFXPlayer.STATE_REMOVE;
+                    removeList.Add(currentControl);
+                }
+                else
+                {
+                    idRegen++;
+                    currentControl.id = idRegen;
+                }
+            }
+
+            // REMOVE CONTROLS
+
+            foreach (ViewSoundRightFXPlayer currentControl in removeList)
+            {
+                currentControl.Dispose();
+            }
+        }
+
         private void updateListOfSoundFX()
         {
             SoundController sController = (SoundController) this._controller.parentController.parentController;
+            List<SoundFX> currentSFXList = sController.soundFXPlaylist;
             List<SoundFX> lastChangeList = sController.soundFXLastChange;
 
             for (int count = 0; count < lastChangeList.Count; count++)
             {
                 SoundFX sfx = lastChangeList[count];
 
-                ViewSoundRightFXPlayer sfxPlayer = new ViewSoundRightFXPlayer(this._controller, sfx);
+                ViewSoundRightFXPlayer sfxPlayer = new ViewSoundRightFXPlayer(currentSFXList.Count + count, this._controller, sfx);
                 sfxPlayer.Width = fLayoutSFX.Width;
 
                 fLayoutSFX.Controls.Add(sfxPlayer);
@@ -127,12 +159,12 @@ namespace RPGMasterTools.Source.View.Sound
 
             SoundController controller = ((SoundController)this._controller.parentController.parentController);
             List<SoundFX> sfxPlaylist = controller.soundFXPlaylist;
-
+ 
             for (int count = 0; count < sfxPlaylist.Count; count++)
             {
                 SoundFX sfx = sfxPlaylist[count];
 
-                ViewSoundRightFXPlayer aPlayer = new ViewSoundRightFXPlayer(this._controller, sfx);
+                ViewSoundRightFXPlayer aPlayer = new ViewSoundRightFXPlayer(count + 1, this._controller, sfx);
                 aPlayer.Width = fLayoutSFX.Width;
 
                 fLayoutSFX.Controls.Add(aPlayer);

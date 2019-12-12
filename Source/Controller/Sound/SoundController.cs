@@ -146,7 +146,7 @@ namespace RPGMasterTools.Source.Controller.Sound
 
             if (sfxIndex != -1)
             {
-                this._ambiencePlaylist.RemoveAt(sfxIndex);
+                this._sfxPlaylist.RemoveAt(sfxIndex);
                 this.currentState = EnumStateSound.STATE_SFX_LIST_REMOVED;
             }
         }

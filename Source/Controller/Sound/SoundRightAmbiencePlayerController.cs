@@ -29,8 +29,11 @@
 // ==================================================================
 
 using RPGMasterTools.Source.Enumeration.State;
+using RPGMasterTools.Source.Enumeration.System;
 using RPGMasterTools.Source.Interface;
 using RPGMasterTools.Source.Model.Sound;
+using RPGMasterTools.Source.Model.Sys;
+using RPGMasterTools.Source.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,6 +55,7 @@ namespace RPGMasterTools.Source.Controller.Sound
 
         // -- VAR -------------------------------------------------------
 
+        private int _id = 0;
         private WindowsMediaPlayer _mPlayer;
         private int _finalVolume = 100;
         private Ambience _currentAmbience = null;
@@ -59,9 +63,10 @@ namespace RPGMasterTools.Source.Controller.Sound
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public SoundRightAmbiencePlayerController(IComponent<EnumStateSoundRightAmbiencePlayer> component, GenericController parentController, Ambience ambience) : base(component, parentController)
+        public SoundRightAmbiencePlayerController(int id, IComponent<EnumStateSoundRightAmbiencePlayer> component, GenericController parentController, Ambience ambience) : base(component, parentController)
         {
             // INITIALIZING VALUES
+            this._id = id;
             this._currentAmbience = ambience;
             this._mPlayer = new WindowsMediaPlayer();
 
@@ -201,9 +206,36 @@ namespace RPGMasterTools.Source.Controller.Sound
 
         protected override void onParentStateChange(GenericController parentController)
         {
-            if (parentController is SoundRightAmbienceController)
+            if (parentController is MainController)
             {
-                SoundRightAmbienceController controller = (SoundRightAmbienceController) parentController;
+                MainController pController = (MainController)parentController;
+
+                if (pController.currentState == EnumStateMain.STATE_GLOBAL_HOTKEY_PRESSED)
+                {
+                    Hotkey cHotkey = pController.lastPressedHotKey;
+
+                    if (cHotkey.modifier == EnumKeyModifier.MOD_CONTROL)
+                    {
+                        if( cHotkey.isKeyNumber() )
+                        {
+                            if( this._id == UInput.getNumberFromKey(cHotkey) )
+                            {
+                                if(this.currentState == EnumStateSoundRightAmbiencePlayer.STATE_PLAYING)
+                                {
+                                    this.currentState = EnumStateSoundRightAmbiencePlayer.STATE_PAUSE;
+                                }
+                                else
+                                {
+                                    this.currentState = EnumStateSoundRightAmbiencePlayer.STATE_PLAY;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else if (parentController is SoundRightAmbienceController)
+            {
+                SoundRightAmbienceController controller = (SoundRightAmbienceController)parentController;
 
                 if (controller.currentState == EnumStateSoundRightAmbience.STATE_VOLUME_CHANGE)
                 {
@@ -273,6 +305,12 @@ namespace RPGMasterTools.Source.Controller.Sound
         public Ambience currentAmbience
         {
             get { return this._currentAmbience; }
+        }
+
+        public int id
+        {
+            get { return this._id; }
+            set { this._id = value; }
         }
     }
 }

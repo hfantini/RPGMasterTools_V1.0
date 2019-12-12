@@ -70,13 +70,13 @@ namespace RPGMasterTools.Source.View.Sound
         // == DESTRUCTOR
         // ==============================================================
 
-        public ViewSoundRightFXPlayer(GenericController parentController, SoundFX sfx)
+        public ViewSoundRightFXPlayer(int id, GenericController parentController, SoundFX sfx)
         {
             InitializeComponent();
             Disposed += onDispose;
 
             // INITIALIZE VALUES
-            this._controller = new SoundRightFXPlayerController(this, parentController, sfx);
+            this._controller = new SoundRightFXPlayerController(id, this, parentController, sfx);
 
             this._timer = new System.Timers.Timer();
             this._timer.Interval = 100;
@@ -85,6 +85,7 @@ namespace RPGMasterTools.Source.View.Sound
             // CONFIGURE CONTROLLER
 
             // CONFIGURE COMPONENTS
+            this.lblID.Text = this._controller.id.ToString();
             this.lblSFXName.Text = sfx.name;
             this.tBarVolume.Value = (sfx.volume / 10);
             this.lblVolume.Text = sfx.volume + "%";
@@ -165,7 +166,28 @@ namespace RPGMasterTools.Source.View.Sound
             this._controller = null;
         }
 
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            SoundController controller = (SoundController)this._controller.parentController.parentController.parentController;
+            controller.removeSFXFromPlaylist(this._controller.currentSFX);
+        }
+
         // == GETTERS AND SETTERS
         // ==============================================================
+
+        public SoundRightFXPlayerController controller
+        {
+            get { return this._controller; }
+        }
+
+        public int id
+        {
+            get { return this._controller.id; }
+            set
+            {
+                this._controller.id = value;
+                this.lblID.Text = this._controller.id.ToString();
+            }
+        }
     }
 }

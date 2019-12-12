@@ -92,7 +92,7 @@ namespace RPGMasterTools.Source.Controller.Sound
         {
             if (parentController is SoundRightMusicController)
             {
-                SoundRightMusicController controller = (SoundRightMusicController)parentController;
+                SoundRightMusicController controller = (SoundRightMusicController) parentController;
 
                 if (controller.currentState == EnumStateSoundRightMusic.STATE_PRESET_LOADED)
                 {

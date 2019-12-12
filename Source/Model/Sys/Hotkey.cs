@@ -64,6 +64,18 @@ namespace RPGMasterTools.Source.Model.Sys
         // == METHODS
         // ==============================================================
 
+        public bool isKeyNumber()
+        {
+            var retValue = false;
+
+            if( (this._key.GetHashCode() >= 48 && this._key.GetHashCode() <= 57) || (this._key.GetHashCode() >= 96 && this._key.GetHashCode() <= 105))
+            {
+                retValue = true;
+            }
+
+            return retValue;
+        }
+
         // == EVENTS
         // ==============================================================
 

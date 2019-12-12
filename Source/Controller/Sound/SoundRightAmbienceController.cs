@@ -29,13 +29,16 @@
 // ==================================================================
 
 using RPGMasterTools.Source.Enumeration.State;
+using RPGMasterTools.Source.Enumeration.System;
 using RPGMasterTools.Source.Interface;
 using RPGMasterTools.Source.Model.Sound;
+using RPGMasterTools.Source.Model.Sys;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 // == NAMESPACE
 // ==================================================================
@@ -83,7 +86,60 @@ namespace RPGMasterTools.Source.Controller.Sound
 
         protected override void onParentStateChange(GenericController parentController)
         {
-            if (parentController is SoundController)
+            if (parentController is MainController)
+            {
+                MainController pController = (MainController)parentController;
+
+                if (pController.currentState == EnumStateMain.STATE_GLOBAL_HOTKEY_PRESSED)
+                {
+                    Hotkey cHotkey = pController.lastPressedHotKey;
+
+                    if (cHotkey.modifier == EnumKeyModifier.MOD_CONTROL)
+                    {
+                        switch (cHotkey.key)
+                        {
+                            case Keys.P:
+
+                                this.currentState = EnumStateSoundRightAmbience.STATE_PLAY;
+
+                                break;
+
+                            case Keys.O:
+
+                                this.currentState = EnumStateSoundRightAmbience.STATE_PAUSE;
+
+                                break;
+
+                            case Keys.S:
+
+                                this.currentState = EnumStateSoundRightAmbience.STATE_STOP;
+
+                                break;
+
+                            case Keys.Oemplus:
+
+                                this.masterVolume += 10;
+                                this.currentState = EnumStateSoundRightAmbience.STATE_VOLUME_CHANGE;
+
+                                break;
+
+                            case Keys.OemMinus:
+
+                                this.masterVolume -= 10;
+                                this.currentState = EnumStateSoundRightAmbience.STATE_VOLUME_CHANGE;
+
+                                break;
+
+                            default:
+
+                                base.onParentStateChange(parentController);
+
+                                break;
+                        }
+                    }
+                }
+            }
+            else if (parentController is SoundController)
             {
                 SoundController controller = (SoundController)parentController;
 
@@ -116,7 +172,21 @@ namespace RPGMasterTools.Source.Controller.Sound
         public int masterVolume
         {
             get { return this._masterVolume; }
-            set { this._masterVolume = value; }
+            set
+            {
+                if (value < 0)
+                {
+                    this._masterVolume = 0;
+                }
+                else if (value > 100)
+                {
+                    this._masterVolume = 100;
+                }
+                else
+                {
+                    this._masterVolume = value;
+                }
+            }
         }
     }
 }

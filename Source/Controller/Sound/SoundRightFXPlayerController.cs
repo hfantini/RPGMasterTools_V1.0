@@ -28,8 +28,11 @@
 // ==================================================================
 
 using RPGMasterTools.Source.Enumeration.State;
+using RPGMasterTools.Source.Enumeration.System;
 using RPGMasterTools.Source.Interface;
 using RPGMasterTools.Source.Model.Sound;
+using RPGMasterTools.Source.Model.Sys;
+using RPGMasterTools.Source.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,15 +52,17 @@ namespace RPGMasterTools.Source.Controller.Sound
         // -- CONST -----------------------------------------------------
 
         // -- VAR -------------------------------------------------------
+        private int _id = 0;
         private SoundFX _sfx = null;
         private WindowsMediaPlayer _sfxPlayer;
 
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public SoundRightFXPlayerController(IComponent<EnumStateSoundRightFXPlayer> component, GenericController parentController, SoundFX sfx) : base(component, parentController)
+        public SoundRightFXPlayerController(int id, IComponent<EnumStateSoundRightFXPlayer> component, GenericController parentController, SoundFX sfx) : base(component, parentController)
         {
             // INITIALIZING VALUES
+            this._id = id;
             this._sfx = sfx;
             this._sfxPlayer = new WindowsMediaPlayer();
 
@@ -103,6 +108,11 @@ namespace RPGMasterTools.Source.Controller.Sound
                 {
                     retValue = false;
                 }
+            }
+            else if (currentState == EnumStateSoundRightFXPlayer.STATE_REMOVE)
+            {
+                this._sfxPlayer.controls.stop();
+                this._sfxPlayer.close();
             }
 
             return retValue;
@@ -174,7 +184,34 @@ namespace RPGMasterTools.Source.Controller.Sound
 
         protected override void onParentStateChange(GenericController parentController)
         {
-            if (parentController is SoundRightFXController)
+            if (parentController is MainController)
+            {
+                MainController pController = (MainController)parentController;
+
+                if (pController.currentState == EnumStateMain.STATE_GLOBAL_HOTKEY_PRESSED)
+                {
+                    Hotkey cHotkey = pController.lastPressedHotKey;
+
+                    if (cHotkey.modifier == EnumKeyModifier.MOD_ALT)
+                    {
+                        if (cHotkey.isKeyNumber())
+                        {
+                            if (this._id == UInput.getNumberFromKey(cHotkey))
+                            {
+                                if (this.currentState == EnumStateSoundRightFXPlayer.STATE_PLAYING)
+                                {
+                                    this.currentState = EnumStateSoundRightFXPlayer.STATE_STOP;
+                                }
+                                else
+                                {
+                                    this.currentState = EnumStateSoundRightFXPlayer.STATE_PLAY;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else if (parentController is SoundRightFXController)
             {
                 SoundRightFXController controller = (SoundRightFXController) parentController;
                 
@@ -205,6 +242,17 @@ namespace RPGMasterTools.Source.Controller.Sound
                 this._sfx.volume = value;
                 this.currentState = EnumStateSoundRightFXPlayer.STATE_VOLUME_CHANGE;
             }
+        }
+
+        public int id
+        {
+            get { return this._id; }
+            set { this._id = value; }
+        }
+
+        public SoundFX currentSFX
+        {
+            get { return this._sfx; }
         }
     }
 }

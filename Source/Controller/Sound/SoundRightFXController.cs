@@ -28,13 +28,16 @@
 // ==================================================================
 
 using RPGMasterTools.Source.Enumeration.State;
+using RPGMasterTools.Source.Enumeration.System;
 using RPGMasterTools.Source.Interface;
 using RPGMasterTools.Source.Model.Sound;
+using RPGMasterTools.Source.Model.Sys;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 // == NAMESPACE
 // ==================================================================
@@ -83,7 +86,40 @@ namespace RPGMasterTools.Source.Controller.Sound
 
         protected override void onParentStateChange(GenericController parentController)
         {
-            if (parentController is SoundController)
+            if (parentController is MainController)
+            {
+                MainController pController = (MainController)parentController;
+
+                if (pController.currentState == EnumStateMain.STATE_GLOBAL_HOTKEY_PRESSED)
+                {
+                    Hotkey cHotkey = pController.lastPressedHotKey;
+
+                    if (cHotkey.modifier == EnumKeyModifier.MOD_ALT)
+                    {
+                        switch (cHotkey.key)
+                        {
+                            case Keys.Oemplus:
+
+                                this.masterVolumeFX += 10;
+
+                                break;
+
+                            case Keys.OemMinus:
+
+                                this.masterVolumeFX -= 10;
+
+                                break;
+
+                            default:
+
+                                base.onParentStateChange(parentController);
+
+                                break;
+                        }
+                    }
+                }
+            }
+            else if (parentController is SoundController)
             {
                 SoundController controller = (SoundController) parentController;
 

@@ -424,7 +424,7 @@ namespace RPGMasterTools.Source.Controller.Sound
                 {
                     Hotkey cHotkey = pController.lastPressedHotKey;
 
-                    if(cHotkey.modifier == EnumKeyModifier.MOD_CONTROL)
+                    if(cHotkey.modifier == EnumKeyModifier.MOD_SHIFT)
                     {
                         switch(cHotkey.key)
                         {
@@ -469,6 +469,20 @@ namespace RPGMasterTools.Source.Controller.Sound
                             case Keys.OemMinus:
 
                                 this.volume -= 10;
+                                this.currentState = EnumStateSoundRightMusic.STATE_OPTION_UPDATE;
+
+                                break;
+
+                            case Keys.R:
+
+                                this.random = !this.random;
+                                this.currentState = EnumStateSoundRightMusic.STATE_OPTION_UPDATE;
+
+                                break;
+
+                            case Keys.D:
+
+                                this.repeat = !this.repeat;
                                 this.currentState = EnumStateSoundRightMusic.STATE_OPTION_UPDATE;
 
                                 break;

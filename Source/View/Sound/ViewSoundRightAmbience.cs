@@ -102,38 +102,26 @@ namespace RPGMasterTools.Source.View.Sound
             }
         }
 
-
-        private void updateAmbienceList()
-        {
-            SoundController controller = ((SoundController)this._controller.parentController.parentController);
-            List<Ambience> lastChangeList = controller.ambienceLastChange;
-
-            for (int count = 0; count < lastChangeList.Count; count++)
-            {
-                Ambience ambience = lastChangeList[count];
-
-                ViewSoundRightAmbiencePlayer aPlayer = new ViewSoundRightAmbiencePlayer(this._controller, ambience);
-                aPlayer.Width = fLayoutAmbience.Width;
-
-                fLayoutAmbience.Controls.Add(aPlayer);
-            }
-
-            lastChangeList.Clear();
-        }
-
         private void updateRemoveAmbienceList()
         {
             SoundController controller = ((SoundController)this._controller.parentController.parentController);
             List<ViewSoundRightAmbiencePlayer> removeList = new List<ViewSoundRightAmbiencePlayer>();
 
+            int idRegen = 0;
+
             // CHECK THE CHANGES
 
-            foreach( ViewSoundRightAmbiencePlayer currentControl in fLayoutAmbience.Controls )
+            foreach (ViewSoundRightAmbiencePlayer currentControl in fLayoutAmbience.Controls)
             {
-                if( !controller.ambiencePlaylist.Contains(currentControl.controller.currentAmbience) )
+                if (!controller.ambiencePlaylist.Contains(currentControl.controller.currentAmbience))
                 {
                     currentControl.controller.currentState = EnumStateSoundRightAmbiencePlayer.STATE_REMOVE;
                     removeList.Add(currentControl);
+                }
+                else
+                {
+                    idRegen++;
+                    currentControl.id = idRegen;
                 }
             }
 
@@ -143,6 +131,25 @@ namespace RPGMasterTools.Source.View.Sound
             {
                 currentControl.Dispose();
             }
+        }
+
+        private void updateAmbienceList()
+        {
+            SoundController controller = ((SoundController)this._controller.parentController.parentController);
+            List<Ambience> lastChangeList = controller.ambienceLastChange;
+            List<Ambience> currentAmbienceList = controller.ambiencePlaylist;
+
+            for (int count = 0; count < lastChangeList.Count; count++)
+            {
+                Ambience ambience = lastChangeList[count];
+
+                ViewSoundRightAmbiencePlayer aPlayer = new ViewSoundRightAmbiencePlayer(currentAmbienceList.Count + count, this._controller, ambience);
+                aPlayer.Width = fLayoutAmbience.Width;
+
+                fLayoutAmbience.Controls.Add(aPlayer);
+            }
+
+            lastChangeList.Clear();
         }
 
         private void recreateAmbienceList()
@@ -156,7 +163,7 @@ namespace RPGMasterTools.Source.View.Sound
             {
                 Ambience ambience = ambiencePlaylist[count];
 
-                ViewSoundRightAmbiencePlayer aPlayer = new ViewSoundRightAmbiencePlayer(this._controller, ambience);
+                ViewSoundRightAmbiencePlayer aPlayer = new ViewSoundRightAmbiencePlayer(count + 1, this._controller, ambience);
                 aPlayer.Width = fLayoutAmbience.Width;
 
                 fLayoutAmbience.Controls.Add(aPlayer);

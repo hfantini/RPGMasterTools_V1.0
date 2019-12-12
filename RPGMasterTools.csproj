@@ -110,6 +110,7 @@
     <Compile Include="Source\Util\UComponent.cs" />
     <Compile Include="Source\Util\UExceptionHandler.cs" />
     <Compile Include="Source\Util\UFileIO.cs" />
+    <Compile Include="Source\Util\UInput.cs" />
     <Compile Include="Source\Util\ULanguage.cs" />
     <Compile Include="Source\Util\ULog.cs" />
     <Compile Include="Source\Util\URandom.cs" />

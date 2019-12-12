@@ -74,7 +74,7 @@ namespace RPGMasterTools.Source.View.Sound
         // == DESTRUCTOR
         // ==============================================================
 
-        public ViewSoundRightAmbiencePlayer(GenericController parentController, Ambience ambience)
+        public ViewSoundRightAmbiencePlayer(int id, GenericController parentController, Ambience ambience)
         {
             InitializeComponent();
             Disposed += onDispose;
@@ -87,10 +87,11 @@ namespace RPGMasterTools.Source.View.Sound
 
             // CONFIGURING CONTROLLER
 
-            this._controller = new SoundRightAmbiencePlayerController(this, parentController, ambience);
+            this._controller = new SoundRightAmbiencePlayerController(id, this, parentController, ambience);
 
             // CONFIGURING COMPONENTS
 
+            lblID.Text = this._controller.id.ToString();
             lblDisplayInfo.Text = ambience.name;
             lblDisplayTiming.Text = $"[00:00 / {this._controller.totalMusicTime}]";
             tbrVolume.Value = (this._controller.volume / 10);
@@ -215,6 +216,16 @@ namespace RPGMasterTools.Source.View.Sound
         public SoundRightAmbiencePlayerController controller
         {
             get { return this._controller; }
+        }
+
+        public int id
+        {
+            get { return this._controller.id; }
+            set
+            {
+                this._controller.id = value;
+                this.lblID.Text = this._controller.id.ToString();
+            }
         }
     }
 }
