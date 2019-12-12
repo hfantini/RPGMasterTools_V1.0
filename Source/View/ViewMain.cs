@@ -29,7 +29,9 @@
 
 using RPGMasterTools.Source.Controller;
 using RPGMasterTools.Source.Enumeration.State;
+using RPGMasterTools.Source.Enumeration.System;
 using RPGMasterTools.Source.Interface;
+using RPGMasterTools.Source.Model.Sys;
 using RPGMasterTools.Source.Util;
 using RPGMasterTools.Source.View.Sound;
 using System;
@@ -61,12 +63,21 @@ namespace RPGMasterTools.Source.View
 
         private MainController _controller;
 
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vk);
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+
         // == CONSTRUCTOR(S)
         // ==============================================================
 
         public ViewMain()
         {
             InitializeComponent();
+
+            // == INIT VALUES
+
+            this._controller = new MainController(this);
 
             // == FORM CONFIGURATION
 
@@ -76,14 +87,19 @@ namespace RPGMasterTools.Source.View
             UComponent.applyLanguageToMenu(mnuMain);
             UComponent.applyLanguageToTabPanel(tpnlMain);
 
-            // == INIT CONTROLLER
-            this._controller = new MainController(this);
-
             // == ADDING ANOTHER COMPONENTS
 
             ViewSound viewSound = new ViewSound(this._controller);
             viewSound.Dock = DockStyle.Fill;
             tabSound.Controls.Add( viewSound );
+
+            // == REGISTERING GLOBAL HOTKEYS
+
+            for(int count = 0; count < this._controller.systemAvailableHotkeys.Count; count++)
+            {
+                Hotkey currentHotkey = this._controller.systemAvailableHotkeys[count];
+                RegisterHotKey(this.Handle, count, (int)currentHotkey.modifier, currentHotkey.key.GetHashCode());
+            }
         }
 
         // == METHODS
@@ -94,20 +110,38 @@ namespace RPGMasterTools.Source.View
 
         }
 
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+
+            if (m.Msg == 0x0312)
+            {    
+                int id = m.WParam.ToInt32();                                        
+
+                this._controller.lastPressedHotKey = this._controller.systemAvailableHotkeys[id];
+                this._controller.currentState = EnumStateMain.STATE_GLOBAL_HOTKEY_PRESSED;
+            }
+        }
+
         // == EVENTS
         // ==============================================================
 
         private void ViewMain_Load(object sender, EventArgs e)
         {
-            this._controller.currentState = EnumStateMain.STATE_NONE;
+            this._controller.currentState = EnumStateMain.STATE_IDLE;
+        }
+
+        private void ViewMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // == UNREGISTERING GLOBAL HOTKEYS
+
+            for (int count = 0; count < this._controller.systemAvailableHotkeys.Count; count++)
+            {
+                UnregisterHotKey(this.Handle, count);
+            }
         }
 
         // == GETTERS AND SETTERS
         // ==============================================================
-
-        public void getController()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

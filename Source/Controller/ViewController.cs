@@ -105,6 +105,7 @@ namespace RPGMasterTools.Source.Controller
                 this._lastState = this._currentState;
                 this._currentState = value;
 
+                onParentStateChange(this);
                 update();
             }
         }

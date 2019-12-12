@@ -91,6 +91,7 @@
     <Compile Include="Source\Enumeration\State\EnumStateSoundLeft.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateSound.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateMain.cs" />
+    <Compile Include="Source\Enumeration\System\EnumKeyModifier.cs" />
     <Compile Include="Source\Interface\IComponent.cs" />
     <Compile Include="Source\Interface\IView.cs" />
     <Compile Include="Source\Model\Exception\EMasterToolsPresetException.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="Source\Model\Sound\Ambience.cs" />
     <Compile Include="Source\Model\Sound\Music.cs" />
     <Compile Include="Source\Model\Sound\Preset.cs" />
+    <Compile Include="Source\Model\Sys\Hotkey.cs" />
     <Compile Include="Source\Util\UAsyncTask.cs" />
     <Compile Include="Source\Util\UComponent.cs" />
     <Compile Include="Source\Util\UExceptionHandler.cs" />
@@ -112,6 +114,12 @@
     <Compile Include="Source\Util\ULog.cs" />
     <Compile Include="Source\Util\URandom.cs" />
     <Compile Include="Source\Util\USystemMessage.cs" />
+    <Compile Include="Source\View\Component\VerticalSeparator.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\View\Component\VerticalSeparator.Designer.cs">
+      <DependentUpon>VerticalSeparator.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source\View\Sound\ViewSound.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -285,6 +293,10 @@
     <None Include="Resources\Images\Icons\ico_stop.png" />
     <None Include="Resources\Images\Icons\ico_speaker_withsound.png" />
     <None Include="Resources\Images\Icons\ico_save.png" />
+    <None Include="Resources\Images\Icons\ico_magnifier.png" />
+    <None Include="Resources\Images\Icons\ico_refresh.png" />
+    <None Include="Resources\Images\Icons\ico_expand.png" />
+    <None Include="Resources\Images\Icons\ico_collapse.png" />
     <Content Include="sysicon.ico" />
   </ItemGroup>
   <ItemGroup>

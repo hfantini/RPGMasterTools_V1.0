@@ -312,7 +312,7 @@ namespace RPGMasterTools.Source.Controller.Sound
 
             if(currentPreset != null)
             {
-                inheritFromPreset = USystemMessage.createQuestionDialog("Question", "Inherit?");
+                inheritFromPreset = USystemMessage.createQuestionDialog(ULanguage.getStringCurrentLanguage("GENERAL.QUESTION"), ULanguage.getStringCurrentLanguage("SOUND.PRESET.INHERIT_QUESTION") );
             }
 
             if(inheritFromPreset)
@@ -369,7 +369,7 @@ namespace RPGMasterTools.Source.Controller.Sound
 
             if ( File.Exists(filePath) )
             {
-                if( !USystemMessage.createQuestionDialog("Question", "Overwrite?") )
+                if( !USystemMessage.createQuestionDialog(ULanguage.getStringCurrentLanguage("GENERAL.QUESTION"), ULanguage.getStringCurrentLanguage("SOUND.PRESET.OVERWRITE_QUESTION") ) )
                 {
                     overWrite = false;
                 }

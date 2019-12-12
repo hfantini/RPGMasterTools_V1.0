@@ -30,9 +30,11 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RPGMasterTools.Source.Enumeration.State;
+using RPGMasterTools.Source.Enumeration.System;
 using RPGMasterTools.Source.Interface;
 using RPGMasterTools.Source.Model.Exception;
 using RPGMasterTools.Source.Model.Sound;
+using RPGMasterTools.Source.Model.Sys;
 using RPGMasterTools.Source.Util;
 using RPGMasterTools.Source.View.Sound;
 using System;
@@ -44,6 +46,7 @@ using System.Media;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using WMPLib;
 
 // == NAMESPACE
@@ -74,6 +77,7 @@ namespace RPGMasterTools.Source.Controller.Sound
         {
             // INITIALIZING VALUES
             this._mPlayer = new WMPLib.WindowsMediaPlayer();
+            this._mPlayer.settings.volume = 100;
             this._pastPlayedMusicIndex = new List<Music>();
         }
 
@@ -412,7 +416,73 @@ namespace RPGMasterTools.Source.Controller.Sound
 
         protected override void onParentStateChange(GenericController parentController)
         {
-            if( parentController is SoundController )
+            if(parentController is MainController)
+            {
+                MainController pController = (MainController) parentController;
+
+                if( pController.currentState == EnumStateMain.STATE_GLOBAL_HOTKEY_PRESSED )
+                {
+                    Hotkey cHotkey = pController.lastPressedHotKey;
+
+                    if(cHotkey.modifier == EnumKeyModifier.MOD_CONTROL)
+                    {
+                        switch(cHotkey.key)
+                        {
+                            case Keys.P:
+
+                                if(this.currentState == EnumStateSoundRightMusic.STATE_PLAYING)
+                                {
+                                    this.currentState = EnumStateSoundRightMusic.STATE_PAUSE;
+                                }
+                                else
+                                {
+                                    this.currentState = EnumStateSoundRightMusic.STATE_PLAY;
+                                }
+
+                                break;
+
+                            case Keys.S:
+
+                                this.currentState = EnumStateSoundRightMusic.STATE_STOP;
+
+                                break;
+
+                            case Keys.N:
+
+                                this.currentState = EnumStateSoundRightMusic.STATE_NEXT;
+
+                                break;
+
+                            case Keys.B:
+
+                                this.currentState = EnumStateSoundRightMusic.STATE_BACK;
+
+                                break;
+
+                            case Keys.Oemplus:
+
+                                this.volume += 10;
+                                this.currentState = EnumStateSoundRightMusic.STATE_OPTION_UPDATE;
+
+                                break;
+
+                            case Keys.OemMinus:
+
+                                this.volume -= 10;
+                                this.currentState = EnumStateSoundRightMusic.STATE_OPTION_UPDATE;
+
+                                break;
+
+                            default:
+
+                                base.onParentStateChange(parentController);
+
+                                break;
+                        }
+                    }
+                }
+            }
+            else if( parentController is SoundController )
             {
                 SoundController pController = (SoundController) parentController;
 
@@ -547,7 +617,18 @@ namespace RPGMasterTools.Source.Controller.Sound
             get { return this._mPlayer.settings.volume; }
             set
             {
-                this._mPlayer.settings.volume = value;
+                if (value < 0)
+                {
+                    this._mPlayer.settings.volume = 0;
+                }
+                else if (value > 100)
+                {
+                    this._mPlayer.settings.volume = 100;
+                }
+                else
+                {
+                    this._mPlayer.settings.volume = value;
+                }
             }
         }
     }

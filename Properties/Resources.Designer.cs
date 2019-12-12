@@ -63,6 +63,36 @@ namespace RPGMasterTools.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ico_collapse {
+            get {
+                object obj = ResourceManager.GetObject("ico_collapse", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ico_expand {
+            get {
+                object obj = ResourceManager.GetObject("ico_expand", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ico_magnifier {
+            get {
+                object obj = ResourceManager.GetObject("ico_magnifier", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ico_pause {
             get {
                 object obj = ResourceManager.GetObject("ico_pause", resourceCulture);
@@ -96,6 +126,16 @@ namespace RPGMasterTools.Properties {
         internal static System.Drawing.Bitmap ico_play_display {
             get {
                 object obj = ResourceManager.GetObject("ico_play_display", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ico_refresh {
+            get {
+                object obj = ResourceManager.GetObject("ico_refresh", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

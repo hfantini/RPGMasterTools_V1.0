@@ -112,6 +112,7 @@
             this.MinimizeBox = false;
             this.Name = "ViewMain";
             this.Text = "MAIN.TITLE";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ViewMain_FormClosing);
             this.Load += new System.EventHandler(this.ViewMain_Load);
             this.mnuMain.ResumeLayout(false);
             this.mnuMain.PerformLayout();

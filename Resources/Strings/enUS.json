@@ -3,6 +3,9 @@
 	{
 		"LOADING": "LOADING",
 		"READY": "READY",
+		"QUESTION": "QUESTION",
+		"YES": "YES",
+		"NO": "NO"
 	},
 	"MAIN":
 	{
@@ -19,6 +22,11 @@
 	},
 	"SOUND":
 	{
+		"PRESET":
+		{
+			"INHERIT_QUESTION": "Do you want to INHERIT from the current preset?",
+			"OVERWRITE_QUESTION": "Are you sure you want to overwrite the existing file?"
+		},
 		"LEFT":
 		{
 			"REFRESH": "UPDATING LIST OF ITEMS",

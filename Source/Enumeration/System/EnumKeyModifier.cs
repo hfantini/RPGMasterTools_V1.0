@@ -14,11 +14,11 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [EnumStateMain.cs]
-    |	Type: [ENUM]
+    |	Name: [EnumKeyModifier.cs]
+    |	Type: [Enum]
     |	Author: Henrique Fantini
     |	
-    |	Description: Define the state of main controller.
+    |	Description: Define the key combination modifier.
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
@@ -27,20 +27,28 @@
 // == IMPORTS
 // ==================================================================
 
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 // == NAMESPACE
 // ==================================================================
 
-namespace RPGMasterTools.Source.Enumeration.State
+namespace RPGMasterTools.Source.Enumeration.System
 {
     // == ENUM
     // ==============================================================
 
-    [DefaultValue(STATE_IDLE)]
-    public enum EnumStateMain
+    [DefaultValue(MOD_NONE)]
+    public enum EnumKeyModifier
     {
-        STATE_IDLE,
-        STATE_GLOBAL_HOTKEY_PRESSED
+        MOD_NONE = 0,
+        MOD_ALT = 1,
+        MOD_CONTROL = 2,
+        MOD_SHIFT = 4,
+        MOD_WINKEY = 8
     }
 }

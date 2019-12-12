@@ -124,20 +124,30 @@ namespace RPGMasterTools.Source.View.Sound
                     throw new EMasterToolsInvalidStateChangeException();
                 }
             }
-            else
+            else if (currentState == EnumStateSoundLeft.STATE_REFRESH)
             {
-                if (currentState == EnumStateSoundLeft.STATE_REFRESH)
-                {
-                    bwUpdateRefresh = new BackgroundWorker();
-                    bwUpdateRefresh.DoWork += updateRefresh;
-                    bwUpdateRefresh.RunWorkerCompleted += onRefreshTaskFinished;
+                bwUpdateRefresh = new BackgroundWorker();
+                bwUpdateRefresh.DoWork += updateRefresh;
+                bwUpdateRefresh.RunWorkerCompleted += onRefreshTaskFinished;
 
-                    bwUpdateRefresh.RunWorkerAsync();
-                }
-                else if(currentState == EnumStateSoundLeft.STATE_READY)
-                {
-                    lblStatus.Text = ULanguage.getStringCurrentLanguage("GENERAL.READY");
-                }
+                bwUpdateRefresh.RunWorkerAsync();
+            }   
+            else if (currentState == EnumStateSoundLeft.STATE_EXPAND_ALL)
+            {
+                tViewData.ExpandAll();
+                this._controller.currentState = EnumStateSoundLeft.STATE_READY;
+            }
+            else if (currentState == EnumStateSoundLeft.STATE_COLLAPSE_ALL)
+            {
+                tViewData.CollapseAll();
+                this._controller.currentState = EnumStateSoundLeft.STATE_READY;
+
+                // LET ONLY THE FIRST NODE EXPANDED
+                tViewData.Nodes[0].Expand();
+            }
+            else if (currentState == EnumStateSoundLeft.STATE_READY)
+            {
+                lblStatus.Text = ULanguage.getStringCurrentLanguage("GENERAL.READY");
             }
         }
 
@@ -355,6 +365,13 @@ namespace RPGMasterTools.Source.View.Sound
                 lblStatus.Text = ULanguage.getStringCurrentLanguage("SOUND.LEFT.REFRESH");
             }));
 
+            // CLEAR ALL NODES
+
+            lblStatus.Invoke(new Action(() =>
+            {
+                tViewData.Nodes.Clear();
+            }));
+
             JArray data = ((SoundController)this._controller.parentController).assetsFromTheDisk;
 
             tViewData.Invoke(new Action(() =>
@@ -384,6 +401,21 @@ namespace RPGMasterTools.Source.View.Sound
         private void onNodeDoubleClick(object sender, EventArgs e)
         {
             this.addSomethingToList();
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            this._controller.currentState = EnumStateSoundLeft.STATE_REFRESH;
+        }
+
+        private void btnExpand_Click(object sender, EventArgs e)
+        {
+            this._controller.currentState = EnumStateSoundLeft.STATE_EXPAND_ALL;
+        }
+
+        private void btnCollapse_Click(object sender, EventArgs e)
+        {
+            this._controller.currentState = EnumStateSoundLeft.STATE_COLLAPSE_ALL;
         }
 
         // == GETTERS AND SETTERS
