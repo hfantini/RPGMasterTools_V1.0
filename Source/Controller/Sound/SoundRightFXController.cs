@@ -53,6 +53,7 @@ namespace RPGMasterTools.Source.Controller.Sound
 
         // -- VAR -------------------------------------------------------
 
+        private String _searchString = "";
         private int _masterVolumeFX = 100;
 
         // == CONSTRUCTOR(S)
@@ -94,7 +95,7 @@ namespace RPGMasterTools.Source.Controller.Sound
                 {
                     Hotkey cHotkey = pController.lastPressedHotKey;
 
-                    if (cHotkey.modifier == EnumKeyModifier.MOD_ALT)
+                    if (cHotkey.modifier == EnumKeyModifier.MOD_SHIFT)
                     {
                         switch (cHotkey.key)
                         {
@@ -107,6 +108,12 @@ namespace RPGMasterTools.Source.Controller.Sound
                             case Keys.OemMinus:
 
                                 this.masterVolumeFX -= 10;
+
+                                break;
+
+                            case Keys.F:
+
+                                this.currentState = EnumStateSoundRightFX.STATE_SEARCH_FOCUS;
 
                                 break;
 
@@ -130,6 +137,10 @@ namespace RPGMasterTools.Source.Controller.Sound
                 else if ( controller.currentState == EnumStateSound.STATE_SFX_LIST_REMOVED )
                 {
                     this.currentState = EnumStateSoundRightFX.STATE_UPDATE_LIST_REMOVE;
+                }
+                else if (controller.currentState == EnumStateSound.STATE_SFX_LIST_CLEAR)
+                {
+                    this.currentState = EnumStateSoundRightFX.STATE_UPDATE_LIST_CLEAR;
                 }
                 else if (controller.currentState == EnumStateSound.STATE_PRESET_LOADED)
                 {
@@ -169,6 +180,12 @@ namespace RPGMasterTools.Source.Controller.Sound
 
                 this.currentState = EnumStateSoundRightFX.STATE_MASTER_VOLUME_CHANGED;
             }
+        }
+
+        public string searchString
+        {
+            get { return this._searchString; }
+            set { this._searchString = value; }
         }
     }
 }

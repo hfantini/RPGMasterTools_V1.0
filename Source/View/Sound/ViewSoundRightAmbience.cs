@@ -90,6 +90,10 @@ namespace RPGMasterTools.Source.View.Sound
             {
                 updateRemoveAmbienceList();
             }
+            else if (currentState == EnumStateSoundRightAmbience.STATE_UPDATE_LIST_CLEAR)
+            {
+                recreateAmbienceList();
+            }
             else if (currentState == EnumStateSoundRightAmbience.STATE_PRESET_LOADED)
             {
                 recreateAmbienceList();
@@ -99,6 +103,15 @@ namespace RPGMasterTools.Source.View.Sound
                 //UPDATE VOLUME CONTROL
                 tBarMasterVolume.Value = (this._controller.masterVolume / 10);
                 lblVolume.Text = this._controller.masterVolume + "%";
+            }
+            else if (currentState == EnumStateSoundRightAmbience.STATE_SEARCH_FOCUS)
+            {
+                txtSearch.Text = "";
+                txtSearch.Focus();
+            }
+            else if (currentState == EnumStateSoundRightAmbience.STATE_SEARCH)
+            {
+                this.executeSearch();
             }
         }
 
@@ -146,6 +159,14 @@ namespace RPGMasterTools.Source.View.Sound
                 ViewSoundRightAmbiencePlayer aPlayer = new ViewSoundRightAmbiencePlayer(currentAmbienceList.Count + count, this._controller, ambience);
                 aPlayer.Width = fLayoutAmbience.Width;
 
+                if (this._controller.searchString != null && this._controller.searchString != "")
+                {
+                    if (!ambience.name.Contains(this._controller.searchString))
+                    {
+                        aPlayer.Visible = false;
+                    }
+                }
+
                 fLayoutAmbience.Controls.Add(aPlayer);
             }
 
@@ -170,6 +191,59 @@ namespace RPGMasterTools.Source.View.Sound
             }
         }
 
+        private void setPlayerViewVisibility(bool visibility)
+        {
+            if (visibility)
+            {
+                int idRegen = 0;
+
+                foreach (ViewSoundRightAmbiencePlayer aPlayer in fLayoutAmbience.Controls)
+                {
+                    idRegen++;
+
+                    aPlayer.id = idRegen;
+                    aPlayer.Visible = true;
+                }
+            }
+            else
+            {
+                foreach (ViewSoundRightAmbiencePlayer aPlayer in fLayoutAmbience.Controls)
+                {
+                    aPlayer.id = -1;
+                    aPlayer.Visible = false;
+                }
+            }
+        }
+
+        private void executeSearch()
+        {
+            if (this._controller.searchString == null || this._controller.searchString == "")
+            {
+                // RESET VISIBILITY OF ALL CONTROLS
+                this.setPlayerViewVisibility(true);
+            }
+            else
+            {
+                int regenId = 0;
+
+                foreach (ViewSoundRightAmbiencePlayer aPlayer in fLayoutAmbience.Controls)
+                {
+                    if (aPlayer.currentAmbienceName.Contains(this._controller.searchString))
+                    {
+                        regenId++;
+
+                        aPlayer.id = regenId;
+                        aPlayer.Visible = true;
+                    }
+                    else
+                    {
+                        aPlayer.id = -1;
+                        aPlayer.Visible = false;
+                    }
+                }
+            }
+        }
+
         private void tBarMasterVolume_Scroll(object sender, EventArgs e)
         {
             lblVolume.Text = (tBarMasterVolume.Value * 10) + "%";
@@ -191,6 +265,32 @@ namespace RPGMasterTools.Source.View.Sound
         private void btnStop_Click(object sender, EventArgs e)
         {
             this._controller.currentState = EnumStateSoundRightAmbience.STATE_STOP;
+        }
+
+        private void btnRemoveAll_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnFXSearch_Click(object sender, EventArgs e)
+        {
+            this._controller.currentState = EnumStateSoundRightAmbience.STATE_SEARCH;
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            this._controller.searchString = txtSearch.Text;
+        }
+
+        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                this._controller.currentState = EnumStateSoundRightAmbience.STATE_SEARCH;
+
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
         }
 
         // == EVENTS

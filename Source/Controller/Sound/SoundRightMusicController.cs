@@ -424,7 +424,7 @@ namespace RPGMasterTools.Source.Controller.Sound
                 {
                     Hotkey cHotkey = pController.lastPressedHotKey;
 
-                    if(cHotkey.modifier == EnumKeyModifier.MOD_SHIFT)
+                    if(cHotkey.modifier == EnumKeyModifier.MOD_ALT)
                     {
                         switch(cHotkey.key)
                         {

@@ -139,6 +139,9 @@ namespace RPGMasterTools.Source.View
             {
                 UnregisterHotKey(this.Handle, count);
             }
+
+            // DESTROY ALL CONTROLLERS
+            this._controller.Dispose();
         }
 
         // == GETTERS AND SETTERS

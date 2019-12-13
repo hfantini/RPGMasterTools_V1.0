@@ -41,6 +41,7 @@ using RPGMasterTools.Source.Interface;
 using RPGMasterTools.Source.Controller;
 using RPGMasterTools.Source.Controller.Sound;
 using RPGMasterTools.Source.Model.Sound;
+using RPGMasterTools.Source.Util;
 
 // == NAMESPACE
 // ==================================================================,
@@ -96,12 +97,12 @@ namespace RPGMasterTools.Source.View.Sound
 
         public void update(EnumStateSoundRightFXPlayer lastState, EnumStateSoundRightFXPlayer currentState)
         {
-            if(currentState == EnumStateSoundRightFXPlayer.STATE_PLAYING)
+            if (currentState == EnumStateSoundRightFXPlayer.STATE_PLAYING)
             {
                 btnPlay.Enabled = false;
                 btnStop.Enabled = true;
             }
-            if (currentState == EnumStateSoundRightFXPlayer.STATE_STOP)
+            else if (currentState == EnumStateSoundRightFXPlayer.STATE_STOP)
             {
                 btnPlay.Enabled = true;
                 btnStop.Enabled = false;
@@ -109,7 +110,7 @@ namespace RPGMasterTools.Source.View.Sound
 
             // TIMER
 
-            if( currentState == EnumStateSoundRightFXPlayer.STATE_PLAYING )
+            if (currentState == EnumStateSoundRightFXPlayer.STATE_PLAYING)
             {
                 this._timer.Enabled = true;
             }
@@ -188,6 +189,11 @@ namespace RPGMasterTools.Source.View.Sound
                 this._controller.id = value;
                 this.lblID.Text = this._controller.id.ToString();
             }
+        }
+
+        public String currentSFXName
+        {
+            get { return this._controller.currentSFX.name; }
         }
     }
 }

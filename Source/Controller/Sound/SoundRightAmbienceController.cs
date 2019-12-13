@@ -54,6 +54,7 @@ namespace RPGMasterTools.Source.Controller.Sound
 
         // -- VAR -------------------------------------------------------
 
+        private string _searchString = "";
         private int _masterVolume = 100;
 
         // == CONSTRUCTOR(S)
@@ -130,6 +131,12 @@ namespace RPGMasterTools.Source.Controller.Sound
 
                                 break;
 
+                            case Keys.F:
+
+                                this.currentState = EnumStateSoundRightAmbience.STATE_SEARCH_FOCUS;
+
+                                break;
+
                             default:
 
                                 base.onParentStateChange(parentController);
@@ -143,13 +150,17 @@ namespace RPGMasterTools.Source.Controller.Sound
             {
                 SoundController controller = (SoundController)parentController;
 
-                if(controller.currentState == EnumStateSound.STATE_AMBIENCE_LIST_ADDED)
+                if (controller.currentState == EnumStateSound.STATE_AMBIENCE_LIST_ADDED)
                 {
                     this.currentState = EnumStateSoundRightAmbience.STATE_UPDATE_LIST_ADD;
                 }
                 else if (controller.currentState == EnumStateSound.STATE_AMBIENCE_LIST_REMOVED)
                 {
                     this.currentState = EnumStateSoundRightAmbience.STATE_UPDATE_LIST_REMOVE;
+                }
+                else if (controller.currentState == EnumStateSound.STATE_AMBIENCE_LIST_CLEAR)
+                {
+                    this.currentState = EnumStateSoundRightAmbience.STATE_UPDATE_LIST_CLEAR;
                 }
                 else if (controller.currentState == EnumStateSound.STATE_PRESET_LOADED)
                 {
@@ -187,6 +198,12 @@ namespace RPGMasterTools.Source.Controller.Sound
                     this._masterVolume = value;
                 }
             }
+        }
+
+        public string searchString
+        {
+            get { return this._searchString; }
+            set { this._searchString = value; }
         }
     }
 }

@@ -131,6 +131,15 @@ namespace RPGMasterTools.Source.Controller.Sound
             }
         }
 
+        public void removeAllAmbienceFromPlaylist()
+        {
+            if (this._ambiencePlaylist.Count > 0)
+            {
+                this._ambiencePlaylist.Clear();
+                this.currentState = EnumStateSound.STATE_AMBIENCE_LIST_CLEAR;
+            }
+        }
+
         public void addSFXToPlaylist(JObject jSoundFX)
         {
             SoundFX sfx = this._jSerializer.Deserialize<SoundFX>(jSoundFX.CreateReader());
@@ -148,6 +157,15 @@ namespace RPGMasterTools.Source.Controller.Sound
             {
                 this._sfxPlaylist.RemoveAt(sfxIndex);
                 this.currentState = EnumStateSound.STATE_SFX_LIST_REMOVED;
+            }
+        }
+
+        public void removeAllSFXFromPlaylist()
+        {
+            if (this._sfxPlaylist.Count > 0)
+            {
+                this._sfxPlaylist.Clear();
+                this.currentState = EnumStateSound.STATE_SFX_LIST_CLEAR;
             }
         }
 

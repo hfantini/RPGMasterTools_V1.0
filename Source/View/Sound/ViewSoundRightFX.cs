@@ -92,14 +92,28 @@ namespace RPGMasterTools.Source.View.Sound
             {
                 updateRemoveSFXList();
             }
+            else if (currentState == EnumStateSoundRightFX.STATE_UPDATE_LIST_CLEAR)
+            {
+                recreateListOfSoundFX();
+            }
             else if (currentState == EnumStateSoundRightFX.STATE_PRESET_LOADED)
             {
+                txtSearch.Text = "";
                 this.recreateListOfSoundFX();
             }
             else if (currentState == EnumStateSoundRightFX.STATE_MASTER_VOLUME_CHANGED)
             {
                 lblVolume.Text = this._controller.masterVolumeFX + "%";
                 tBarMasterVolume.Value = this._controller.masterVolumeFX / 10;
+            }
+            else if(currentState == EnumStateSoundRightFX.STATE_SEARCH_FOCUS)
+            {
+                txtSearch.Text = "";
+                txtSearch.Focus();
+            }
+            else if (currentState == EnumStateSoundRightFX.STATE_SEARCH)
+            {
+                this.executeSearch();
             }
         }
 
@@ -147,6 +161,14 @@ namespace RPGMasterTools.Source.View.Sound
                 ViewSoundRightFXPlayer sfxPlayer = new ViewSoundRightFXPlayer(currentSFXList.Count + count, this._controller, sfx);
                 sfxPlayer.Width = fLayoutSFX.Width;
 
+                if(this._controller.searchString != null && this._controller.searchString != "")
+                {
+                    if( !sfx.name.Contains(this._controller.searchString) )
+                    {
+                        sfxPlayer.Visible = false;
+                    }
+                }
+
                 fLayoutSFX.Controls.Add(sfxPlayer);
             }
 
@@ -164,10 +186,63 @@ namespace RPGMasterTools.Source.View.Sound
             {
                 SoundFX sfx = sfxPlaylist[count];
 
-                ViewSoundRightFXPlayer aPlayer = new ViewSoundRightFXPlayer(count + 1, this._controller, sfx);
-                aPlayer.Width = fLayoutSFX.Width;
+                ViewSoundRightFXPlayer sfxPlayer = new ViewSoundRightFXPlayer(count + 1, this._controller, sfx);
+                sfxPlayer.Width = fLayoutSFX.Width;
 
-                fLayoutSFX.Controls.Add(aPlayer);
+                fLayoutSFX.Controls.Add(sfxPlayer);
+            }
+        }
+
+        private void setPlayerViewVisibility(bool visibility)
+        {
+            if (visibility)
+            {
+                int idRegen = 0;
+
+                foreach (ViewSoundRightFXPlayer sfxPlayer in fLayoutSFX.Controls)
+                {
+                    idRegen++;
+
+                    sfxPlayer.id = idRegen;
+                    sfxPlayer.Visible = true;
+                }
+            }
+            else
+            {
+                foreach (ViewSoundRightFXPlayer sfxPlayer in fLayoutSFX.Controls)
+                {
+                    sfxPlayer.id = -1;
+                    sfxPlayer.Visible = false;
+                }
+            }
+        }
+
+        private void executeSearch()
+        {
+            if( this._controller.searchString == null || this._controller.searchString == "" )
+            {
+                // RESET VISIBILITY OF ALL CONTROLS
+                this.setPlayerViewVisibility(true);  
+            }
+            else
+            {
+                int regenId = 0;
+
+                foreach (ViewSoundRightFXPlayer sfxPlayer in fLayoutSFX.Controls)
+                {
+                    if (sfxPlayer.currentSFXName.Contains(this._controller.searchString))
+                    {
+                        regenId++;
+
+                        sfxPlayer.id = regenId;
+                        sfxPlayer.Visible = true;
+                    }
+                    else
+                    {
+                        sfxPlayer.id = -1;
+                        sfxPlayer.Visible = false;
+                    }
+                }
             }
         }
 
@@ -176,6 +251,33 @@ namespace RPGMasterTools.Source.View.Sound
             int value = tBarMasterVolume.Value * 10;
             this.lblVolume.Text = value + "%";
             this._controller.masterVolumeFX = value;
+        }
+
+        private void btnRemoveAll_Click(object sender, EventArgs e)
+        {
+            SoundController sController = (SoundController)this._controller.parentController.parentController;
+            sController.removeAllSFXFromPlaylist();
+        }
+
+        private void btnFXSearch_Click(object sender, EventArgs e)
+        {
+            this._controller.currentState = EnumStateSoundRightFX.STATE_SEARCH;
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            this._controller.searchString = txtSearch.Text;
+        }
+
+        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                this._controller.currentState = EnumStateSoundRightFX.STATE_SEARCH;
+
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
         }
 
         // == EVENTS

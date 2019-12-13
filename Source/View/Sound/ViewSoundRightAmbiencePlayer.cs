@@ -227,5 +227,10 @@ namespace RPGMasterTools.Source.View.Sound
                 this.lblID.Text = this._controller.id.ToString();
             }
         }
+
+        public String currentAmbienceName
+        {
+            get { return this._controller.currentAmbience.name; }
+        }
     }
 }

@@ -50,6 +50,7 @@ namespace RPGMasterTools.Source.Controller
         private EnumControllerType _type;
         private List<GenericController> _children;
         private GenericController _parentController;
+        private bool _disposed = false;
 
         // == CONSTRUCTOR(S)
         // ==============================================================
@@ -84,7 +85,13 @@ namespace RPGMasterTools.Source.Controller
 
         public virtual void Dispose()
         {
-            
+            this._disposed = true;
+
+            // DISPOSE CHILDREN CONTROLLERS
+            foreach(GenericController childController in this._children)
+            {
+                childController.Dispose();
+            }
         }
 
         // == EVENTS
@@ -92,9 +99,25 @@ namespace RPGMasterTools.Source.Controller
 
         protected virtual void onParentStateChange(GenericController parentController)
         {
+            List<GenericController> controllerMarkedForExclusion = new List<GenericController>();
+
             foreach (GenericController childController in this.children)
             {
-                childController.onParentStateChange(parentController);
+                if (!childController._disposed)
+                {
+                    childController.onParentStateChange(parentController);
+                }
+                else
+                {
+                    controllerMarkedForExclusion.Add(childController);
+                }
+            }
+
+            // REMOVE REFERENCES OF DISPOSED CONTROLLERS
+
+            foreach (GenericController disposedController in controllerMarkedForExclusion)
+            {
+                this._children.Remove(disposedController);
             }
         }
 
@@ -117,5 +140,10 @@ namespace RPGMasterTools.Source.Controller
         }
 
         public abstract Object getCurrentState();
+
+        public bool disposed
+        {
+            get { return this._disposed; }
+        }
     }
 }

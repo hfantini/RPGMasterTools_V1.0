@@ -159,7 +159,7 @@ namespace RPGMasterTools.Source.View.Sound
                 {
                     tViewData.Invoke(new Action(() =>
                     {
-                        currentNode.Nodes.Add(obj.GetValue("NAME").Value<String>());
+                        currentNode.Nodes.Add(obj.Value<String>("NAME"));
                         var index = currentNode.Nodes.Count - 1;
                         currentNode.Nodes[index].Tag = obj;
 
