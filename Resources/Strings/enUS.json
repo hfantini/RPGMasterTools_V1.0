@@ -17,7 +17,36 @@
 		},
 		"TAB":
 		{
-			"SOUND": "SOUND AND MUSIC"
+			"SOUND": "SOUND AND MUSIC",
+			"CHARACTER": "CHARACTERS",
+			"COMBAT": "COMBAT"
+		}
+	},
+	"RPG":
+	{
+		"STAT":
+		{
+			"STRENGTH": "STRENGTH",
+			"DEXTERITY": "DEXTERITY",
+			"CONSTITUTION": "CONSTITUTION",
+			"INTELLIGENCE": "INTELLIGENCE",
+			"WISDOM": "WISDOM",
+			"CHARISMA": "CHARISMA"
+		},
+		"CLASS":
+		{
+			"BARBARIAN": "BARBARIAN",
+			"BARD": "BARD",
+			"CLERIC": "CLERIC",
+			"DRUID": "DRUID",
+			"FIGHTER": "FIGHTER",
+			"MONK": "MONK",
+			"PALADIN": "PALADIN",
+			"RANGER": "RANGER",
+			"ROGUE": "ROGUE",
+			"SORCERER": "SORCERER",
+			"WARLOCK": "WARLOCK",
+			"WIZARD": "WIZARD",
 		}
 	},
 	"SOUND":
@@ -59,6 +88,13 @@
 			{
 				"TITLE": "SOUNDFX"
 			}
+		}
+	},
+	"CHARACTER":
+	{
+		"HEROES":
+		{
+			"TITLE": "HEROES"
 		}
 	}
 }

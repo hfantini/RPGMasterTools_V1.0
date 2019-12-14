@@ -57,6 +57,7 @@ namespace RPGMasterTools.Source.Controller
 
         private List<Hotkey> _systemAvailableHotkeys;
         private Hotkey _lastPressedHotKey;
+        private int _activeTab = 0;
 
         // == CONSTRUCTOR(S)
         // ==============================================================
@@ -67,6 +68,9 @@ namespace RPGMasterTools.Source.Controller
             this._systemAvailableHotkeys = new List<Hotkey>();
 
             // == DEFINING GLOBAL HOTKEYS
+
+            this._systemAvailableHotkeys.Add(new Hotkey(EnumKeyModifier.MOD_NONE, Keys.F1)); // TAB CHANGE
+            this._systemAvailableHotkeys.Add(new Hotkey(EnumKeyModifier.MOD_NONE, Keys.F2)); // TAB CHANGE
 
             this._systemAvailableHotkeys.Add(new Hotkey(EnumKeyModifier.MOD_ALT, Keys.P)); // PLAY/PAUSE MUSIC TRACK
             this._systemAvailableHotkeys.Add(new Hotkey(EnumKeyModifier.MOD_ALT, Keys.S)); // STOP MUSIC TRACK
@@ -142,6 +146,43 @@ namespace RPGMasterTools.Source.Controller
         // == EVENTS
         // ==============================================================
 
+        protected override void onParentStateChange(GenericController parentController)
+        {
+            if (parentController is MainController)
+            {
+                MainController controller = (MainController)parentController;
+
+                if (controller.currentState == EnumStateMain.STATE_GLOBAL_HOTKEY_PRESSED)
+                {
+                    if (controller.lastPressedHotKey.modifier == Enumeration.System.EnumKeyModifier.MOD_NONE)
+                    {
+                        Keys key = controller.lastPressedHotKey.key;
+
+                        switch (key)
+                        {
+                            case Keys.F1:
+
+                                this._activeTab = 0;
+                                this.currentState = EnumStateMain.STATE_TAB_CHANGE;
+
+                                break;
+
+                            case Keys.F2:
+
+                                this._activeTab = 1;
+                                this.currentState = EnumStateMain.STATE_TAB_CHANGE;
+
+                                break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                base.onParentStateChange(parentController);
+            }
+        }
+
         // == GETTERS AND SETTERS
         // ==============================================================
 
@@ -154,6 +195,12 @@ namespace RPGMasterTools.Source.Controller
         {
             get { return this._lastPressedHotKey; }
             set { this._lastPressedHotKey = value; }
+        }
+
+        public int activeTab
+        {
+            get { return this._activeTab; }
+            set { this._activeTab = value; }
         }
     }
 }

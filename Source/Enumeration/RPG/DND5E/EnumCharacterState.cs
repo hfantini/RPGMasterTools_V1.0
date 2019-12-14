@@ -1,4 +1,5 @@
-﻿/*
+﻿
+/*
 
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
     |
@@ -14,11 +15,11 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [EnumStateMain.cs]
-    |	Type: [ENUM]
+    |	Name: [FILENAME]
+    |	Type: [TYPE]
     |	Author: Henrique Fantini
     |	
-    |	Description: Define the state of main controller.
+    |	Description:
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
@@ -27,21 +28,28 @@
 // == IMPORTS
 // ==================================================================
 
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 // == NAMESPACE
 // ==================================================================
 
-namespace RPGMasterTools.Source.Enumeration.State
+namespace RPGMasterTools.Source.Enumeration.RPG.DND5E
 {
     // == ENUM
     // ==============================================================
 
     [DefaultValue(STATE_IDLE)]
-    public enum EnumStateMain
+    public enum EnumCharacterState
     {
-        STATE_IDLE,
-        STATE_GLOBAL_HOTKEY_PRESSED,
-        STATE_TAB_CHANGE
+        STATE_DEAD,
+        STATE_IDLE, //OUT OF COMBAT
+        STATE_COMBAT,
+        STATE_STUNNED,
+        STATE_CHARMED,
     }
 }

@@ -33,6 +33,7 @@ using RPGMasterTools.Source.Enumeration.System;
 using RPGMasterTools.Source.Interface;
 using RPGMasterTools.Source.Model.Sys;
 using RPGMasterTools.Source.Util;
+using RPGMasterTools.Source.View.Character;
 using RPGMasterTools.Source.View.Sound;
 using System;
 using System.Collections.Generic;
@@ -62,6 +63,8 @@ namespace RPGMasterTools.Source.View
         // -- VAR -------------------------------------------------------
 
         private MainController _controller;
+        ViewSound _viewSound = null;
+        ViewCharacter _viewCharacter = null;
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vk);
@@ -84,14 +87,17 @@ namespace RPGMasterTools.Source.View
             this.WindowState = FormWindowState.Maximized;
 
             UComponent.applyLanguageToComponent(this);
-            UComponent.applyLanguageToMenu(mnuMain);
             UComponent.applyLanguageToTabPanel(tpnlMain);
 
             // == ADDING ANOTHER COMPONENTS
 
-            ViewSound viewSound = new ViewSound(this._controller);
-            viewSound.Dock = DockStyle.Fill;
-            tabSound.Controls.Add( viewSound );
+            this._viewSound = new ViewSound(this._controller);
+            this._viewSound.Dock = DockStyle.Fill;
+            tabSound.Controls.Add(this._viewSound);
+
+            this._viewCharacter = new ViewCharacter(this._controller);
+            this._viewCharacter.Dock = DockStyle.Fill;
+            tabCharacter.Controls.Add(this._viewCharacter);
 
             // == REGISTERING GLOBAL HOTKEYS
 
@@ -103,7 +109,10 @@ namespace RPGMasterTools.Source.View
 
         public void update(EnumStateMain lastState, EnumStateMain currentState)
         {
-
+            if(currentState == EnumStateMain.STATE_TAB_CHANGE)
+            {
+                tpnlMain.SelectedIndex = this._controller.activeTab;
+            }
         }
 
         protected override void WndProc(ref Message m)
@@ -164,14 +173,14 @@ namespace RPGMasterTools.Source.View
             unregisterHotkeys();
         }
 
-        private void ViewMain_Deactivate(object sender, EventArgs e)
-        {
-            unregisterHotkeys();
-        }
-
         private void ViewMain_Activated(object sender, EventArgs e)
         {
             registerHotkeys();
+        }
+
+        private void ViewMain_Deactivate(object sender, EventArgs e)
+        {
+            unregisterHotkeys();
         }
 
         // == GETTERS AND SETTERS

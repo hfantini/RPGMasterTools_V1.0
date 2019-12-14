@@ -14,11 +14,11 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [EnumStateMain.cs]
+    |	Name: [EnumDice]
     |	Type: [ENUM]
     |	Author: Henrique Fantini
     |	
-    |	Description: Define the state of main controller.
+    |	Description: Represent all RPG dices.
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
@@ -27,21 +27,31 @@
 // == IMPORTS
 // ==================================================================
 
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 // == NAMESPACE
 // ==================================================================
 
-namespace RPGMasterTools.Source.Enumeration.State
+namespace RPGMasterTools.Source.Enumeration.RPG.DND5E
 {
     // == ENUM
     // ==============================================================
 
-    [DefaultValue(STATE_IDLE)]
-    public enum EnumStateMain
+    [DefaultValue(D0)]
+    public enum EnumDice
     {
-        STATE_IDLE,
-        STATE_GLOBAL_HOTKEY_PRESSED,
-        STATE_TAB_CHANGE
+        D0 = 0,
+        D4 = 4,
+        D6 = 6,
+        D8 = 8,
+        D10 = 10,
+        D12 = 12,
+        D20 = 20,
+        D100 = 100
     }
 }

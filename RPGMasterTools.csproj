@@ -63,6 +63,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Source\Controller\Char\CharHeroesController.cs" />
+    <Compile Include="Source\Controller\Char\CharController.cs" />
     <Compile Include="Source\Controller\ComponentController.cs" />
     <Compile Include="Source\Controller\Sound\SoundController.cs" />
     <Compile Include="Source\Controller\Sound\SoundRightAmbiencePlayerController.cs" />
@@ -80,11 +82,16 @@
     <Compile Include="Source\Enumeration\Exception\ExceptionType.cs" />
     <Compile Include="Source\Enumeration\Log\EnumLogLevel.cs" />
     <Compile Include="Source\Enumeration\Log\EnumLogType.cs" />
+    <Compile Include="Source\Enumeration\RPG\DND5E\EnumCharacterState.cs" />
+    <Compile Include="Source\Enumeration\RPG\DND5E\EnumDice.cs" />
+    <Compile Include="Source\Enumeration\RPG\DND5E\EnumCharacterStat.cs" />
+    <Compile Include="Source\Enumeration\State\EnumStateCharHeroes.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateSoundRightAmbiencePlayer.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateSoundRightAmbience.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateSoundRightFXPlayer.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateSoundRightFX.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateSoundRightMusicPlate.cs" />
+    <Compile Include="Source\Enumeration\State\EnumStateChar.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateSoundRightMusicPlayer.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateSoundRightMusic.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateSoundRight.cs" />
@@ -98,6 +105,25 @@
     <Compile Include="Source\Model\Exception\EMasterToolsInvalidStateChangeException.cs" />
     <Compile Include="Source\Model\Exception\EMasterToolsException.cs" />
     <Compile Include="Source\Model\Language\MLanguage.cs" />
+    <Compile Include="Source\Model\RPG\Combat.cs" />
+    <Compile Include="Source\Model\RPG\DND5E\BossEnemy.cs" />
+    <Compile Include="Source\Model\RPG\DND5E\NormalEnemy.cs" />
+    <Compile Include="Source\Model\RPG\DND5E\Enemy.cs" />
+    <Compile Include="Source\Model\RPG\DND5E\Wizard.cs" />
+    <Compile Include="Source\Model\RPG\DND5E\Warlock.cs" />
+    <Compile Include="Source\Model\RPG\DND5E\Sorcerer.cs" />
+    <Compile Include="Source\Model\RPG\DND5E\Rogue.cs" />
+    <Compile Include="Source\Model\RPG\DND5E\Ranger.cs" />
+    <Compile Include="Source\Model\RPG\DND5E\Paladin.cs" />
+    <Compile Include="Source\Model\RPG\DND5E\Monk.cs" />
+    <Compile Include="Source\Model\RPG\DND5E\Fighter.cs" />
+    <Compile Include="Source\Model\RPG\DND5E\Druid.cs" />
+    <Compile Include="Source\Model\RPG\DND5E\Cleric.cs" />
+    <Compile Include="Source\Model\RPG\DND5E\Bard.cs" />
+    <Compile Include="Source\Model\RPG\DND5E\Barbarian.cs" />
+    <Compile Include="Source\Model\RPG\Character.cs" />
+    <Compile Include="Source\Model\RPG\DND5E\CClass.cs" />
+    <Compile Include="Source\Model\RPG\DND5E\Player.cs" />
     <Compile Include="Source\Model\Sound\PresetSoundFX.cs" />
     <Compile Include="Source\Model\Sound\PresetAmbience.cs" />
     <Compile Include="Source\Model\Sound\PresetMusic.cs" />
@@ -115,6 +141,18 @@
     <Compile Include="Source\Util\ULog.cs" />
     <Compile Include="Source\Util\URandom.cs" />
     <Compile Include="Source\Util\USystemMessage.cs" />
+    <Compile Include="Source\View\Character\ViewCharacter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\View\Character\ViewCharacter.Designer.cs">
+      <DependentUpon>ViewCharacter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\View\Character\ViewCharacterHeroes.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\View\Character\ViewCharacterHeroes.Designer.cs">
+      <DependentUpon>ViewCharacterHeroes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source\View\Component\VerticalSeparator.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -210,6 +248,12 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Source\View\Character\ViewCharacter.resx">
+      <DependentUpon>ViewCharacter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\View\Character\ViewCharacterHeroes.resx">
+      <DependentUpon>ViewCharacterHeroes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Source\View\Sound\ViewSound.resx">
       <DependentUpon>ViewSound.cs</DependentUpon>
     </EmbeddedResource>
@@ -298,6 +342,23 @@
     <None Include="Resources\Images\Icons\ico_refresh.png" />
     <None Include="Resources\Images\Icons\ico_expand.png" />
     <None Include="Resources\Images\Icons\ico_collapse.png" />
+    <None Include="Resources\Images\Icons\ico_class_warlock.png" />
+    <None Include="Resources\Images\Icons\ico_class_warrior.png" />
+    <None Include="Resources\Images\Icons\icon_class_barbarian.png" />
+    <None Include="Resources\Images\Icons\icon_class_monk.png" />
+    <None Include="Resources\Images\Icons\ico_class_bard.png" />
+    <None Include="Resources\Images\Icons\ico_class_druid.png" />
+    <None Include="Resources\Images\Icons\ico_class_hunter.png" />
+    <None Include="Resources\Images\Icons\ico_class_mage.png" />
+    <None Include="Resources\Images\Icons\ico_class_none.png" />
+    <None Include="Resources\Images\Icons\ico_class_paladin.png" />
+    <None Include="Resources\Images\Icons\ico_class_priest.png" />
+    <None Include="Resources\Images\Icons\ico_class_rogue.png" />
+    <None Include="Resources\Images\Icons\ico_class_sorcerer.png" />
+    <None Include="Resources\Images\Icons\ico_class_boss.png" />
+    <None Include="Resources\Images\Icons\ico_class_enemy.png" />
+    <None Include="Resources\Images\Icons\ico_class_barbarian.png" />
+    <None Include="Resources\Images\Icons\ico_class_monk.png" />
     <Content Include="sysicon.ico" />
   </ItemGroup>
   <ItemGroup>

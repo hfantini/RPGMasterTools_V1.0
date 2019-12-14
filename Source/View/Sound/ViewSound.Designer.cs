@@ -48,11 +48,12 @@
             this.tableLayoutPanel1.Controls.Add(this.tStripSound, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1387, 653);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(925, 424);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // tblSoundLayout
@@ -66,29 +67,31 @@
             this.tblSoundLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 74.25249F));
             this.tblSoundLayout.Controls.Add(this.pnlSoundRight, 1, 0);
             this.tblSoundLayout.Controls.Add(this.pnlSoundLeft, 0, 0);
-            this.tblSoundLayout.Location = new System.Drawing.Point(0, 50);
+            this.tblSoundLayout.Location = new System.Drawing.Point(0, 32);
             this.tblSoundLayout.Margin = new System.Windows.Forms.Padding(0);
             this.tblSoundLayout.Name = "tblSoundLayout";
             this.tblSoundLayout.RowCount = 1;
             this.tblSoundLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 52.22052F));
-            this.tblSoundLayout.Size = new System.Drawing.Size(1387, 603);
+            this.tblSoundLayout.Size = new System.Drawing.Size(925, 392);
             this.tblSoundLayout.TabIndex = 1;
             // 
             // pnlSoundRight
             // 
             this.pnlSoundRight.BackColor = System.Drawing.SystemColors.ControlDark;
             this.pnlSoundRight.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlSoundRight.Location = new System.Drawing.Point(360, 3);
+            this.pnlSoundRight.Location = new System.Drawing.Point(240, 2);
+            this.pnlSoundRight.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pnlSoundRight.Name = "pnlSoundRight";
-            this.pnlSoundRight.Size = new System.Drawing.Size(1024, 597);
+            this.pnlSoundRight.Size = new System.Drawing.Size(683, 388);
             this.pnlSoundRight.TabIndex = 1;
             // 
             // pnlSoundLeft
             // 
             this.pnlSoundLeft.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlSoundLeft.Location = new System.Drawing.Point(3, 3);
+            this.pnlSoundLeft.Location = new System.Drawing.Point(2, 2);
+            this.pnlSoundLeft.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pnlSoundLeft.Name = "pnlSoundLeft";
-            this.pnlSoundLeft.Size = new System.Drawing.Size(351, 597);
+            this.pnlSoundLeft.Size = new System.Drawing.Size(234, 388);
             this.pnlSoundLeft.TabIndex = 2;
             // 
             // tStripSound
@@ -100,7 +103,7 @@
             this.toolStripSeparator1});
             this.tStripSound.Location = new System.Drawing.Point(0, 0);
             this.tStripSound.Name = "tStripSound";
-            this.tStripSound.Size = new System.Drawing.Size(1387, 50);
+            this.tStripSound.Size = new System.Drawing.Size(925, 32);
             this.tStripSound.TabIndex = 2;
             this.tStripSound.Text = "toolStrip1";
             // 
@@ -110,22 +113,23 @@
             this.btnSavePreset.Image = global::RPGMasterTools.Properties.Resources.ico_save;
             this.btnSavePreset.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSavePreset.Name = "btnSavePreset";
-            this.btnSavePreset.Size = new System.Drawing.Size(28, 47);
+            this.btnSavePreset.Size = new System.Drawing.Size(28, 29);
             this.btnSavePreset.Click += new System.EventHandler(this.btnSavePreset_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 50);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 32);
             // 
             // ViewSound
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "ViewSound";
-            this.Size = new System.Drawing.Size(1387, 653);
+            this.Size = new System.Drawing.Size(925, 424);
             this.Load += new System.EventHandler(this.ViewSound_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

@@ -28,6 +28,7 @@
 // ==================================================================
 
 using RPGMasterTools.Source.Enumeration.Controller;
+using RPGMasterTools.Source.Enumeration.State;
 using RPGMasterTools.Source.Interface;
 using RPGMasterTools.Source.Model.Exception;
 using System;
@@ -35,6 +36,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 // == NAMESPACE
 // ==================================================================
@@ -82,6 +84,9 @@ namespace RPGMasterTools.Source.Controller
         {
             this._currentView.update(this._lastState, this._currentState);
         }
+
+        // == EVENTS
+        // ==============================================================
 
         // == GETTERS AND SETTERS
         // ==============================================================
