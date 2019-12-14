@@ -47,7 +47,8 @@
             this.mItemMain});
             this.mnuMain.Location = new System.Drawing.Point(0, 0);
             this.mnuMain.Name = "mnuMain";
-            this.mnuMain.Size = new System.Drawing.Size(1253, 33);
+            this.mnuMain.Padding = new System.Windows.Forms.Padding(4, 1, 0, 1);
+            this.mnuMain.Size = new System.Drawing.Size(835, 24);
             this.mnuMain.TabIndex = 0;
             // 
             // mItemMain
@@ -55,13 +56,13 @@
             this.mItemMain.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuItemExit});
             this.mItemMain.Name = "mItemMain";
-            this.mItemMain.Size = new System.Drawing.Size(174, 29);
+            this.mItemMain.Size = new System.Drawing.Size(121, 22);
             this.mItemMain.Text = "MAIN.MENU.MAIN";
             // 
             // mnuItemExit
             // 
             this.mnuItemExit.Name = "mnuItemExit";
-            this.mnuItemExit.Size = new System.Drawing.Size(234, 30);
+            this.mnuItemExit.Size = new System.Drawing.Size(168, 22);
             this.mnuItemExit.Text = "MAIN.MENU.EXIT";
             // 
             // pnlMain
@@ -70,9 +71,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlMain.Controls.Add(this.tpnlMain);
-            this.pnlMain.Location = new System.Drawing.Point(0, 36);
+            this.pnlMain.Location = new System.Drawing.Point(0, 23);
+            this.pnlMain.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(1253, 583);
+            this.pnlMain.Size = new System.Drawing.Size(835, 379);
             this.pnlMain.TabIndex = 1;
             // 
             // tpnlMain
@@ -81,39 +83,41 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tpnlMain.Controls.Add(this.tabSound);
-            this.tpnlMain.Location = new System.Drawing.Point(3, 3);
+            this.tpnlMain.Location = new System.Drawing.Point(2, 2);
             this.tpnlMain.Margin = new System.Windows.Forms.Padding(0);
             this.tpnlMain.Name = "tpnlMain";
             this.tpnlMain.SelectedIndex = 0;
-            this.tpnlMain.Size = new System.Drawing.Size(1250, 580);
+            this.tpnlMain.Size = new System.Drawing.Size(833, 377);
             this.tpnlMain.TabIndex = 0;
             // 
             // tabSound
             // 
-            this.tabSound.Location = new System.Drawing.Point(4, 29);
+            this.tabSound.Location = new System.Drawing.Point(4, 22);
             this.tabSound.Margin = new System.Windows.Forms.Padding(0);
             this.tabSound.Name = "tabSound";
-            this.tabSound.Size = new System.Drawing.Size(1242, 547);
+            this.tabSound.Size = new System.Drawing.Size(825, 351);
             this.tabSound.TabIndex = 0;
             this.tabSound.Text = "MAIN.TAB.SOUND";
             this.tabSound.UseVisualStyleBackColor = true;
             // 
             // ViewMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1253, 617);
+            this.ClientSize = new System.Drawing.Size(835, 401);
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.mnuMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mnuMain;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ViewMain";
             this.Text = "MAIN.TITLE";
+            this.Activated += new System.EventHandler(this.ViewMain_Activated);
+            this.Deactivate += new System.EventHandler(this.ViewMain_Deactivate);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ViewMain_FormClosing);
-            this.Load += new System.EventHandler(this.ViewMain_Load);
             this.mnuMain.ResumeLayout(false);
             this.mnuMain.PerformLayout();
             this.pnlMain.ResumeLayout(false);

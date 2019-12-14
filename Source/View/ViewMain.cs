@@ -95,11 +95,7 @@ namespace RPGMasterTools.Source.View
 
             // == REGISTERING GLOBAL HOTKEYS
 
-            for(int count = 0; count < this._controller.systemAvailableHotkeys.Count; count++)
-            {
-                Hotkey currentHotkey = this._controller.systemAvailableHotkeys[count];
-                RegisterHotKey(this.Handle, count, (int)currentHotkey.modifier, currentHotkey.key.GetHashCode());
-            }
+            registerHotkeys();
         }
 
         // == METHODS
@@ -114,12 +110,31 @@ namespace RPGMasterTools.Source.View
         {
             base.WndProc(ref m);
 
-            if (m.Msg == 0x0312)
+            if (m.Msg == 0x0312 && this.ContainsFocus)
             {    
                 int id = m.WParam.ToInt32();                                        
 
                 this._controller.lastPressedHotKey = this._controller.systemAvailableHotkeys[id];
                 this._controller.currentState = EnumStateMain.STATE_GLOBAL_HOTKEY_PRESSED;
+            }
+        }
+
+        private void registerHotkeys()
+        {
+            for (int count = 0; count < this._controller.systemAvailableHotkeys.Count; count++)
+            {
+                Hotkey currentHotkey = this._controller.systemAvailableHotkeys[count];
+                RegisterHotKey(this.Handle, count, (int)currentHotkey.modifier, currentHotkey.key.GetHashCode());
+            }
+        }
+
+        private void unregisterHotkeys()
+        {
+            // == UNREGISTERING GLOBAL HOTKEYS
+
+            for (int count = 0; count < this._controller.systemAvailableHotkeys.Count; count++)
+            {
+                UnregisterHotKey(this.Handle, count);
             }
         }
 
@@ -133,15 +148,30 @@ namespace RPGMasterTools.Source.View
 
         private void ViewMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // == UNREGISTERING GLOBAL HOTKEYS
-
-            for (int count = 0; count < this._controller.systemAvailableHotkeys.Count; count++)
-            {
-                UnregisterHotKey(this.Handle, count);
-            }
+            unregisterHotkeys();
 
             // DESTROY ALL CONTROLLERS
             this._controller.Dispose();
+        }
+
+        private void ViewMain_Enter(object sender, EventArgs e)
+        {
+            registerHotkeys();
+        }
+
+        private void ViewMain_Leave(object sender, EventArgs e)
+        {
+            unregisterHotkeys();
+        }
+
+        private void ViewMain_Deactivate(object sender, EventArgs e)
+        {
+            unregisterHotkeys();
+        }
+
+        private void ViewMain_Activated(object sender, EventArgs e)
+        {
+            registerHotkeys();
         }
 
         // == GETTERS AND SETTERS
