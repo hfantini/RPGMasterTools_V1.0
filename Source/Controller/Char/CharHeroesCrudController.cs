@@ -14,11 +14,11 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [CharController]
+    |	Name: [CharHeroesCrudController]
     |	Type: [CONTROLLER]
     |	Author: Henrique Fantini
     |	
-    |	Description: Char controller class.
+    |	Description: -
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
@@ -34,16 +34,18 @@ using RPGMasterTools.Source.Enumeration.Exception;
 using RPGMasterTools.Source.Enumeration.State;
 using RPGMasterTools.Source.Interface;
 using RPGMasterTools.Source.Model.Exception;
-using RPGMasterTools.Source.Model.RPG;
 using RPGMasterTools.Source.Model.RPG.DND5E;
 using RPGMasterTools.Source.Model.Sound;
 using RPGMasterTools.Source.Util;
+using RPGMasterTools.Source.View;
+using RPGMasterTools.Source.View.Character;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 // == NAMESPACE
 // ==================================================================
@@ -53,25 +55,22 @@ namespace RPGMasterTools.Source.Controller.Char
     // == CLASS
     // ==============================================================
 
-    public class CharController : ComponentController<EnumStateChar>
+    public class CharHeroesCrudController : ComponentController<EnumStateCharHeroesCrud>
     {
 
         // -- CONST -----------------------------------------------------
 
         // -- VAR -------------------------------------------------------
 
-        private static List<Player> _playerList = new List<Player>();
+        private Player _player;
 
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public CharController(IComponent<EnumStateChar> component, GenericController controller) : base(component, controller)
+        public CharHeroesCrudController(IComponent<EnumStateCharHeroesCrud> component, GenericController controller) : base(component, controller)
         {
-
+            this._player = new Player();
         }
-
-        // == EVENTS
-        // ==============================================================
 
         // == METHODS
         // ==============================================================
@@ -80,31 +79,54 @@ namespace RPGMasterTools.Source.Controller.Char
         {
             base.update();
 
-            if(this.currentState != EnumStateChar.STATE_IDLE)
+            if (this.currentState == EnumStateCharHeroesCrud.STATE_CLASS_CHANGED)
             {
-                this.currentState = EnumStateChar.STATE_IDLE;
+                this.currentState = EnumStateCharHeroesCrud.STATE_IDLE;
+            }
+            else if (this.currentState == EnumStateCharHeroesCrud.STATE_VALIDATE)
+            {
+                if (validate())
+                {
+                    this.currentState = EnumStateCharHeroesCrud.STATE_OK;
+                }
+                else
+                {
+                    MessageBox.Show("VALIDATION!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.currentState = EnumStateCharHeroesCrud.STATE_IDLE;
+                }
             }
         }
 
-        public static List<Player> getListOfPlayers()
+        protected bool validate()
         {
-            return new List<Player>(_playerList);
-        }
+            bool retValue = true;
 
-        public static void addPlayerToList(Player player)
-        {
-            if( !_playerList.Contains(player) )
+            // NAME
+
+            if(player.name == null || player.name == "")
             {
-                _playerList.Add(player);
+                retValue = false;
             }
+
+            // CLASS
+
+            if(player.pClass == null)
+            {
+                retValue = false;
+            }
+
+            return retValue;
         }
 
-        public static void removePlayerFromList(Player player)
-        {
-            _playerList.Remove(player);
-        }
+        // == EVENTS
+        // ==============================================================
 
         // == GETTERS AND SETTERS
         // ==============================================================
+
+        public Player player
+        {
+            get { return this._player; }
+        }
     }
 }

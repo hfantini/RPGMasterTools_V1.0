@@ -141,6 +141,7 @@ namespace RPGMasterTools.Source.Model.RPG
         public string name
         {
             get { return this._name; }
+            set { this._name = value; }
         }
 
         public EnumCharacterState currentState

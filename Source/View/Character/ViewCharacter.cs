@@ -58,6 +58,7 @@ namespace RPGMasterTools.Source.View.Character
 
         private CharController _controller = null;
         private ViewCharacterHeroes _viewCharHeroes = null;
+        private ViewCharacterEnemies _viewCharEnemies = null;
 
         // == CONSTRUCTOR(S)
         // ==============================================================
@@ -79,9 +80,13 @@ namespace RPGMasterTools.Source.View.Character
 
             // CONFIGURE COMPONENTS
 
-            this._viewCharHeroes = new ViewCharacterHeroes();
+            this._viewCharHeroes = new ViewCharacterHeroes(this._controller);
             this._viewCharHeroes.Dock = DockStyle.Fill;
             this.pnlHeroes.Controls.Add(this._viewCharHeroes);
+
+            this._viewCharEnemies = new ViewCharacterEnemies();
+            this._viewCharEnemies.Dock = DockStyle.Fill;
+            this.pnlEnemies.Controls.Add(this._viewCharEnemies);
         }
 
         // == METHODS

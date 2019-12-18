@@ -82,11 +82,21 @@ namespace RPGMasterTools.Source.View.Character
 
         public void update(EnumStateCharHeroes lastState, EnumStateCharHeroes currentState)
         {
-            throw new NotImplementedException();
+            
         }
 
         // == EVENTS
         // ==============================================================
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            this._controller.currentState = EnumStateCharHeroes.STATE_ADD;
+        }
+
+        private void ViewCharacterHeroes_Load(object sender, EventArgs e)
+        {
+            this._controller.currentState = EnumStateCharHeroes.STATE_IDLE;
+        }
 
         // == GETTERS AND SETTERS
         // ==============================================================

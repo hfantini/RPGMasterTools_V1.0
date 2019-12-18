@@ -63,6 +63,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Source\Controller\Char\CharEnemiesController.cs" />
+    <Compile Include="Source\Controller\Char\CharHeroesCrudController.cs" />
     <Compile Include="Source\Controller\Char\CharHeroesController.cs" />
     <Compile Include="Source\Controller\Char\CharController.cs" />
     <Compile Include="Source\Controller\ComponentController.cs" />
@@ -85,6 +87,8 @@
     <Compile Include="Source\Enumeration\RPG\DND5E\EnumCharacterState.cs" />
     <Compile Include="Source\Enumeration\RPG\DND5E\EnumDice.cs" />
     <Compile Include="Source\Enumeration\RPG\DND5E\EnumCharacterStat.cs" />
+    <Compile Include="Source\Enumeration\State\EnumStateCharEnemies.cs" />
+    <Compile Include="Source\Enumeration\State\EnumStateCharHeroesCrud.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateCharHeroes.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateSoundRightAmbiencePlayer.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateSoundRightAmbience.cs" />
@@ -147,11 +151,23 @@
     <Compile Include="Source\View\Character\ViewCharacter.Designer.cs">
       <DependentUpon>ViewCharacter.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source\View\Character\ViewCharacterEnemies.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\View\Character\ViewCharacterEnemies.Designer.cs">
+      <DependentUpon>ViewCharacterEnemies.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source\View\Character\ViewCharacterHeroes.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Source\View\Character\ViewCharacterHeroes.Designer.cs">
       <DependentUpon>ViewCharacterHeroes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\View\Character\ViewCharacterHeroesCrud.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\View\Character\ViewCharacterHeroesCrud.Designer.cs">
+      <DependentUpon>ViewCharacterHeroesCrud.cs</DependentUpon>
     </Compile>
     <Compile Include="Source\View\Component\VerticalSeparator.cs">
       <SubType>UserControl</SubType>
@@ -237,6 +253,12 @@
     <Compile Include="Source\View\Sound\ViewSoundRightMusicPlayer.Designer.cs">
       <DependentUpon>ViewSoundRightMusicPlayer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source\View\ViewDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Source\View\ViewDialog.Designer.cs">
+      <DependentUpon>ViewDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source\View\ViewMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -251,8 +273,14 @@
     <EmbeddedResource Include="Source\View\Character\ViewCharacter.resx">
       <DependentUpon>ViewCharacter.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Source\View\Character\ViewCharacterEnemies.resx">
+      <DependentUpon>ViewCharacterEnemies.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Source\View\Character\ViewCharacterHeroes.resx">
       <DependentUpon>ViewCharacterHeroes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\View\Character\ViewCharacterHeroesCrud.resx">
+      <DependentUpon>ViewCharacterHeroesCrud.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\View\Sound\ViewSound.resx">
       <DependentUpon>ViewSound.cs</DependentUpon>
@@ -292,6 +320,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Source\View\Sound\ViewSoundRightMusicPlayer.resx">
       <DependentUpon>ViewSoundRightMusicPlayer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\View\ViewDialog.resx">
+      <DependentUpon>ViewDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\View\ViewMain.resx">
       <DependentUpon>ViewMain.cs</DependentUpon>
@@ -359,6 +390,7 @@
     <None Include="Resources\Images\Icons\ico_class_enemy.png" />
     <None Include="Resources\Images\Icons\ico_class_barbarian.png" />
     <None Include="Resources\Images\Icons\ico_class_monk.png" />
+    <None Include="Resources\Images\Icons\ico_add.png" />
     <Content Include="sysicon.ico" />
   </ItemGroup>
   <ItemGroup>

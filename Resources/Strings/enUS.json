@@ -94,7 +94,15 @@
 	{
 		"HEROES":
 		{
-			"TITLE": "HEROES"
+			"TITLE": "HEROES",
+			"CRUD":
+			{
+				"TITLE_NEW": "NEW HERO",
+				"BTN_OK": "OK",
+				"BTN_CANCEL": "CANCEL",
+				"FIELD_NAME": "CHARACTER'S NAME",
+				"FIELD_CLASS": "CLASS"
+			}
 		}
 	}
 }

@@ -14,11 +14,11 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [Player.cs]
-    |	Type: [MODEL]
+    |	Name: [ViewCharacterEnemies.cs]
+    |	Type: [VIEW]
     |	Author: Henrique Fantini
     |	
-    |	Description: Defines a player class.
+    |	Description: -
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
@@ -29,46 +29,61 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using RPGMasterTools.Source.Enumeration.State;
+using RPGMasterTools.Source.Interface;
+using RPGMasterTools.Source.Controller.Char;
+using RPGMasterTools.Source.Controller;
 
 // == NAMESPACE
 // ==================================================================
 
-namespace RPGMasterTools.Source.Model.RPG.DND5E
+namespace RPGMasterTools.Source.View.Character
 {
     // == CLASS
     // ==============================================================
 
-    public class Player : Character
+    public partial class ViewCharacterEnemies : UserControl, IComponent<EnumStateCharEnemies>
     {
         // -- CONST -----------------------------------------------------
 
         // -- VAR -------------------------------------------------------
 
-        private CClass _pClass = null;
+        private CharEnemiesController _controller = null;
 
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public Player() : base("UNKNOWN")
+        public ViewCharacterEnemies()
         {
-
+            InitializeComponent();
         }
 
-        public Player(string name, CClass pClass) : base(name)
+        public ViewCharacterEnemies(GenericController parentController)
         {
-            this._pClass = pClass;
+            InitializeComponent();
+
+            // INIT VALUES
+
+            // CONFIGURE CONTROLLER
+
+            this._controller = new CharEnemiesController(this, parentController);
+
+            // CONFIGURE COMPONENTS
         }
 
         // == METHODS
         // ==============================================================
 
-        public override Bitmap getIcon()
+        public void update(EnumStateCharEnemies lastState, EnumStateCharEnemies currentState)
         {
-            return this._pClass.icon;
+            throw new NotImplementedException();
         }
 
         // == EVENTS
@@ -76,11 +91,5 @@ namespace RPGMasterTools.Source.Model.RPG.DND5E
 
         // == GETTERS AND SETTERS
         // ==============================================================
-
-        public CClass pClass
-        {
-            get { return this._pClass; }
-            set { this._pClass = value; }
-        }
     }
 }

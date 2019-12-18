@@ -42,5 +42,6 @@ namespace RPGMasterTools.Source.Enumeration.State
     {
         STATE_NONE,
         STATE_IDLE,
+        STATE_PLAYERLIST_UPDATE
     }
 }

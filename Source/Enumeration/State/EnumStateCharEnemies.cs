@@ -14,7 +14,7 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [EnumStateCharHeroes.cs]
+    |	Name: [EnumStateCharEnemies.cs]
     |	Type: [ENUM]
     |	Author: Henrique Fantini
     |	
@@ -38,14 +38,9 @@ namespace RPGMasterTools.Source.Enumeration.State
     // ==============================================================
 
     [DefaultValue(STATE_NONE)]
-    public enum EnumStateCharHeroes
+    public enum EnumStateCharEnemies
     {
         STATE_NONE,
         STATE_IDLE,
-        STATE_ADD,
-        STATE_ADD_CANCEL,
-        STATE_ADD_OK,
-        STATE_ALTER,
-        STATE_DELETE
     }
 }

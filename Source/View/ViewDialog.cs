@@ -14,11 +14,11 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [Player.cs]
-    |	Type: [MODEL]
+    |	Name: [ViewDialog.cs]
+    |	Type: [VIEW]
     |	Author: Henrique Fantini
     |	
-    |	Description: Defines a player class.
+    |	Description: Default dialog form.
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
@@ -27,60 +27,60 @@
 // == IMPORTS
 // ==================================================================
 
+using RPGMasterTools.Source.Util;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 // == NAMESPACE
 // ==================================================================
 
-namespace RPGMasterTools.Source.Model.RPG.DND5E
+namespace RPGMasterTools.Source.View
 {
     // == CLASS
     // ==============================================================
 
-    public class Player : Character
+    public partial class ViewDialog : Form
     {
         // -- CONST -----------------------------------------------------
 
         // -- VAR -------------------------------------------------------
 
-        private CClass _pClass = null;
+        private Control _control = null;
 
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public Player() : base("UNKNOWN")
+        public ViewDialog()
         {
-
+            InitializeComponent();
         }
 
-        public Player(string name, CClass pClass) : base(name)
+        public ViewDialog(String title, Control control)
         {
-            this._pClass = pClass;
+            InitializeComponent();
+
+            this.Text = ULanguage.getStringCurrentLanguage(title);
+            this._control = control;
+
+            // ADD CONTROL AS CHILDREN
+            this._control.Dock = DockStyle.Fill;
+            this.Controls.Add(this._control);
         }
 
         // == METHODS
         // ==============================================================
-
-        public override Bitmap getIcon()
-        {
-            return this._pClass.icon;
-        }
 
         // == EVENTS
         // ==============================================================
 
         // == GETTERS AND SETTERS
         // ==============================================================
-
-        public CClass pClass
-        {
-            get { return this._pClass; }
-            set { this._pClass = value; }
-        }
     }
 }

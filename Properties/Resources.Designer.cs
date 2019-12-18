@@ -63,6 +63,16 @@ namespace RPGMasterTools.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ico_add {
+            get {
+                object obj = ResourceManager.GetObject("ico_add", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ico_class_barbarian {
             get {
                 object obj = ResourceManager.GetObject("ico_class_barbarian", resourceCulture);
