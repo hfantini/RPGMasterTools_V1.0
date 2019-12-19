@@ -42,6 +42,7 @@ using RPGMasterTools.Source.Controller.Char;
 using RPGMasterTools.Source.Controller;
 using RPGMasterTools.Source.Util;
 using RPGMasterTools.Source.Model.RPG.DND5E;
+using RPGMasterTools.Properties;
 
 // == NAMESPACE
 // ==================================================================
@@ -58,6 +59,7 @@ namespace RPGMasterTools.Source.View.Character
         // -- VAR -------------------------------------------------------
 
         private CharHeroesCrudController _controller;
+        private Dictionary<String, String> _comboSource;
 
         // == CONSTRUCTOR(S)
         // ==============================================================
@@ -67,14 +69,14 @@ namespace RPGMasterTools.Source.View.Character
             InitializeComponent();
         }
 
-        public ViewCharacterHeroesCrud(String title, GenericController parentController)
+        public ViewCharacterHeroesCrud(String title, GenericController parentController, Player player)
         {
             InitializeComponent();
 
             // INITIALIZE VALUES
 
             // INITIALIZE CONTROLLER
-            this._controller = new CharHeroesCrudController(this, parentController);
+            this._controller = new CharHeroesCrudController(this, parentController, player);
 
             // CONFIG COMPONENTS
             lblTitle.Text = ULanguage.getStringCurrentLanguage(title);
@@ -84,24 +86,35 @@ namespace RPGMasterTools.Source.View.Character
             grpName.Text = ULanguage.getStringCurrentLanguage(this.grpName.Text);
 
             // COMBO CLASS
-            Dictionary<String, String> _comboSource = new Dictionary<String, String>();
+            this._comboSource = new Dictionary<String, String>();
 
-            _comboSource.Add("- SELECT", "NONE");
-            _comboSource.Add(ULanguage.getStringCurrentLanguage("RPG.CLASS.BARBARIAN"), "Barbarian");
-            _comboSource.Add(ULanguage.getStringCurrentLanguage("RPG.CLASS.BARD"), "Bard");
-            _comboSource.Add(ULanguage.getStringCurrentLanguage("RPG.CLASS.CLERIC"), "Cleric");
-            _comboSource.Add(ULanguage.getStringCurrentLanguage("RPG.CLASS.DRUID"), "Druid");
-            _comboSource.Add(ULanguage.getStringCurrentLanguage("RPG.CLASS.FIGHTER"), "Fighter");
-            _comboSource.Add(ULanguage.getStringCurrentLanguage("RPG.CLASS.MONK"), "Monk");
-            _comboSource.Add(ULanguage.getStringCurrentLanguage("RPG.CLASS.PALADIN"), "Paladin");
-            _comboSource.Add(ULanguage.getStringCurrentLanguage("RPG.CLASS.ROGUE"), "Rogue");
-            _comboSource.Add(ULanguage.getStringCurrentLanguage("RPG.CLASS.SORCERER"), "Sorcerer");
-            _comboSource.Add(ULanguage.getStringCurrentLanguage("RPG.CLASS.WARLOCK"), "Warlock");
-            _comboSource.Add(ULanguage.getStringCurrentLanguage("RPG.CLASS.WIZARD"), "Wizard");
+            this._comboSource.Add("- SELECT", "NONE");
+            this._comboSource.Add(ULanguage.getStringCurrentLanguage("RPG.CLASS.BARBARIAN"), "Barbarian");
+            this._comboSource.Add(ULanguage.getStringCurrentLanguage("RPG.CLASS.BARD"), "Bard");
+            this._comboSource.Add(ULanguage.getStringCurrentLanguage("RPG.CLASS.CLERIC"), "Cleric");
+            this._comboSource.Add(ULanguage.getStringCurrentLanguage("RPG.CLASS.DRUID"), "Druid");
+            this._comboSource.Add(ULanguage.getStringCurrentLanguage("RPG.CLASS.FIGHTER"), "Fighter");
+            this._comboSource.Add(ULanguage.getStringCurrentLanguage("RPG.CLASS.MONK"), "Monk");
+            this._comboSource.Add(ULanguage.getStringCurrentLanguage("RPG.CLASS.PALADIN"), "Paladin");
+            this._comboSource.Add(ULanguage.getStringCurrentLanguage("RPG.CLASS.ROGUE"), "Rogue");
+            this._comboSource.Add(ULanguage.getStringCurrentLanguage("RPG.CLASS.SORCERER"), "Sorcerer");
+            this._comboSource.Add(ULanguage.getStringCurrentLanguage("RPG.CLASS.WARLOCK"), "Warlock");
+            this._comboSource.Add(ULanguage.getStringCurrentLanguage("RPG.CLASS.WIZARD"), "Wizard");
 
             cmbClass.DataSource = new BindingSource(_comboSource, null);
             cmbClass.DisplayMember = "Key";
             cmbClass.ValueMember = "Value";
+
+            if(player != null)
+            {
+                this.txtName.Text = player.name;
+                int value = this._comboSource.Values.ToList().IndexOf(player.pClass.GetType().Name);
+
+                if(value >= 0)
+                {
+                    cmbClass.SelectedIndex = value;
+                }
+            }
         }
 
         // == METHODS
@@ -111,29 +124,68 @@ namespace RPGMasterTools.Source.View.Character
         {
             if(currentState == EnumStateCharHeroesCrud.STATE_CLASS_CHANGED)
             {
-                String value = ( (KeyValuePair<string, string>) cmbClass.SelectedItem).Value;
+                String value = ((KeyValuePair<string, string>)cmbClass.SelectedItem).Value;
                 Type type = Type.GetType("RPGMasterTools.Source.Model.RPG.DND5E." + value);
 
-                if(type != null)
+                if (type != null)
                 {
-                    CClass currentClass = (CClass) Activator.CreateInstance(type);
-                    this._controller.player.pClass = currentClass;
+                    PClass currentClass = (PClass)Activator.CreateInstance(type);
 
                     // UPDATE PICTURE BOX
-                    pBoxClass.Image = currentClass.icon;
+                    pBoxClass.Image = URPG.getClassIcon(currentClass);
+                }
+            }
+            else if (currentState == EnumStateCharHeroesCrud.STATE_VALIDATE)
+            {
+                if ( validate() )
+                {
+                    this._controller.currentState = EnumStateCharHeroesCrud.STATE_OK;
                 }
                 else
                 {
-                    this._controller.player.pClass = null;
-
-                    // UPDATE PICTURE BOX
-                    pBoxClass.Image = RPGMasterTools.Properties.Resources.ico_class_none;
+                    MessageBox.Show("VALIDATION!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this._controller.currentState = EnumStateCharHeroesCrud.STATE_IDLE;
                 }
             }
-            else if (currentState == EnumStateCharHeroesCrud.STATE_OK || currentState == EnumStateCharHeroesCrud.STATE_CANCEL)
+            else if (currentState == EnumStateCharHeroesCrud.STATE_OK)
+            {
+                String value = ((KeyValuePair<string, string>)cmbClass.SelectedItem).Value;
+                Type type = Type.GetType("RPGMasterTools.Source.Model.RPG.DND5E." + value);
+
+                if (type != null)
+                {
+                    PClass currentClass = (PClass)Activator.CreateInstance(type);
+                    this._controller.player.name = txtName.Text;
+                    this._controller.player.pClass = currentClass;
+                }
+
+                close();
+            }
+            else if( currentState == EnumStateCharHeroesCrud.STATE_CANCEL)
             {
                 close();
             }
+        }
+
+        protected bool validate()
+        {
+            bool retValue = true;
+
+            // NAME
+
+            if (txtName.Text == null || txtName.Text == "")
+            {
+                retValue = false;
+            }
+
+            // CLASS
+
+            if (cmbClass.SelectedIndex == 0)
+            {
+                retValue = false;
+            }
+
+            return retValue;
         }
 
         private void close()
@@ -164,7 +216,12 @@ namespace RPGMasterTools.Source.View.Character
 
         private void txtName_TextChanged(object sender, EventArgs e)
         {
-            this._controller.player.name = txtName.Text;
+
+        }
+
+        private void ViewCharacterHeroesCrud_Load(object sender, EventArgs e)
+        {
+            this._controller.currentState = EnumStateCharHeroesCrud.STATE_IDLE;
         }
 
         // == GETTERS AND SETTERS

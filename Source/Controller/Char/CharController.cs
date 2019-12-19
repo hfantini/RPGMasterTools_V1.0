@@ -44,6 +44,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 // == NAMESPACE
 // ==================================================================
@@ -61,6 +62,7 @@ namespace RPGMasterTools.Source.Controller.Char
         // -- VAR -------------------------------------------------------
 
         private static List<Player> _playerList = new List<Player>();
+        private static List<Enemy> _enemyList = new List<Enemy>();
 
         // == CONSTRUCTOR(S)
         // ==============================================================
@@ -70,17 +72,55 @@ namespace RPGMasterTools.Source.Controller.Char
 
         }
 
-        // == EVENTS
-        // ==============================================================
-
         // == METHODS
         // ==============================================================
+
+        protected override bool allowStateChange(EnumStateChar currentState, EnumStateChar nextState)
+        {
+            bool retValue = true;
+
+            if(nextState == EnumStateChar.STATE_NEW)
+            {
+                if(currentState != EnumStateChar.STATE_NEW_CONFIRM)
+                {
+                    retValue = false;
+                }
+            }
+
+            return retValue;
+        }
 
         protected override void update()
         {
             base.update();
 
-            if(this.currentState != EnumStateChar.STATE_IDLE)
+            if(this.currentState == EnumStateChar.STATE_EXPORT_PRESET)
+            {
+                exportCharPreset();
+            }
+            else if (this.currentState == EnumStateChar.STATE_IMPORT_PRESET)
+            {
+                importCharPreset();
+            }
+            else if (this.currentState == EnumStateChar.STATE_NEW_CONFIRM)
+            {
+                bool retValue = USystemMessage.createQuestionDialog("Question", "Confirm?");
+
+                if(retValue)
+                {
+                    this.currentState = EnumStateChar.STATE_NEW;
+                }
+            }
+            else if (this.currentState == EnumStateChar.STATE_NEW)
+            {
+                _playerList.Clear();
+                _enemyList.Clear();
+
+                this.currentState = EnumStateChar.STATE_PLAYERLIST_UPDATE;
+                this.currentState = EnumStateChar.STATE_ENEMYLIST_UPDATE;
+            }
+
+            if (this.currentState != EnumStateChar.STATE_IDLE)
             {
                 this.currentState = EnumStateChar.STATE_IDLE;
             }
@@ -103,6 +143,81 @@ namespace RPGMasterTools.Source.Controller.Char
         {
             _playerList.Remove(player);
         }
+
+        public static List<Enemy> getListOfEnemies()
+        {
+            return new List<Enemy>(_enemyList);
+        }
+
+        public static void addEnemyToList(Enemy enemy)
+        {
+            if (!_enemyList.Contains(enemy))
+            {
+                _enemyList.Add(enemy);
+            }
+        }
+
+        public static void removeEnemyFromList(Enemy enemy)
+        {
+            _enemyList.Remove(enemy);
+        }
+
+        private void exportCharPreset()
+        {
+            SaveFileDialog dlgSave = new SaveFileDialog();
+            dlgSave.Filter = "JSON file|*.json";
+            dlgSave.Title = "Save Character Preset";
+
+            dlgSave.ShowDialog();
+
+            if(dlgSave.FileName != null)
+            {
+                JObject jObject = new JObject();
+                jObject.Add("heroes", JsonConvert.SerializeObject( CharController.getListOfPlayers() ) );
+                jObject.Add("enemies", JsonConvert.SerializeObject(CharController.getListOfEnemies() ) );
+
+                UFileIO.writeJsonToFile(dlgSave.FileName, jObject);
+                MessageBox.Show("Preset saved with success!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            }
+        }
+
+        private void importCharPreset()
+        {
+            OpenFileDialog dlgOpen = new OpenFileDialog();
+            dlgOpen.Filter = "JSON file|*.json";
+            dlgOpen.Title = "Load Character Preset";
+
+            dlgOpen.ShowDialog();
+
+            if(dlgOpen.FileName != null)
+            {
+                try
+                {
+                    JObject loadedObject = UFileIO.loadJsonFromFile(dlgOpen.FileName);
+
+                    if( loadedObject.ContainsKey("heroes") && loadedObject.ContainsKey("enemies") )
+                    {
+                        JArray jPlayer = JArray.Parse(loadedObject.Value<string>("heroes"));
+                        _playerList = jPlayer.ToObject<List<Player>>();
+
+                        JArray jEnemy = JArray.Parse(loadedObject.Value<string>("enemies"));
+                        _enemyList = jEnemy.ToObject<List<Enemy>>();
+
+                        this.currentState = EnumStateChar.STATE_PLAYERLIST_UPDATE;
+                        this.currentState = EnumStateChar.STATE_ENEMYLIST_UPDATE;
+
+                        MessageBox.Show("Preset Loaded with success!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    }
+                }
+                catch(Exception e)
+                {
+                    MessageBox.Show("Invalid or corrupted file!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        // == EVENTS
+        // ==============================================================
 
         // == GETTERS AND SETTERS
         // ==============================================================

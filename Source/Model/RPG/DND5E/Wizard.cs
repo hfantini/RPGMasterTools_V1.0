@@ -39,7 +39,7 @@ using System.Threading.Tasks;
 
 namespace RPGMasterTools.Source.Model.RPG.DND5E
 {
-    public class Wizard : CClass
+    public class Wizard : PClass
     {
         // -- CONST -----------------------------------------------------
 
@@ -48,9 +48,12 @@ namespace RPGMasterTools.Source.Model.RPG.DND5E
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public Wizard() : base("RPF.CLASS.WIZARD", EnumDice.D6, EnumCharacterStat.INTELLIGENCE, new List<EnumCharacterStat>() { EnumCharacterStat.INTELLIGENCE, EnumCharacterStat.WISDOM }, RPGMasterTools.Properties.Resources.ico_class_mage)
+        public Wizard() : base()
         {
-
+            this._clazz = EnumCharacterClass.WIZARD;
+            this._lifeDice = EnumDice.D6;
+            this._mainStat = EnumCharacterStat.INTELLIGENCE;
+            this._saveStats = new List<EnumCharacterStat>() { EnumCharacterStat.INTELLIGENCE, EnumCharacterStat.WISDOM };
         }
 
         // == METHODS

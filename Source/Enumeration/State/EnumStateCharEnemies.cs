@@ -42,5 +42,11 @@ namespace RPGMasterTools.Source.Enumeration.State
     {
         STATE_NONE,
         STATE_IDLE,
+        STATE_ADD,
+        STATE_ADD_CANCEL,
+        STATE_ADD_OK,
+        STATE_ALTER,
+        STATE_DELETE,
+        STATE_UPDATE_ENEMYLIST
     }
 }

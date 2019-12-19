@@ -29,23 +29,25 @@
         private void InitializeComponent()
         {
             this.tLayoutHeroes = new System.Windows.Forms.TableLayoutPanel();
-            this.pnlHeroesContent = new System.Windows.Forms.Panel();
             this.lblHeroesTitle = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tblHeroesToolbar = new System.Windows.Forms.TableLayoutPanel();
             this.btnAdd = new System.Windows.Forms.Button();
+            this.fLayoutHeroes = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.tLayoutHeroes.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tblHeroesToolbar.SuspendLayout();
+            this.fLayoutHeroes.SuspendLayout();
             this.SuspendLayout();
             // 
             // tLayoutHeroes
             // 
             this.tLayoutHeroes.ColumnCount = 1;
             this.tLayoutHeroes.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tLayoutHeroes.Controls.Add(this.pnlHeroesContent, 0, 2);
             this.tLayoutHeroes.Controls.Add(this.lblHeroesTitle, 0, 0);
             this.tLayoutHeroes.Controls.Add(this.panel1, 0, 1);
+            this.tLayoutHeroes.Controls.Add(this.fLayoutHeroes, 0, 2);
             this.tLayoutHeroes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tLayoutHeroes.Location = new System.Drawing.Point(0, 0);
             this.tLayoutHeroes.Margin = new System.Windows.Forms.Padding(0);
@@ -56,15 +58,6 @@
             this.tLayoutHeroes.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tLayoutHeroes.Size = new System.Drawing.Size(486, 778);
             this.tLayoutHeroes.TabIndex = 1;
-            // 
-            // pnlHeroesContent
-            // 
-            this.pnlHeroesContent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlHeroesContent.Location = new System.Drawing.Point(0, 106);
-            this.pnlHeroesContent.Margin = new System.Windows.Forms.Padding(0, 8, 0, 0);
-            this.pnlHeroesContent.Name = "pnlHeroesContent";
-            this.pnlHeroesContent.Size = new System.Drawing.Size(486, 672);
-            this.pnlHeroesContent.TabIndex = 4;
             // 
             // lblHeroesTitle
             // 
@@ -119,6 +112,27 @@
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
+            // fLayoutHeroes
+            // 
+            this.fLayoutHeroes.BackColor = System.Drawing.Color.White;
+            this.fLayoutHeroes.Controls.Add(this.flowLayoutPanel1);
+            this.fLayoutHeroes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fLayoutHeroes.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.fLayoutHeroes.Location = new System.Drawing.Point(0, 98);
+            this.fLayoutHeroes.Margin = new System.Windows.Forms.Padding(0);
+            this.fLayoutHeroes.Name = "fLayoutHeroes";
+            this.fLayoutHeroes.Size = new System.Drawing.Size(486, 680);
+            this.fLayoutHeroes.TabIndex = 4;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(0, 100);
+            this.flowLayoutPanel1.TabIndex = 0;
+            // 
             // ViewCharacterHeroes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -131,6 +145,7 @@
             this.tLayoutHeroes.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.tblHeroesToolbar.ResumeLayout(false);
+            this.fLayoutHeroes.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -139,9 +154,10 @@
 
         private System.Windows.Forms.TableLayoutPanel tLayoutHeroes;
         private System.Windows.Forms.Label lblHeroesTitle;
-        private System.Windows.Forms.Panel pnlHeroesContent;
+        private System.Windows.Forms.FlowLayoutPanel fLayoutHeroes;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TableLayoutPanel tblHeroesToolbar;
         private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }

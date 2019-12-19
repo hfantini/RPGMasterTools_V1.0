@@ -62,6 +62,8 @@ namespace RPGMasterTools.Source.Controller.Char
 
         // -- VAR -------------------------------------------------------
 
+        private Player _selectedPlayer = null;
+
         // == CONSTRUCTOR(S)
         // ==============================================================
 
@@ -73,30 +75,14 @@ namespace RPGMasterTools.Source.Controller.Char
         // == METHODS
         // ==============================================================
 
-        protected override bool allowStateChange(EnumStateCharHeroes currentState, EnumStateCharHeroes nextState)
-        {
-            bool retValue = true;
-
-            if(nextState == EnumStateCharHeroes.STATE_ADD)
-            {
-                if(currentState != EnumStateCharHeroes.STATE_IDLE)
-                {
-                    retValue = false;
-                }
-            }
-
-            return retValue;
-
-        }
-
         protected override void update()
         {
             base.update();
 
-            if(currentState == EnumStateCharHeroes.STATE_ADD)
+            if (currentState == EnumStateCharHeroes.STATE_ADD)
             {
                 String title = "CHARACTER.HEROES.CRUD.TITLE_NEW";
-                ViewCharacterHeroesCrud hCrud = new ViewCharacterHeroesCrud(title, this);
+                ViewCharacterHeroesCrud hCrud = new ViewCharacterHeroesCrud(title, this, null);
 
                 ViewDialog dlgNewHero = new ViewDialog(title, hCrud);
                 dlgNewHero.Size = new Size(300, 250);
@@ -104,17 +90,67 @@ namespace RPGMasterTools.Source.Controller.Char
 
                 // ON DIALOG CLOSED
 
-                if(hCrud.currentState == EnumStateCharHeroesCrud.STATE_OK)
+                if (hCrud.currentState == EnumStateCharHeroesCrud.STATE_OK)
                 {
                     Player player = hCrud.currentModel;
+                    CharController.addPlayerToList(player);
+                    ((CharController)this.parentController).currentState = EnumStateChar.STATE_PLAYERLIST_UPDATE;
                 }
+            }
+            else if (currentState == EnumStateCharHeroes.STATE_ALTER)
+            {
+                String title = "CHARACTER.HEROES.CRUD.TITLE_ALTER";
+                ViewCharacterHeroesCrud hCrud = new ViewCharacterHeroesCrud(title, this, this._selectedPlayer);
+
+                ViewDialog dlgNewHero = new ViewDialog(title, hCrud);
+                dlgNewHero.Size = new Size(300, 250);
+                dlgNewHero.ShowDialog();
+
+                // ON DIALOG CLOSED
+
+                if (hCrud.currentState == EnumStateCharHeroesCrud.STATE_OK)
+                {
+                    ((CharController)this.parentController).currentState = EnumStateChar.STATE_PLAYERLIST_UPDATE;
+                }
+            }
+
+            if(this.currentState != EnumStateCharHeroes.STATE_IDLE)
+            {
+                this.currentState = EnumStateCharHeroes.STATE_IDLE;
             }
         }
 
         // == EVENTS
         // ==============================================================
 
+        protected override void onParentStateChange(GenericController parentController)
+        {
+            if( parentController is CharController )
+            {
+                CharController controller = (CharController) parentController;
+
+                if(controller.currentState == EnumStateChar.STATE_PLAYERLIST_UPDATE)
+                {
+                    this.currentState = EnumStateCharHeroes.STATE_UPDATE_PLAYERLIST;
+                }
+                else
+                {
+                    base.onParentStateChange(parentController);
+                }
+            }
+            else
+            {
+                base.onParentStateChange(parentController);
+            }
+        }
+
         // == GETTERS AND SETTERS
         // ==============================================================
+
+        public Player seletectedPlayer
+        {
+            get { return this._selectedPlayer; }
+            set { this._selectedPlayer = value; }
+        }
     }
 }

@@ -46,6 +46,7 @@ namespace RPGMasterTools.Source.Enumeration.State
         STATE_ADD_CANCEL,
         STATE_ADD_OK,
         STATE_ALTER,
-        STATE_DELETE
+        STATE_DELETE,
+        STATE_UPDATE_PLAYERLIST
     }
 }

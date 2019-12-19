@@ -39,7 +39,7 @@ using System.Threading.Tasks;
 
 namespace RPGMasterTools.Source.Model.RPG.DND5E
 {
-    public class Bard : CClass
+    public class Bard : PClass
     {
         // -- CONST -----------------------------------------------------
 
@@ -48,9 +48,12 @@ namespace RPGMasterTools.Source.Model.RPG.DND5E
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public Bard() : base("RPF.CLASS.BARD", EnumDice.D8, EnumCharacterStat.CHARISMA, new List<EnumCharacterStat>() { EnumCharacterStat.DEXTERITY, EnumCharacterStat.CHARISMA }, RPGMasterTools.Properties.Resources.ico_class_bard)
+        public Bard()
         {
-
+            this._clazz = EnumCharacterClass.BARD;
+            this._lifeDice = EnumDice.D8;
+            this._mainStat = EnumCharacterStat.CHARISMA;
+            this._saveStats = new List<EnumCharacterStat>() { EnumCharacterStat.DEXTERITY, EnumCharacterStat.CHARISMA };
         }
 
         // == METHODS

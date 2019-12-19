@@ -84,7 +84,7 @@ namespace RPGMasterTools.Source.View.Character
             this._viewCharHeroes.Dock = DockStyle.Fill;
             this.pnlHeroes.Controls.Add(this._viewCharHeroes);
 
-            this._viewCharEnemies = new ViewCharacterEnemies();
+            this._viewCharEnemies = new ViewCharacterEnemies(this._controller);
             this._viewCharEnemies.Dock = DockStyle.Fill;
             this.pnlEnemies.Controls.Add(this._viewCharEnemies);
         }
@@ -95,6 +95,21 @@ namespace RPGMasterTools.Source.View.Character
         public void update(EnumStateChar lastState, EnumStateChar currentState)
         {
 
+        }
+
+        private void btnSavePreset_Click(object sender, EventArgs e)
+        {
+            this._controller.currentState = EnumStateChar.STATE_EXPORT_PRESET;
+        }
+
+        private void btnLoadPreset_Click(object sender, EventArgs e)
+        {
+            this._controller.currentState = EnumStateChar.STATE_IMPORT_PRESET;
+        }
+
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+            this._controller.currentState = EnumStateChar.STATE_NEW_CONFIRM;
         }
 
         // == EVENTS

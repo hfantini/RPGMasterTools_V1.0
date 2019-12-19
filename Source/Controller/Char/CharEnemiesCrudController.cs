@@ -14,54 +14,77 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [BossEnemy.cs]
-    |	Type: [MODEL]
+    |	Name: [CharEnemiesCrudController.cs]
+    |	Type: [CONTROLLER]
     |	Author: Henrique Fantini
     |	
-    |	Description: Defines a boss enemy class.
+    |	Description: -
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
 */
 
+
 // == IMPORTS
 // ==================================================================
 
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using RPGMasterTools.Source.Enumeration.Exception;
+using RPGMasterTools.Source.Enumeration.State;
+using RPGMasterTools.Source.Interface;
+using RPGMasterTools.Source.Model.Exception;
+using RPGMasterTools.Source.Model.RPG.DND5E;
+using RPGMasterTools.Source.Model.Sound;
+using RPGMasterTools.Source.Util;
+using RPGMasterTools.Source.View;
+using RPGMasterTools.Source.View.Character;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 // == NAMESPACE
 // ==================================================================
 
-namespace RPGMasterTools.Source.Model.RPG.DND5E
+namespace RPGMasterTools.Source.Controller.Char
 {
     // == CLASS
     // ==============================================================
 
-    public abstract class BossEnemy : Enemy
+    public class CharEnemiesCrudController : ComponentController<EnumStateCharEnemiesCrud>
     {
+
         // -- CONST -----------------------------------------------------
 
         // -- VAR -------------------------------------------------------
 
+        private Enemy _enemy;
+
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public BossEnemy(string name) : base(name)
+        public CharEnemiesCrudController(IComponent<EnumStateCharEnemiesCrud> component, GenericController controller, Enemy enemy) : base(component, controller)
         {
-            
+            if (enemy == null)
+            {
+                this._enemy = new Enemy();
+            }
+            else
+            {
+                this._enemy = enemy;
+            }
         }
 
         // == METHODS
         // ==============================================================
 
-        public override Bitmap getIcon()
+        protected override void update()
         {
-            return RPGMasterTools.Properties.Resources.ico_class_enemy;
+            base.update();
         }
 
         // == EVENTS
@@ -69,5 +92,10 @@ namespace RPGMasterTools.Source.Model.RPG.DND5E
 
         // == GETTERS AND SETTERS
         // ==============================================================
+
+        public Enemy enemy
+        {
+            get { return this._enemy; }
+        }
     }
 }

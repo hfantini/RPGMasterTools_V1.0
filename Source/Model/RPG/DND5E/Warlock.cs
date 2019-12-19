@@ -39,7 +39,7 @@ using System.Threading.Tasks;
 
 namespace RPGMasterTools.Source.Model.RPG.DND5E
 {
-    public class Warlock : CClass
+    public class Warlock : PClass
     {
         // -- CONST -----------------------------------------------------
 
@@ -48,9 +48,12 @@ namespace RPGMasterTools.Source.Model.RPG.DND5E
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public Warlock() : base("RPF.CLASS.WARLOCK", EnumDice.D6, EnumCharacterStat.CHARISMA, new List<EnumCharacterStat>() { EnumCharacterStat.WISDOM, EnumCharacterStat.CHARISMA }, RPGMasterTools.Properties.Resources.ico_class_warlock)
+        public Warlock() : base()
         {
-
+            this._clazz = EnumCharacterClass.WARLOCK;
+            this._lifeDice = EnumDice.D8;
+            this._mainStat = EnumCharacterStat.CHARISMA;
+            this._saveStats = new List<EnumCharacterStat>() { EnumCharacterStat.WISDOM, EnumCharacterStat.CHARISMA };
         }
 
         // == METHODS

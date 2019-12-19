@@ -48,7 +48,7 @@ namespace RPGMasterTools.Source.Model.RPG.DND5E
 
         // -- VAR -------------------------------------------------------
 
-        private CClass _pClass = null;
+        private PClass _pClass = null;
 
         // == CONSTRUCTOR(S)
         // ==============================================================
@@ -58,7 +58,7 @@ namespace RPGMasterTools.Source.Model.RPG.DND5E
 
         }
 
-        public Player(string name, CClass pClass) : base(name)
+        public Player(string name, PClass pClass) : base(name)
         {
             this._pClass = pClass;
         }
@@ -66,18 +66,13 @@ namespace RPGMasterTools.Source.Model.RPG.DND5E
         // == METHODS
         // ==============================================================
 
-        public override Bitmap getIcon()
-        {
-            return this._pClass.icon;
-        }
-
         // == EVENTS
         // ==============================================================
 
         // == GETTERS AND SETTERS
         // ==============================================================
 
-        public CClass pClass
+        public PClass pClass
         {
             get { return this._pClass; }
             set { this._pClass = value; }

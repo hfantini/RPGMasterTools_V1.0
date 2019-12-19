@@ -39,7 +39,7 @@ using System.Threading.Tasks;
 
 namespace RPGMasterTools.Source.Model.RPG.DND5E
 {
-    public class Paladin : CClass
+    public class Paladin : PClass
     {
         // -- CONST -----------------------------------------------------
 
@@ -48,9 +48,12 @@ namespace RPGMasterTools.Source.Model.RPG.DND5E
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public Paladin() : base("RPF.CLASS.PALADIN", EnumDice.D10, EnumCharacterStat.STRENGTH, new List<EnumCharacterStat>() { EnumCharacterStat. WISDOM, EnumCharacterStat.CHARISMA }, RPGMasterTools.Properties.Resources.ico_class_paladin)
+        public Paladin() : base()
         {
-
+            this._clazz = EnumCharacterClass.PALADIN;
+            this._lifeDice = EnumDice.D10;
+            this._mainStat = EnumCharacterStat.STRENGTH;
+            this._saveStats = new List<EnumCharacterStat>() { EnumCharacterStat.WISDOM, EnumCharacterStat.CHARISMA };
         }
 
         // == METHODS

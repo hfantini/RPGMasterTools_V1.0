@@ -39,7 +39,7 @@ using System.Threading.Tasks;
 
 namespace RPGMasterTools.Source.Model.RPG.DND5E
 {
-    public class Druid : CClass
+    public class Druid : PClass
     {
         // -- CONST -----------------------------------------------------
 
@@ -48,9 +48,12 @@ namespace RPGMasterTools.Source.Model.RPG.DND5E
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public Druid() : base("RPF.CLASS.DRUID", EnumDice.D8, EnumCharacterStat.WISDOM, new List<EnumCharacterStat>() { EnumCharacterStat.INTELLIGENCE, EnumCharacterStat.WISDOM }, RPGMasterTools.Properties.Resources.ico_class_druid)
+        public Druid() : base()
         {
-
+            this._clazz = EnumCharacterClass.DRUID;
+            this._lifeDice = EnumDice.D8;
+            this._mainStat = EnumCharacterStat.WISDOM;
+            this._saveStats = new List<EnumCharacterStat>() { EnumCharacterStat.INTELLIGENCE, EnumCharacterStat.WISDOM };
         }
 
         // == METHODS

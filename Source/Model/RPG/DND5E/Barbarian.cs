@@ -39,7 +39,7 @@ using System.Threading.Tasks;
 
 namespace RPGMasterTools.Source.Model.RPG.DND5E
 {
-    public class Barbarian : CClass
+    public class Barbarian : PClass
     {
         // -- CONST -----------------------------------------------------
 
@@ -48,9 +48,12 @@ namespace RPGMasterTools.Source.Model.RPG.DND5E
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public Barbarian() : base("RPF.CLASS.BARBARIAN", EnumDice.D12, EnumCharacterStat.STRENGTH, new List<EnumCharacterStat>() { EnumCharacterStat.STRENGTH, EnumCharacterStat.CONSTITUTION }, RPGMasterTools.Properties.Resources.ico_class_barbarian)
+        public Barbarian() : base()
         {
-
+            this._clazz = EnumCharacterClass.BARBARIAN;
+            this._lifeDice = EnumDice.D12;
+            this._mainStat = EnumCharacterStat.STRENGTH;
+            this._saveStats = new List<EnumCharacterStat>() { EnumCharacterStat.STRENGTH, EnumCharacterStat.CONSTITUTION };
         }
 
         // == METHODS

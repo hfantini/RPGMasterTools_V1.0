@@ -86,6 +86,15 @@ namespace RPGMasterTools.Source.Util
             sWriter.Close();
         }
 
+        public static JObject loadJsonFromFile( string path )
+        {
+            JObject retValue = null;
+
+            retValue = JsonConvert.DeserializeObject<JObject>(File.ReadAllText(path));
+
+            return retValue;
+        }
+
         // == EVENTS
         // ==============================================================
 

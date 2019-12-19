@@ -14,7 +14,7 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [CharHeroesCrudController.cs]
+    |	Name: [CharHeroesNamePlateController.cs]
     |	Type: [CONTROLLER]
     |	Author: Henrique Fantini
     |	
@@ -55,7 +55,7 @@ namespace RPGMasterTools.Source.Controller.Char
     // == CLASS
     // ==============================================================
 
-    public class CharHeroesCrudController : ComponentController<EnumStateCharHeroesCrud>
+    public class CharHeroesNamePlateController : ComponentController<EnumStateCharHeroesNamePlate>
     {
 
         // -- CONST -----------------------------------------------------
@@ -67,35 +67,32 @@ namespace RPGMasterTools.Source.Controller.Char
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public CharHeroesCrudController(IComponent<EnumStateCharHeroesCrud> component, GenericController controller, Player player) : base(component, controller)
+        public CharHeroesNamePlateController(IComponent<EnumStateCharHeroesNamePlate> component, GenericController controller, Player player) : base(component, controller)
         {
-            if (player == null)
-            {
-                this._player = new Player();
-            }
-            else
-            {
-                this._player = player;
-            }
+            this._player = player;
         }
 
         // == METHODS
         // ==============================================================
 
-        protected override bool allowStateChange(EnumStateCharHeroesCrud currentState, EnumStateCharHeroesCrud nextState)
-        {
-            bool retValue = true;
-
-            return retValue;
-        }
-
         protected override void update()
         {
             base.update();
 
-            if (this.currentState == EnumStateCharHeroesCrud.STATE_CLASS_CHANGED)
+            if(this.currentState == EnumStateCharHeroesNamePlate.STATE_EDIT)
             {
-                this.currentState = EnumStateCharHeroesCrud.STATE_IDLE;
+                ((CharHeroesController)this.parentController).seletectedPlayer = this._player;
+                ((CharHeroesController)this.parentController).currentState = EnumStateCharHeroes.STATE_ALTER;
+            }
+            else if (this.currentState == EnumStateCharHeroesNamePlate.STATE_REMOVE)
+            {
+                CharController.removePlayerFromList(this._player);
+                ((CharController)this.parentController.parentController).currentState = EnumStateChar.STATE_PLAYERLIST_UPDATE;
+            }
+
+            if( this.currentState != EnumStateCharHeroesNamePlate.STATE_IDLE)
+            {
+                this.currentState = EnumStateCharHeroesNamePlate.STATE_IDLE;
             }
         }
 

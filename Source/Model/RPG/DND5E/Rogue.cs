@@ -39,7 +39,7 @@ using System.Threading.Tasks;
 
 namespace RPGMasterTools.Source.Model.RPG.DND5E
 {
-    public class Rogue : CClass
+    public class Rogue : PClass
     {
         // -- CONST -----------------------------------------------------
 
@@ -48,9 +48,12 @@ namespace RPGMasterTools.Source.Model.RPG.DND5E
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public Rogue() : base("RPF.CLASS.ROGUE", EnumDice.D8, EnumCharacterStat.DEXTERITY, new List<EnumCharacterStat>() { EnumCharacterStat. DEXTERITY, EnumCharacterStat.INTELLIGENCE }, RPGMasterTools.Properties.Resources.ico_class_rogue)
+        public Rogue() : base()
         {
-
+            this._clazz = EnumCharacterClass.ROGUE;
+            this._lifeDice = EnumDice.D8;
+            this._mainStat = EnumCharacterStat.DEXTERITY;
+            this._saveStats = new List<EnumCharacterStat>() { EnumCharacterStat.DEXTERITY, EnumCharacterStat.INTELLIGENCE };
         }
 
         // == METHODS

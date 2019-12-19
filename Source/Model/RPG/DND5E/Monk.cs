@@ -39,7 +39,7 @@ using System.Threading.Tasks;
 
 namespace RPGMasterTools.Source.Model.RPG.DND5E
 {
-    public class Monk : CClass
+    public class Monk : PClass
     {
         // -- CONST -----------------------------------------------------
 
@@ -48,9 +48,12 @@ namespace RPGMasterTools.Source.Model.RPG.DND5E
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public Monk() : base("RPF.CLASS.MONK", EnumDice.D8, EnumCharacterStat.DEXTERITY, new List<EnumCharacterStat>() { EnumCharacterStat. STRENGTH, EnumCharacterStat.DEXTERITY }, RPGMasterTools.Properties.Resources.ico_class_monk)
+        public Monk() : base()
         {
-
+            this._clazz = EnumCharacterClass.MONK;
+            this._lifeDice = EnumDice.D8;
+            this._mainStat = EnumCharacterStat.DEXTERITY;
+            this._saveStats = new List<EnumCharacterStat>() { EnumCharacterStat.STRENGTH, EnumCharacterStat.DEXTERITY };
         }
 
         // == METHODS

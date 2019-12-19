@@ -14,7 +14,7 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [CharHeroesCrudController.cs]
+    |	Name: [CharHeroesNamePlateController.cs]
     |	Type: [CONTROLLER]
     |	Author: Henrique Fantini
     |	
@@ -55,47 +55,44 @@ namespace RPGMasterTools.Source.Controller.Char
     // == CLASS
     // ==============================================================
 
-    public class CharHeroesCrudController : ComponentController<EnumStateCharHeroesCrud>
+    public class CharEnemiesNamePlateController : ComponentController<EnumStateCharEnemiesNamePlate>
     {
 
         // -- CONST -----------------------------------------------------
 
         // -- VAR -------------------------------------------------------
 
-        private Player _player;
+        private Enemy _enemy;
 
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public CharHeroesCrudController(IComponent<EnumStateCharHeroesCrud> component, GenericController controller, Player player) : base(component, controller)
+        public CharEnemiesNamePlateController(IComponent<EnumStateCharEnemiesNamePlate> component, GenericController controller, Enemy enemy) : base(component, controller)
         {
-            if (player == null)
-            {
-                this._player = new Player();
-            }
-            else
-            {
-                this._player = player;
-            }
+            this._enemy = enemy;
         }
 
         // == METHODS
         // ==============================================================
 
-        protected override bool allowStateChange(EnumStateCharHeroesCrud currentState, EnumStateCharHeroesCrud nextState)
-        {
-            bool retValue = true;
-
-            return retValue;
-        }
-
         protected override void update()
         {
             base.update();
 
-            if (this.currentState == EnumStateCharHeroesCrud.STATE_CLASS_CHANGED)
+            if(this.currentState == EnumStateCharEnemiesNamePlate.STATE_EDIT)
             {
-                this.currentState = EnumStateCharHeroesCrud.STATE_IDLE;
+                ((CharEnemiesController)this.parentController).seletectedEnemy = this._enemy;
+                ((CharEnemiesController)this.parentController).currentState = EnumStateCharEnemies.STATE_ALTER;
+            }
+            else if (this.currentState == EnumStateCharEnemiesNamePlate.STATE_REMOVE)
+            {
+                CharController.removeEnemyFromList(this._enemy);
+                ((CharController)this.parentController.parentController).currentState = EnumStateChar.STATE_ENEMYLIST_UPDATE;
+            }
+
+            if( this.currentState != EnumStateCharEnemiesNamePlate.STATE_IDLE)
+            {
+                this.currentState = EnumStateCharEnemiesNamePlate.STATE_IDLE;
             }
         }
 
@@ -105,9 +102,9 @@ namespace RPGMasterTools.Source.Controller.Char
         // == GETTERS AND SETTERS
         // ==============================================================
 
-        public Player player
+        public Enemy enemy
         {
-            get { return this._player; }
+            get { return this._enemy; }
         }
     }
 }

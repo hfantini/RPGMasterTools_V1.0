@@ -243,9 +243,29 @@ namespace RPGMasterTools.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap ico_load {
+            get {
+                object obj = ResourceManager.GetObject("ico_load", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ico_magnifier {
             get {
                 object obj = ResourceManager.GetObject("ico_magnifier", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ico_new {
+            get {
+                object obj = ResourceManager.GetObject("ico_new", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -266,6 +286,16 @@ namespace RPGMasterTools.Properties {
         internal static System.Drawing.Bitmap ico_pause_display {
             get {
                 object obj = ResourceManager.GetObject("ico_pause_display", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ico_pencil {
+            get {
+                object obj = ResourceManager.GetObject("ico_pencil", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

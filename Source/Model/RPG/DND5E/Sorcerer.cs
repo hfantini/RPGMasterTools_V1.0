@@ -39,7 +39,7 @@ using System.Threading.Tasks;
 
 namespace RPGMasterTools.Source.Model.RPG.DND5E
 {
-    public class Sorcerer : CClass
+    public class Sorcerer : PClass
     {
         // -- CONST -----------------------------------------------------
 
@@ -48,9 +48,12 @@ namespace RPGMasterTools.Source.Model.RPG.DND5E
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public Sorcerer() : base("RPF.CLASS.SORCERER", EnumDice.D6, EnumCharacterStat.CHARISMA, new List<EnumCharacterStat>() { EnumCharacterStat. CONSTITUTION, EnumCharacterStat.CHARISMA }, RPGMasterTools.Properties.Resources.ico_class_sorcerer)
+        public Sorcerer() : base()
         {
-
+            this._clazz = EnumCharacterClass.SORCERER;
+            this._lifeDice = EnumDice.D6;
+            this._mainStat = EnumCharacterStat.CHARISMA;
+            this._saveStats = new List<EnumCharacterStat>() { EnumCharacterStat.CONSTITUTION, EnumCharacterStat.CHARISMA };
         }
 
         // == METHODS

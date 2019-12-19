@@ -14,7 +14,7 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [EnumStateChar.cs]
+    |	Name: [EnumCharacterClass.cs]
     |	Type: [ENUM]
     |	Author: Henrique Fantini
     |	
@@ -27,26 +27,36 @@
 // == IMPORTS
 // ==================================================================
 
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 // == NAMESPACE
 // ==================================================================
 
-namespace RPGMasterTools.Source.Enumeration.State
+namespace RPGMasterTools.Source.Enumeration.RPG.DND5E
 {
     // == ENUM
     // ==============================================================
 
-    [DefaultValue(STATE_NONE)]
-    public enum EnumStateChar
+    [DefaultValue(UNDEFINED)]
+    public enum EnumCharacterClass
     {
-        STATE_NONE,
-        STATE_IDLE,
-        STATE_PLAYERLIST_UPDATE,
-        STATE_ENEMYLIST_UPDATE,
-        STATE_NEW_CONFIRM,
-        STATE_NEW,
-        STATE_EXPORT_PRESET,
-        STATE_IMPORT_PRESET
+        UNDEFINED = 0,
+        BARBARIAN = 1,
+        BARD = 2,
+        CLERIC = 3,
+        DRUID = 4,
+        FIGHTER = 5,
+        MONK = 6,
+        PALADIN = 7,
+        RANGER = 8,
+        ROGUE = 9,
+        SORCERER = 10,
+        WARLOCK = 11,
+        WIZARD = 12
     }
 }

@@ -127,9 +127,9 @@ namespace RPGMasterTools.Source.Model.RPG
             }
         }
 
-        public virtual Bitmap getIcon()
+        public virtual String getIcon()
         {
-            return RPGMasterTools.Properties.Resources.ico_class_none;
+            return "RPGMasterTools.Properties.Resources.ico_class_none";
         }
 
         // == EVENTS

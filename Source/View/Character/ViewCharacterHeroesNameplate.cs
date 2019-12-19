@@ -14,7 +14,7 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [ViewCharacterHeroes]
+    |	Name: [ViewCharacterHeroesNameplate]
     |	Type: [VIEW]
     |	Author: Henrique Fantini
     |	
@@ -23,7 +23,6 @@
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
 */
-
 
 // == IMPORTS
 // ==================================================================
@@ -39,10 +38,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using RPGMasterTools.Source.Enumeration.State;
 using RPGMasterTools.Source.Interface;
+using RPGMasterTools.Source.Model.RPG.DND5E;
 using RPGMasterTools.Source.Controller;
 using RPGMasterTools.Source.Controller.Char;
+using RPGMasterTools.Properties;
 using RPGMasterTools.Source.Util;
-using RPGMasterTools.Source.Model.RPG.DND5E;
 
 // == NAMESPACE
 // ==================================================================
@@ -52,69 +52,56 @@ namespace RPGMasterTools.Source.View.Character
     // == CLASS
     // ==============================================================
 
-    public partial class ViewCharacterHeroes : UserControl, IComponent<EnumStateCharHeroes>
+    public partial class ViewCharacterHeroesNameplate : UserControl, IComponent<EnumStateCharHeroesNamePlate>
     {
         // -- CONST -----------------------------------------------------
 
         // -- VAR -------------------------------------------------------
-        private CharHeroesController _controller = null;
+
+        private CharHeroesNamePlateController _controller;
 
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public ViewCharacterHeroes()
+        public ViewCharacterHeroesNameplate()
         {
             InitializeComponent();
         }
 
-        public ViewCharacterHeroes(GenericController parentController)
+        public ViewCharacterHeroesNameplate(GenericController parentController, Player player)
         {
             InitializeComponent();
 
             // INIT VALUES
 
             // CONFIGURE CONTROLLER
-            this._controller = new CharHeroesController(this, parentController);
+
+            this._controller = new CharHeroesNamePlateController(this, parentController, player);
 
             // CONFIGURE COMPONENTS
-            this.lblHeroesTitle.Text = ULanguage.getStringCurrentLanguage(this.lblHeroesTitle.Text);
+            this.lblCharName.Text = this._controller.player.name;
+            this.pBoxClassIcon.Image = URPG.getClassIcon(this._controller.player.pClass);
         }
 
         // == METHODS
         // ==============================================================
 
-        public void update(EnumStateCharHeroes lastState, EnumStateCharHeroes currentState)
+        public void update(EnumStateCharHeroesNamePlate lastState, EnumStateCharHeroesNamePlate currentState)
         {
-            if(currentState == EnumStateCharHeroes.STATE_UPDATE_PLAYERLIST)
-            {
-                updatePlayerList();
-            }
-        }
-
-        private void updatePlayerList()
-        {
-            UComponent.removeAllChildren(fLayoutHeroes);
-
-            foreach( Player player in CharController.getListOfPlayers() )
-            {
-                ViewCharacterHeroesNameplate vNamePlate = new ViewCharacterHeroesNameplate(this._controller, player);
-                vNamePlate.Size = new Size( fLayoutHeroes.Size.Width - 15, vNamePlate.Size.Height);
-
-                fLayoutHeroes.Controls.Add(vNamePlate);
-            }
+            
         }
 
         // == EVENTS
         // ==============================================================
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        private void btnEdit_Click(object sender, EventArgs e)
         {
-            this._controller.currentState = EnumStateCharHeroes.STATE_ADD;
+            this._controller.currentState = EnumStateCharHeroesNamePlate.STATE_EDIT;
         }
 
-        private void ViewCharacterHeroes_Load(object sender, EventArgs e)
+        private void btnDelete_Click(object sender, EventArgs e)
         {
-            this._controller.currentState = EnumStateCharHeroes.STATE_IDLE;
+            this._controller.currentState = EnumStateCharHeroesNamePlate.STATE_REMOVE;
         }
 
         // == GETTERS AND SETTERS

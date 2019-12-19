@@ -39,7 +39,7 @@ using System.Threading.Tasks;
 
 namespace RPGMasterTools.Source.Model.RPG.DND5E
 {
-    public class Cleric : CClass
+    public class Cleric : PClass
     {
         // -- CONST -----------------------------------------------------
 
@@ -48,9 +48,12 @@ namespace RPGMasterTools.Source.Model.RPG.DND5E
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public Cleric() : base("RPF.CLASS.CLERIC", EnumDice.D8, EnumCharacterStat.WISDOM, new List<EnumCharacterStat>() { EnumCharacterStat.WISDOM, EnumCharacterStat.CHARISMA }, RPGMasterTools.Properties.Resources.ico_class_priest)
+        public Cleric() : base()
         {
-
+            this._clazz = EnumCharacterClass.CLERIC;
+            this._lifeDice = EnumDice.D8;
+            this._mainStat = EnumCharacterStat.WISDOM;
+            this._saveStats = new List<EnumCharacterStat>() { EnumCharacterStat.WISDOM, EnumCharacterStat.CHARISMA };
         }
 
         // == METHODS

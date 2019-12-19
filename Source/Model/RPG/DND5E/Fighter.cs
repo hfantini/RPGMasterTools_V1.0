@@ -39,7 +39,7 @@ using System.Threading.Tasks;
 
 namespace RPGMasterTools.Source.Model.RPG.DND5E
 {
-    public class Fighter : CClass
+    public class Fighter : PClass
     {
         // -- CONST -----------------------------------------------------
 
@@ -48,9 +48,12 @@ namespace RPGMasterTools.Source.Model.RPG.DND5E
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public Fighter() : base("RPF.CLASS.FIGHTER", EnumDice.D10, EnumCharacterStat.STRENGTH, new List<EnumCharacterStat>() { EnumCharacterStat. STRENGTH, EnumCharacterStat.CONSTITUTION }, RPGMasterTools.Properties.Resources.ico_class_warrior)
+        public Fighter() : base()
         {
-
+            this._clazz = EnumCharacterClass.FIGHTER;
+            this._lifeDice = EnumDice.D10;
+            this._mainStat = EnumCharacterStat.STRENGTH;
+            this._saveStats = new List<EnumCharacterStat>() { EnumCharacterStat.STRENGTH, EnumCharacterStat.CONSTITUTION };
         }
 
         // == METHODS

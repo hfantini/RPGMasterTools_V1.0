@@ -39,7 +39,7 @@ using System.Threading.Tasks;
 
 namespace RPGMasterTools.Source.Model.RPG.DND5E
 {
-    public class Ranger : CClass
+    public class Ranger : PClass
     {
         // -- CONST -----------------------------------------------------
 
@@ -48,9 +48,12 @@ namespace RPGMasterTools.Source.Model.RPG.DND5E
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public Ranger() : base("RPF.CLASS.RANGER", EnumDice.D10, EnumCharacterStat.DEXTERITY, new List<EnumCharacterStat>() { EnumCharacterStat. STRENGTH, EnumCharacterStat.DEXTERITY }, RPGMasterTools.Properties.Resources.ico_class_hunter)
+        public Ranger() : base()
         {
-
+            this._clazz = EnumCharacterClass.RANGER;
+            this._lifeDice = EnumDice.D10;
+            this._mainStat = EnumCharacterStat.DEXTERITY;
+            this._saveStats = new List<EnumCharacterStat>() { EnumCharacterStat.STRENGTH, EnumCharacterStat.DEXTERITY };
         }
 
         // == METHODS

@@ -14,7 +14,7 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [EnumStateChar.cs]
+    |	Name: [EnumStateCharNamePlate.cs]
     |	Type: [ENUM]
     |	Author: Henrique Fantini
     |	
@@ -38,15 +38,11 @@ namespace RPGMasterTools.Source.Enumeration.State
     // ==============================================================
 
     [DefaultValue(STATE_NONE)]
-    public enum EnumStateChar
+    public enum EnumStateCharHeroesNamePlate
     {
         STATE_NONE,
         STATE_IDLE,
-        STATE_PLAYERLIST_UPDATE,
-        STATE_ENEMYLIST_UPDATE,
-        STATE_NEW_CONFIRM,
-        STATE_NEW,
-        STATE_EXPORT_PRESET,
-        STATE_IMPORT_PRESET
+        STATE_EDIT,
+        STATE_REMOVE
     }
 }

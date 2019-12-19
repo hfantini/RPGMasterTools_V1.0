@@ -98,10 +98,23 @@
 			"CRUD":
 			{
 				"TITLE_NEW": "NEW HERO",
+				"TITLE_ALTER": "EDIT HERO",
 				"BTN_OK": "OK",
 				"BTN_CANCEL": "CANCEL",
 				"FIELD_NAME": "CHARACTER'S NAME",
 				"FIELD_CLASS": "CLASS"
+			}
+		},
+		"ENEMIES":
+		{
+			"TITLE": "ENEMIES",
+			"CRUD":
+			{
+				"TITLE_NEW": "NEW ENEMY",
+				"TITLE_ALTER": "EDIT ENEMY",
+				"BTN_OK": "OK",
+				"BTN_CANCEL": "CANCEL",
+				"FIELD_NAME": "ENEMY'S NAME"
 			}
 		}
 	}

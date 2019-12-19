@@ -42,7 +42,7 @@ namespace RPGMasterTools.Source.Model.RPG.DND5E
     // == CLASS
     // ==============================================================
 
-    public abstract class Enemy : Character
+    public class Enemy : Character
     {
         // -- CONST -----------------------------------------------------
 
@@ -50,6 +50,11 @@ namespace RPGMasterTools.Source.Model.RPG.DND5E
 
         // == CONSTRUCTOR(S)
         // ==============================================================
+
+        public Enemy() : base("UNKNOWN")
+        {
+
+        }
 
         public Enemy(string name) : base(name)
         {

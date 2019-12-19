@@ -65,6 +65,9 @@
     </Compile>
     <Compile Include="Source\Controller\Char\CharEnemiesController.cs" />
     <Compile Include="Source\Controller\Char\CharHeroesCrudController.cs" />
+    <Compile Include="Source\Controller\Char\CharEnemiesNamePlateController.cs" />
+    <Compile Include="Source\Controller\Char\CharHeroesNamePlateController.cs" />
+    <Compile Include="Source\Controller\Char\CharEnemiesCrudController.cs" />
     <Compile Include="Source\Controller\Char\CharHeroesController.cs" />
     <Compile Include="Source\Controller\Char\CharController.cs" />
     <Compile Include="Source\Controller\ComponentController.cs" />
@@ -85,9 +88,13 @@
     <Compile Include="Source\Enumeration\Log\EnumLogLevel.cs" />
     <Compile Include="Source\Enumeration\Log\EnumLogType.cs" />
     <Compile Include="Source\Enumeration\RPG\DND5E\EnumCharacterState.cs" />
+    <Compile Include="Source\Enumeration\RPG\DND5E\EnumCharacterClass.cs" />
     <Compile Include="Source\Enumeration\RPG\DND5E\EnumDice.cs" />
     <Compile Include="Source\Enumeration\RPG\DND5E\EnumCharacterStat.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateCharEnemies.cs" />
+    <Compile Include="Source\Enumeration\State\EnumStateCharEnemiesCrud.cs" />
+    <Compile Include="Source\Enumeration\State\EnumStateCharEnemiesNamePlate.cs" />
+    <Compile Include="Source\Enumeration\State\EnumStateCharHeroesNamePlate.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateCharHeroesCrud.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateCharHeroes.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateSoundRightAmbiencePlayer.cs" />
@@ -110,8 +117,6 @@
     <Compile Include="Source\Model\Exception\EMasterToolsException.cs" />
     <Compile Include="Source\Model\Language\MLanguage.cs" />
     <Compile Include="Source\Model\RPG\Combat.cs" />
-    <Compile Include="Source\Model\RPG\DND5E\BossEnemy.cs" />
-    <Compile Include="Source\Model\RPG\DND5E\NormalEnemy.cs" />
     <Compile Include="Source\Model\RPG\DND5E\Enemy.cs" />
     <Compile Include="Source\Model\RPG\DND5E\Wizard.cs" />
     <Compile Include="Source\Model\RPG\DND5E\Warlock.cs" />
@@ -126,7 +131,7 @@
     <Compile Include="Source\Model\RPG\DND5E\Bard.cs" />
     <Compile Include="Source\Model\RPG\DND5E\Barbarian.cs" />
     <Compile Include="Source\Model\RPG\Character.cs" />
-    <Compile Include="Source\Model\RPG\DND5E\CClass.cs" />
+    <Compile Include="Source\Model\RPG\DND5E\PClass.cs" />
     <Compile Include="Source\Model\RPG\DND5E\Player.cs" />
     <Compile Include="Source\Model\Sound\PresetSoundFX.cs" />
     <Compile Include="Source\Model\Sound\PresetAmbience.cs" />
@@ -142,6 +147,7 @@
     <Compile Include="Source\Util\UFileIO.cs" />
     <Compile Include="Source\Util\UInput.cs" />
     <Compile Include="Source\Util\ULanguage.cs" />
+    <Compile Include="Source\Util\URPG.cs" />
     <Compile Include="Source\Util\ULog.cs" />
     <Compile Include="Source\Util\URandom.cs" />
     <Compile Include="Source\Util\USystemMessage.cs" />
@@ -163,11 +169,29 @@
     <Compile Include="Source\View\Character\ViewCharacterHeroes.Designer.cs">
       <DependentUpon>ViewCharacterHeroes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source\View\Character\ViewCharacterEnemiesCrud.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\View\Character\ViewCharacterEnemiesCrud.Designer.cs">
+      <DependentUpon>ViewCharacterEnemiesCrud.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source\View\Character\ViewCharacterHeroesCrud.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Source\View\Character\ViewCharacterHeroesCrud.Designer.cs">
       <DependentUpon>ViewCharacterHeroesCrud.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\View\Character\ViewCharacterEnemiesNameplate.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\View\Character\ViewCharacterEnemiesNameplate.Designer.cs">
+      <DependentUpon>ViewCharacterEnemiesNameplate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\View\Character\ViewCharacterHeroesNameplate.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\View\Character\ViewCharacterHeroesNameplate.Designer.cs">
+      <DependentUpon>ViewCharacterHeroesNameplate.cs</DependentUpon>
     </Compile>
     <Compile Include="Source\View\Component\VerticalSeparator.cs">
       <SubType>UserControl</SubType>
@@ -279,8 +303,17 @@
     <EmbeddedResource Include="Source\View\Character\ViewCharacterHeroes.resx">
       <DependentUpon>ViewCharacterHeroes.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Source\View\Character\ViewCharacterEnemiesCrud.resx">
+      <DependentUpon>ViewCharacterEnemiesCrud.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Source\View\Character\ViewCharacterHeroesCrud.resx">
       <DependentUpon>ViewCharacterHeroesCrud.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\View\Character\ViewCharacterEnemiesNameplate.resx">
+      <DependentUpon>ViewCharacterEnemiesNameplate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\View\Character\ViewCharacterHeroesNameplate.resx">
+      <DependentUpon>ViewCharacterHeroesNameplate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\View\Sound\ViewSound.resx">
       <DependentUpon>ViewSound.cs</DependentUpon>
@@ -391,6 +424,9 @@
     <None Include="Resources\Images\Icons\ico_class_barbarian.png" />
     <None Include="Resources\Images\Icons\ico_class_monk.png" />
     <None Include="Resources\Images\Icons\ico_add.png" />
+    <None Include="Resources\Images\Icons\ico_pencil.png" />
+    <None Include="Resources\Images\Icons\ico_load.png" />
+    <None Include="Resources\Images\Icons\ico_new.png" />
     <Content Include="sysicon.ico" />
   </ItemGroup>
   <ItemGroup>
