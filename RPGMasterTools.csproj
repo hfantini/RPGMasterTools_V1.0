@@ -70,6 +70,7 @@
     <Compile Include="Source\Controller\Char\CharEnemiesCrudController.cs" />
     <Compile Include="Source\Controller\Char\CharHeroesController.cs" />
     <Compile Include="Source\Controller\Char\CharController.cs" />
+    <Compile Include="Source\Controller\Combat\CombatController.cs" />
     <Compile Include="Source\Controller\ComponentController.cs" />
     <Compile Include="Source\Controller\Sound\SoundController.cs" />
     <Compile Include="Source\Controller\Sound\SoundRightAmbiencePlayerController.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Source\Enumeration\RPG\DND5E\EnumCharacterClass.cs" />
     <Compile Include="Source\Enumeration\RPG\DND5E\EnumDice.cs" />
     <Compile Include="Source\Enumeration\RPG\DND5E\EnumCharacterStat.cs" />
+    <Compile Include="Source\Enumeration\State\EnumStateCombat.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateCharEnemies.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateCharEnemiesCrud.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateCharEnemiesNamePlate.cs" />
@@ -117,6 +119,7 @@
     <Compile Include="Source\Model\Exception\EMasterToolsException.cs" />
     <Compile Include="Source\Model\Language\MLanguage.cs" />
     <Compile Include="Source\Model\RPG\Combat.cs" />
+    <Compile Include="Source\Model\RPG\CombatCharacter.cs" />
     <Compile Include="Source\Model\RPG\DND5E\Enemy.cs" />
     <Compile Include="Source\Model\RPG\DND5E\Wizard.cs" />
     <Compile Include="Source\Model\RPG\DND5E\Warlock.cs" />
@@ -192,6 +195,12 @@
     </Compile>
     <Compile Include="Source\View\Character\ViewCharacterHeroesNameplate.Designer.cs">
       <DependentUpon>ViewCharacterHeroesNameplate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\View\Combat\ViewCombat.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\View\Combat\ViewCombat.Designer.cs">
+      <DependentUpon>ViewCombat.cs</DependentUpon>
     </Compile>
     <Compile Include="Source\View\Component\VerticalSeparator.cs">
       <SubType>UserControl</SubType>
@@ -314,6 +323,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Source\View\Character\ViewCharacterHeroesNameplate.resx">
       <DependentUpon>ViewCharacterHeroesNameplate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\View\Combat\ViewCombat.resx">
+      <DependentUpon>ViewCombat.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\View\Sound\ViewSound.resx">
       <DependentUpon>ViewSound.cs</DependentUpon>

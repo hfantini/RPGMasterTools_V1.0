@@ -50,25 +50,23 @@ namespace RPGMasterTools.Source.View.Character
     // == CLASS
     // ==============================================================
 
-    public partial class ViewCharacter : UserControl, IComponent<EnumStateChar>
+    public partial class ViewCombat : UserControl, IComponent<EnumStateCombat>
     {
         // -- CONST -----------------------------------------------------
 
         // -- VAR -------------------------------------------------------
 
-        private CharController _controller = null;
-        private ViewCharacterHeroes _viewCharHeroes = null;
-        private ViewCharacterEnemies _viewCharEnemies = null;
+        private CombatController _controller = null;
 
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public ViewCharacter()
+        public ViewCombat()
         {
             InitializeComponent();
         }
 
-        public ViewCharacter(GenericController parentController)
+        public ViewCombat(GenericController parentController)
         {
             InitializeComponent();
 
@@ -76,44 +74,21 @@ namespace RPGMasterTools.Source.View.Character
 
             // CONFIGURE CONTROLLER
 
-            this._controller = new CharController(this, parentController);
+            this._controller = new CombatController(this, parentController);
 
             // CONFIGURE COMPONENTS
-
-            this._viewCharHeroes = new ViewCharacterHeroes(this._controller);
-            this._viewCharHeroes.Dock = DockStyle.Fill;
-            this.pnlHeroes.Controls.Add(this._viewCharHeroes);
-
-            this._viewCharEnemies = new ViewCharacterEnemies(this._controller);
-            this._viewCharEnemies.Dock = DockStyle.Fill;
-            this.pnlEnemies.Controls.Add(this._viewCharEnemies);
         }
 
         // == METHODS
         // ==============================================================
 
-        public void update(EnumStateChar lastState, EnumStateChar currentState)
+        public void update(EnumStateCombat lastState, EnumStateCombat currentState)
         {
 
         }
 
         // == EVENTS
         // ==============================================================
-
-        private void btnSavePreset_Click(object sender, EventArgs e)
-        {
-            this._controller.currentState = EnumStateChar.STATE_EXPORT_PRESET;
-        }
-
-        private void btnLoadPreset_Click(object sender, EventArgs e)
-        {
-            this._controller.currentState = EnumStateChar.STATE_IMPORT_PRESET;
-        }
-
-        private void btnNew_Click(object sender, EventArgs e)
-        {
-            this._controller.currentState = EnumStateChar.STATE_NEW_CONFIRM;
-        }
 
         // == GETTERS AND SETTERS
         // ==============================================================

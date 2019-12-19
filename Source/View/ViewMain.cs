@@ -65,6 +65,7 @@ namespace RPGMasterTools.Source.View
         private MainController _controller;
         ViewSound _viewSound = null;
         ViewCharacter _viewCharacter = null;
+        ViewCombat _viewCombat = null;
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern bool RegisterHotKey(IntPtr hWnd, int id, int fsModifiers, int vk);
@@ -98,6 +99,10 @@ namespace RPGMasterTools.Source.View
             this._viewCharacter = new ViewCharacter(this._controller);
             this._viewCharacter.Dock = DockStyle.Fill;
             tabCharacter.Controls.Add(this._viewCharacter);
+
+            this._viewCombat = new ViewCombat(this._controller);
+            this._viewCombat.Dock = DockStyle.Fill;
+            tabCombat.Controls.Add(this._viewCombat);
 
             // == REGISTERING GLOBAL HOTKEYS
 
