@@ -44,6 +44,7 @@ namespace RPGMasterTools.Source.Model.RPG
     // == CLASS
     // ==============================================================
 
+    [Serializable]
     public class Character
     {
         // -- CONST -----------------------------------------------------

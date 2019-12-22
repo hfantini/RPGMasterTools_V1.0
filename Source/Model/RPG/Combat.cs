@@ -51,20 +51,32 @@ namespace RPGMasterTools.Source.Model.RPG
         private int _currentPlay = 0;
         private DateTime _startTime;
         private DateTime _endTime;
-        private List<Player> _playerList;
-        private List<Enemy> _enemyList;
+        private List<Character> _characterList;
         private List<CombatCharacter> _combatCharList;
 
         // == CONSTRUCTOR(S)
         // ==============================================================
 
+        public Combat()
+        {
+            this._characterList = new List<Character>();
+            this._combatCharList = new List<CombatCharacter>();
+        }
+
         // == METHODS
         // ==============================================================
 
-        public Combat()
+        public void addCharacterToList(Character character)
         {
-            this._playerList = new List<Player>();
-            this._enemyList = new List<Enemy>();
+            if (!this._characterList.Contains(character))
+            {
+                this._characterList.Add(character);
+            }
+        }
+
+        public void removeCharacterToList(Character character)
+        {
+            this._characterList.Remove(character);
         }
 
         // == EVENTS
@@ -97,22 +109,14 @@ namespace RPGMasterTools.Source.Model.RPG
             set { this._endTime = value; }
         }
 
-        public List<Player> playerList
+        public List<Character> characterList
         {
-            get { return this._playerList; }
-            set { this._playerList = null; }
-        }
-
-        public List<Enemy> enemyList
-        {
-            get { return this._enemyList; }
-            set { this._enemyList = null; }
+            get { return new List<Character>(this._characterList); }
         }
 
         public List<CombatCharacter> combatCharacter
         {
-            get { return this._combatCharList; }
-            set { this._combatCharList = null; }
+            get { return new List<CombatCharacter>(this._combatCharList); }
         }
     }
 }

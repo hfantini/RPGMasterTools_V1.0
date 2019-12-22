@@ -14,7 +14,7 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [EnumStateCombat.cs]
+    |	Name: [EnumControllerCombatFilter.cs]
     |	Type: [ENUM]
     |	Author: Henrique Fantini
     |	
@@ -27,21 +27,26 @@
 // == IMPORTS
 // ==================================================================
 
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 // == NAMESPACE
 // ==================================================================
 
-namespace RPGMasterTools.Source.Enumeration.State
+namespace RPGMasterTools.Source.Enumeration.Controller
 {
-    // == ENUM
+    // == CLASS
     // ==============================================================
 
-    [DefaultValue(STATE_NONE)]
-    public enum EnumStateCombat
+    [DefaultValue(SHOW_ALL)]
+    public enum EnumControllerCombatFilter
     {
-        STATE_NONE,
-        STATE_IDLE,
-        STATE_NEW
+        SHOW_ALL,
+        SHOW_PLAYERS_ONLY,
+        SHOW_ENEMIES_ONLY
     }
 }

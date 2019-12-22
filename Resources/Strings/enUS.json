@@ -117,5 +117,19 @@
 				"FIELD_NAME": "ENEMY'S NAME"
 			}
 		}
+	},
+	"COMBAT":
+	{
+		"CRUD":
+		{
+			"TITLE_NEW": "NEW COMBAT",
+			"COMBAT_NAME": "COMBAT NAME",
+			"COMBAT_ACTORS": "ACTORS",
+			"SHOWALL": "SHOW ALL",
+			"PLAYERS_ONLY": "PLAYERS ONLY",
+			"ENEMIES_ONLY": "ENEMIES ONLY",
+			"BTN_OK": "OK",
+			"BTN_CANCEL": "CANCEL"
+		}
 	}
 }

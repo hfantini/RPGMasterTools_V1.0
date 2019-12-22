@@ -14,7 +14,7 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [CombatController.cs]
+    |	Name: [CombatCrudNamePlateController.cs]
     |	Type: [CONTROLLER]
     |	Author: Henrique Fantini
     |	
@@ -30,6 +30,7 @@
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using RPGMasterTools.Source.Enumeration.Controller;
 using RPGMasterTools.Source.Enumeration.Exception;
 using RPGMasterTools.Source.Enumeration.State;
 using RPGMasterTools.Source.Interface;
@@ -38,11 +39,8 @@ using RPGMasterTools.Source.Model.RPG;
 using RPGMasterTools.Source.Model.RPG.DND5E;
 using RPGMasterTools.Source.Model.Sound;
 using RPGMasterTools.Source.Util;
-using RPGMasterTools.Source.View;
-using RPGMasterTools.Source.View.Combat;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -57,25 +55,29 @@ namespace RPGMasterTools.Source.Controller.Char
     // == CLASS
     // ==============================================================
 
-    public class CombatController : ComponentController<EnumStateCombat>
+    public class CombatCrudNamePlateController : ComponentController<EnumStateCombatCrudNameplate>
     {
 
         // -- CONST -----------------------------------------------------
 
         // -- VAR -------------------------------------------------------
 
+        private Character _character;
+        private bool _selected;
+
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public CombatController(IComponent<EnumStateCombat> component, GenericController controller) : base(component, controller)
+        public CombatCrudNamePlateController(IComponent<EnumStateCombatCrudNameplate> component, GenericController controller, Character character, bool selected) : base(component, controller)
         {
-
+            this._character = character;
+            this._selected = selected;
         }
 
         // == METHODS
         // ==============================================================
 
-        protected override bool allowStateChange(EnumStateCombat currentState, EnumStateCombat nextState)
+        protected override bool allowStateChange(EnumStateCombatCrudNameplate currentState, EnumStateCombatCrudNameplate nextState)
         {
             bool retValue = true;
 
@@ -86,26 +88,9 @@ namespace RPGMasterTools.Source.Controller.Char
         {
             base.update();
 
-            if(currentState == EnumStateCombat.STATE_NEW)
+            if (this.currentState != EnumStateCombatCrudNameplate.STATE_IDLE)
             {
-                String title = "COMBAT.CRUD.TITLE_NEW";
-                ViewCombatCrud cCrud = new ViewCombatCrud(title, this, null);
-
-                ViewDialog dlgNewCombat = new ViewDialog(title, cCrud);
-                dlgNewCombat.Size = new Size(750, 500);
-                dlgNewCombat.ShowDialog();
-
-                // ON DIALOG CLOSED
-
-                if (cCrud.currentState == EnumStateCombatCrud.STATE_OK)
-                {
-                    Combat combat = cCrud.currentModel;
-                }
-            }
-
-            if(this.currentState != EnumStateCombat.STATE_IDLE)
-            {
-                this.currentState = EnumStateCombat.STATE_IDLE;
+                this.currentState = EnumStateCombatCrudNameplate.STATE_IDLE;
             }
         }
 
@@ -114,5 +99,16 @@ namespace RPGMasterTools.Source.Controller.Char
 
         // == GETTERS AND SETTERS
         // ==============================================================
+
+        public Character character
+        {
+            get { return this._character; }
+        }
+
+        public bool selected
+        {
+            get { return this._selected; }
+            set { this._selected = value; }
+        }
     }
 }

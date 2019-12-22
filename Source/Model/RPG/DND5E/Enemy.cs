@@ -42,6 +42,7 @@ namespace RPGMasterTools.Source.Model.RPG.DND5E
     // == CLASS
     // ==============================================================
 
+    [Serializable]
     public class Enemy : Character
     {
         // -- CONST -----------------------------------------------------

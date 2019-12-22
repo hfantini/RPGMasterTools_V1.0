@@ -90,6 +90,11 @@ namespace RPGMasterTools.Source.View.Character
         // == EVENTS
         // ==============================================================
 
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            this._controller.currentState = EnumStateCombat.STATE_NEW;
+        }
+
         // == GETTERS AND SETTERS
         // ==============================================================
     }

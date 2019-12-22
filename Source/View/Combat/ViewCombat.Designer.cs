@@ -30,11 +30,13 @@
         {
             this.tLayoutMain = new System.Windows.Forms.TableLayoutPanel();
             this.tStripSound = new System.Windows.Forms.ToolStrip();
+            this.btnAdd = new System.Windows.Forms.ToolStripButton();
             this.pnlMain = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.pnlEnemies = new System.Windows.Forms.Panel();
             this.fLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.tLayoutMain.SuspendLayout();
+            this.tStripSound.SuspendLayout();
             this.pnlMain.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -59,12 +61,24 @@
             // 
             this.tStripSound.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tStripSound.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.tStripSound.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnAdd});
             this.tStripSound.Location = new System.Drawing.Point(0, 0);
             this.tStripSound.Name = "tStripSound";
             this.tStripSound.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
             this.tStripSound.Size = new System.Drawing.Size(1242, 49);
             this.tStripSound.TabIndex = 3;
             this.tStripSound.Text = "toolStrip1";
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnAdd.Image = global::RPGMasterTools.Properties.Resources.ico_add;
+            this.btnAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(28, 46);
+            this.btnAdd.Text = "New Combat";
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // pnlMain
             // 
@@ -127,6 +141,8 @@
             this.Size = new System.Drawing.Size(1242, 675);
             this.tLayoutMain.ResumeLayout(false);
             this.tLayoutMain.PerformLayout();
+            this.tStripSound.ResumeLayout(false);
+            this.tStripSound.PerformLayout();
             this.pnlMain.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -141,5 +157,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel pnlEnemies;
         private System.Windows.Forms.FlowLayoutPanel fLayoutPanel;
+        private System.Windows.Forms.ToolStripButton btnAdd;
     }
 }

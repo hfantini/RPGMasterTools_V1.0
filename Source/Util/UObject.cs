@@ -14,49 +14,40 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [CharacterClass]
-    |	Type: [TYPE]
+    |	Name: [UObject]
+    |	Type: [UTIL]
     |	Author: Henrique Fantini
     |	
-    |	Description: Defines the generic character class.
+    |	Description: -
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
 */
 
-using Newtonsoft.Json;
-using RPGMasterTools.Source.Enumeration.RPG;
-using RPGMasterTools.Source.Enumeration.RPG.DND5E;
-using RPGMasterTools.Source.Util;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 // == IMPORTS
 // ==================================================================
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
+using System.Threading.Tasks;
 
 // == NAMESPACE
 // ==================================================================
 
-namespace RPGMasterTools.Source.Model.RPG.DND5E
+namespace RPGMasterTools.Source.Util
 {
-
     // == CLASS
     // ==============================================================
 
-    [Serializable]
-    public class PClass
+    public class UObject
     {
         // -- CONST -----------------------------------------------------
 
         // -- VAR -------------------------------------------------------
-        protected EnumCharacterClass _clazz;
-        protected EnumDice _lifeDice;
-        protected EnumCharacterStat _mainStat;
-        protected List<EnumCharacterStat> _saveStats = new List<EnumCharacterStat>();
 
         // == CONSTRUCTOR(S)
         // ==============================================================
@@ -64,36 +55,21 @@ namespace RPGMasterTools.Source.Model.RPG.DND5E
         // == METHODS
         // ==============================================================
 
+        public static T deepCopyObject<T>(T source)
+        {
+            using (MemoryStream stream = new MemoryStream())
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                formatter.Serialize(stream, source);
+                stream.Position = 0;
+                return (T) formatter.Deserialize(stream);
+            }
+        }
+
         // == EVENTS
         // ==============================================================
 
         // == GETTERS AND SETTERS
         // ==============================================================
-
-        public EnumCharacterClass clazz
-        {
-            get { return this._clazz; }
-            set { this._clazz = value; }
-        }
-
-        public EnumDice lifeDice
-        {
-            get { return _lifeDice; }
-            set { this._lifeDice = value; }
-        }
-
-        public EnumCharacterStat mainStat
-        {
-            get { return _mainStat; }
-            set { this._mainStat = value; }
-        }
-
-
-        public List<EnumCharacterStat> saveStats
-        {
-            get { return this._saveStats; }
-            set { this._saveStats = value; }
-        }
-
     }
 }
