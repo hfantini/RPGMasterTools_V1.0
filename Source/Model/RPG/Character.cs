@@ -153,6 +153,17 @@ namespace RPGMasterTools.Source.Model.RPG
         public int lifePoints
         {
             get { return this._lifePoints; }
+            set
+            {
+                if(value > 0)
+                {
+                    this._lifePoints = value;
+                }
+                else
+                {
+                    this._lifePoints = 0;
+                }
+            }
         }
     }
 }

@@ -70,6 +70,9 @@
     <Compile Include="Source\Controller\Char\CharEnemiesCrudController.cs" />
     <Compile Include="Source\Controller\Char\CharHeroesController.cs" />
     <Compile Include="Source\Controller\Char\CharController.cs" />
+    <Compile Include="Source\Controller\Combat\CombatPanelCharacterController.cs" />
+    <Compile Include="Source\Controller\Combat\CombatPanelController.cs" />
+    <Compile Include="Source\Controller\Combat\CombatNamePlateController.cs" />
     <Compile Include="Source\Controller\Combat\CombatCrudNamePlateController.cs" />
     <Compile Include="Source\Controller\Combat\CombatCrudController.cs" />
     <Compile Include="Source\Controller\Combat\CombatController.cs" />
@@ -91,10 +94,16 @@
     <Compile Include="Source\Enumeration\Exception\ExceptionType.cs" />
     <Compile Include="Source\Enumeration\Log\EnumLogLevel.cs" />
     <Compile Include="Source\Enumeration\Log\EnumLogType.cs" />
+    <Compile Include="Source\Enumeration\RPG\CombatState.cs" />
     <Compile Include="Source\Enumeration\RPG\DND5E\EnumCharacterState.cs" />
     <Compile Include="Source\Enumeration\RPG\DND5E\EnumCharacterClass.cs" />
     <Compile Include="Source\Enumeration\RPG\DND5E\EnumDice.cs" />
     <Compile Include="Source\Enumeration\RPG\DND5E\EnumCharacterStat.cs" />
+    <Compile Include="Source\Enumeration\State\EnumStateCombatPanelDetailFight.cs" />
+    <Compile Include="Source\Enumeration\State\EnumStateCombatPanelDetailPreparation.cs" />
+    <Compile Include="Source\Enumeration\State\EnumStateCombatPanelCharacter.cs" />
+    <Compile Include="Source\Enumeration\State\EnumStateCombatPanel.cs" />
+    <Compile Include="Source\Enumeration\State\EnumStateCombatNameplate.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateCombatCrudNameplate.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateCombatCrud.cs" />
     <Compile Include="Source\Enumeration\State\EnumStateCombat.cs" />
@@ -219,6 +228,42 @@
     </Compile>
     <Compile Include="Source\View\Combat\ViewCombatCrudNamePlate.Designer.cs">
       <DependentUpon>ViewCombatCrudNamePlate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\View\Combat\ViewCombatNamePlate.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\View\Combat\ViewCombatNamePlate.Designer.cs">
+      <DependentUpon>ViewCombatNamePlate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\View\Combat\ViewCombatPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\View\Combat\ViewCombatPanel.Designer.cs">
+      <DependentUpon>ViewCombatPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\View\Combat\ViewCombatPanelDetailFight.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\View\Combat\ViewCombatPanelDetailFight.Designer.cs">
+      <DependentUpon>ViewCombatPanelDetailFight.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\View\Combat\ViewCombatPanelDetailPreparation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\View\Combat\ViewCombatPanelDetailPreparation.Designer.cs">
+      <DependentUpon>ViewCombatPanelDetailPreparation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\View\Combat\ViewCombatPanelEmpty.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\View\Combat\ViewCombatPanelEmpty.Designer.cs">
+      <DependentUpon>ViewCombatPanelEmpty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\View\Combat\ViewCombatPanelCharacter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\View\Combat\ViewCombatPanelCharacter.Designer.cs">
+      <DependentUpon>ViewCombatPanelCharacter.cs</DependentUpon>
     </Compile>
     <Compile Include="Source\View\Component\VerticalSeparator.cs">
       <SubType>UserControl</SubType>
@@ -351,6 +396,24 @@
     <EmbeddedResource Include="Source\View\Combat\ViewCombatCrudNamePlate.resx">
       <DependentUpon>ViewCombatCrudNamePlate.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Source\View\Combat\ViewCombatNamePlate.resx">
+      <DependentUpon>ViewCombatNamePlate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\View\Combat\ViewCombatPanel.resx">
+      <DependentUpon>ViewCombatPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\View\Combat\ViewCombatPanelDetailFight.resx">
+      <DependentUpon>ViewCombatPanelDetailFight.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\View\Combat\ViewCombatPanelDetailPreparation.resx">
+      <DependentUpon>ViewCombatPanelDetailPreparation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\View\Combat\ViewCombatPanelEmpty.resx">
+      <DependentUpon>ViewCombatPanelEmpty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\View\Combat\ViewCombatPanelCharacter.resx">
+      <DependentUpon>ViewCombatPanelCharacter.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Source\View\Sound\ViewSound.resx">
       <DependentUpon>ViewSound.cs</DependentUpon>
     </EmbeddedResource>
@@ -463,6 +526,19 @@
     <None Include="Resources\Images\Icons\ico_pencil.png" />
     <None Include="Resources\Images\Icons\ico_load.png" />
     <None Include="Resources\Images\Icons\ico_new.png" />
+    <None Include="Resources\Images\Icons\ico_combat.png" />
+    <None Include="Resources\Images\Icons\ico_d20.png" />
+    <None Include="Resources\Images\Icons\ico_skull.png" />
+    <None Include="Resources\Images\Icons\ico_life.png" />
+    <None Include="Resources\Images\Icons\ico_death.png" />
+    <None Include="Resources\Images\Icons\ico_sword.png" />
+    <None Include="Resources\Images\Icons\ico_heal.png" />
+    <None Include="Resources\Images\Icons\ico_damage.png" />
+    <None Include="Resources\Images\Icons\ico_heart.png" />
+    <None Include="Resources\Images\Icons\ico_char_state.png" />
+    <None Include="Resources\Images\Icons\ico_heal_2.png" />
+    <None Include="Resources\Images\Icons\ico_damage_2.png" />
+    <None Include="Resources\Images\Icons\ico_dot.png" />
     <Content Include="sysicon.ico" />
   </ItemGroup>
   <ItemGroup>

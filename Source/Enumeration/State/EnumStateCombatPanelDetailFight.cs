@@ -14,7 +14,7 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [EnumStateCombat.cs]
+    |	Name: [EnumStateCombatPanelDetailFight.cs]
     |	Type: [ENUM]
     |	Author: Henrique Fantini
     |	
@@ -38,13 +38,9 @@ namespace RPGMasterTools.Source.Enumeration.State
     // ==============================================================
 
     [DefaultValue(STATE_NONE)]
-    public enum EnumStateCombat
+    public enum EnumStateCombatPanelDetailFight
     {
         STATE_NONE,
-        STATE_IDLE,
-        STATE_NEW,
-        STATE_UPDATE_LIST,
-        STATE_COMBAT_SELECT,
-        STATE_COMBAT_UNSELECT
+        STATE_IDLE
     }
 }

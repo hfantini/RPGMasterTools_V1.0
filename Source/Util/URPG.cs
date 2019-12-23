@@ -119,6 +119,44 @@ namespace RPGMasterTools.Source.Util
             return retValue;
         }
 
+        public static int roll(EnumDice dice)
+        {
+            var retValue = 0;
+
+            switch(dice)
+            {
+                case EnumDice.D4:
+                    retValue = URandom.generateRandomNumberInRange(1, 5);
+                    break;
+
+                case EnumDice.D6:
+                    retValue = URandom.generateRandomNumberInRange(1, 7);
+                    break;
+
+                case EnumDice.D8:
+                    retValue = URandom.generateRandomNumberInRange(1, 9);
+                    break;
+
+                case EnumDice.D10:
+                    retValue = URandom.generateRandomNumberInRange(1, 11);
+                    break;
+
+                case EnumDice.D12:
+                    retValue = URandom.generateRandomNumberInRange(1, 13);
+                    break;
+
+                case EnumDice.D20:
+                    retValue = URandom.generateRandomNumberInRange(1, 21);
+                    break;
+
+                case EnumDice.D100:
+                    retValue = URandom.generateRandomNumberInRange(1, 101);
+                    break;
+            }
+
+            return retValue;
+        }
+
         // == EVENTS
         // ==============================================================
 

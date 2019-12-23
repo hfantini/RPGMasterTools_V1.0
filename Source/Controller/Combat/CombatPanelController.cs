@@ -14,7 +14,7 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [CombatController.cs]
+    |	Name: [CombatPanelController.cs]
     |	Type: [CONTROLLER]
     |	Author: Henrique Fantini
     |	
@@ -30,6 +30,7 @@
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using RPGMasterTools.Source.Enumeration.Controller;
 using RPGMasterTools.Source.Enumeration.Exception;
 using RPGMasterTools.Source.Enumeration.State;
 using RPGMasterTools.Source.Interface;
@@ -38,11 +39,8 @@ using RPGMasterTools.Source.Model.RPG;
 using RPGMasterTools.Source.Model.RPG.DND5E;
 using RPGMasterTools.Source.Model.Sound;
 using RPGMasterTools.Source.Util;
-using RPGMasterTools.Source.View;
-using RPGMasterTools.Source.View.Combat;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -57,28 +55,26 @@ namespace RPGMasterTools.Source.Controller.Char
     // == CLASS
     // ==============================================================
 
-    public class CombatController : ComponentController<EnumStateCombat>
+    public class CombatPanelController : ComponentController<EnumStateCombatPanel>
     {
 
         // -- CONST -----------------------------------------------------
 
         // -- VAR -------------------------------------------------------
-
-        private List<Combat> _combatList = null;
-        private Combat _selectedCombat = null;
+        private Combat _combat = null;
 
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public CombatController(IComponent<EnumStateCombat> component, GenericController controller) : base(component, controller)
+        public CombatPanelController(IComponent<EnumStateCombatPanel> component, GenericController controller, Model.RPG.Combat combat) : base(component, controller)
         {
-            this._combatList = new List<Combat>();
+            this._combat = combat;
         }
 
         // == METHODS
         // ==============================================================
 
-        protected override bool allowStateChange(EnumStateCombat currentState, EnumStateCombat nextState)
+        protected override bool allowStateChange(EnumStateCombatPanel currentState, EnumStateCombatPanel nextState)
         {
             bool retValue = true;
 
@@ -87,30 +83,11 @@ namespace RPGMasterTools.Source.Controller.Char
 
         protected override void update()
         {
-            if(currentState == EnumStateCombat.STATE_NEW)
-            {
-                String title = "COMBAT.CRUD.TITLE_NEW";
-                ViewCombatCrud cCrud = new ViewCombatCrud(title, this, null);
-
-                ViewDialog dlgNewCombat = new ViewDialog(title, cCrud);
-                dlgNewCombat.Size = new Size(750, 500);
-                dlgNewCombat.ShowDialog();
-
-                // ON DIALOG CLOSED
-
-                if (cCrud.currentState == EnumStateCombatCrud.STATE_OK)
-                {
-                    Combat combat = cCrud.currentModel;
-                    this._combatList.Add(combat);
-                    this.currentState = EnumStateCombat.STATE_UPDATE_LIST;
-                }
-            }
-
             base.update();
 
-            if (this.currentState != EnumStateCombat.STATE_IDLE)
+            if (this.currentState != EnumStateCombatPanel.STATE_IDLE)
             {
-                this.currentState = EnumStateCombat.STATE_IDLE;
+                this.currentState = EnumStateCombatPanel.STATE_IDLE;
             }
         }
 
@@ -120,20 +97,9 @@ namespace RPGMasterTools.Source.Controller.Char
         // == GETTERS AND SETTERS
         // ==============================================================
 
-        public List<Combat> combatList
+        public Model.RPG.Combat combat
         {
-            get { return this._combatList; }
-        }
-
-        public Combat selectedCombat
-        {
-            get { return this._selectedCombat; }
-            set
-            {
-                this.currentState = EnumStateCombat.STATE_COMBAT_UNSELECT;
-                this._selectedCombat = value;
-                this.currentState = EnumStateCombat.STATE_COMBAT_SELECT;
-            }
+            get { return this._combat; }
         }
     }
 }

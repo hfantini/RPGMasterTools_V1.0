@@ -73,5 +73,30 @@ namespace RPGMasterTools.Source.Model.RPG
 
         // == GETTERS AND SETTERS
         // ==============================================================
+
+        public Character character
+        {
+            get { return this._character; }
+        }
+
+        public int initiative
+        {
+            get { return this._initiave; }
+            set
+            {
+                if(value < 1)
+                {
+                    this._initiave = 1;
+                }
+                else if(value > 20)
+                {
+                    this._initiave = 20;
+                }
+                else
+                {
+                    this._initiave = value;
+                }
+            }
+        }
     }
 }

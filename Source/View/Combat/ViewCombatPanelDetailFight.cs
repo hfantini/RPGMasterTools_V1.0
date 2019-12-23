@@ -14,12 +14,11 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [URandom.cs]
-    |	Type: [UTIL]
+    |	Name: [ViewCombatPanelDetailFight.cs]
+    |	Type: [VIEW]
     |	Author: Henrique Fantini
     |	
-    |	Description: Provides ways to handle with random
-    |   operations.
+    |	Description: -
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
@@ -30,39 +29,69 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Data;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using RPGMasterTools.Source.Enumeration.State;
+using RPGMasterTools.Source.Interface;
+using RPGMasterTools.Source.Controller;
+using RPGMasterTools.Source.Controller.Char;
 
 // == NAMESPACE
 // ==================================================================
 
-namespace RPGMasterTools.Source.Util
+namespace RPGMasterTools.Source.View.Combat
 {
     // == CLASS
     // ==============================================================
 
-    public class URandom
+    public partial class ViewCombatPanelDetailFight : UserControl, IComponent<EnumStateCombatPanelDetailFight>
     {
         // -- CONST -----------------------------------------------------
 
         // -- VAR -------------------------------------------------------
 
+        CombatPanelController _parentController;
+
         // == CONSTRUCTOR(S)
         // ==============================================================
+
+        public ViewCombatPanelDetailFight()
+        {
+            InitializeComponent();
+        }
+
+        public ViewCombatPanelDetailFight(GenericController parentController)
+        {
+            InitializeComponent();
+
+            // INIT VALUES
+
+            // CONFIG CONTROLLER
+            //this._parentController = parentController;
+
+            // CONFIG COMPONENTS
+        }
 
         // == METHODS
         // ==============================================================
 
-        public static int generateRandomNumberInRange(int min, int max)
+        public void update(EnumStateCombatPanelDetailFight lastState, EnumStateCombatPanelDetailFight currentState)
         {
-            Random r = new Random(Environment.TickCount);
-            return r.Next(min, max);
+            
         }
 
         // == EVENTS
         // ==============================================================
+
+        private void btnNextTurn_Click(object sender, EventArgs e)
+        {
+            
+        }
 
         // == GETTERS AND SETTERS
         // ==============================================================

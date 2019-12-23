@@ -139,8 +139,13 @@ namespace RPGMasterTools.Source.View.Combat
             //DEEP CLONE FROM LIST
             foreach( Model.RPG.Character character in this._controller.toList )
             {
+                // NAME
+                combat.name = lblTitle.Text;
+
+                // LIST
                 Model.RPG.Character copyCharacter = UObject.deepCopyObject(character);
                 combat.addCharacterToList(copyCharacter);
+                
             }
 
             this._controller.currentModel = combat;

@@ -14,11 +14,11 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [EnumStateCombat.cs]
+    |	Name: [CombatState.cs]
     |	Type: [ENUM]
     |	Author: Henrique Fantini
     |	
-    |	Description: -
+    |	Description:
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
@@ -27,24 +27,26 @@
 // == IMPORTS
 // ==================================================================
 
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 // == NAMESPACE
 // ==================================================================
 
-namespace RPGMasterTools.Source.Enumeration.State
+namespace RPGMasterTools.Source.Enumeration.RPG
 {
     // == ENUM
     // ==============================================================
 
-    [DefaultValue(STATE_NONE)]
-    public enum EnumStateCombat
+    [DefaultValue(PREPARATION)]
+    public enum CombatState
     {
-        STATE_NONE,
-        STATE_IDLE,
-        STATE_NEW,
-        STATE_UPDATE_LIST,
-        STATE_COMBAT_SELECT,
-        STATE_COMBAT_UNSELECT
+        PREPARATION,
+        FIGHT,
+        FINISHED
     }
 }

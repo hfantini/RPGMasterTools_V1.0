@@ -130,6 +130,10 @@
 			"ENEMIES_ONLY": "ENEMIES ONLY",
 			"BTN_OK": "OK",
 			"BTN_CANCEL": "CANCEL"
+		},
+		"PANEL":
+		{
+			"TITLE_LIST": "CHARACTERS",
 		}
 	}
 }

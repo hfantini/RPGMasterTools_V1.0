@@ -14,52 +14,71 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [URandom.cs]
-    |	Type: [UTIL]
+    |	Name: [ViewCombatPanelEmpty.cs]
+    |	Type: [VIEW]
     |	Author: Henrique Fantini
     |	
-    |	Description: Provides ways to handle with random
-    |   operations.
+    |	Description: -
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
 */
+
 
 // == IMPORTS
 // ==================================================================
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing;
+using System.Data;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using RPGMasterTools.Source.Controller;
+using RPGMasterTools.Source.Controller.Char;
+using RPGMasterTools.Source.Enumeration.State;
 
 // == NAMESPACE
 // ==================================================================
 
-namespace RPGMasterTools.Source.Util
+namespace RPGMasterTools.Source.View.Combat
 {
     // == CLASS
     // ==============================================================
 
-    public class URandom
+    public partial class ViewCombatPanelEmpty : UserControl
     {
         // -- CONST -----------------------------------------------------
 
         // -- VAR -------------------------------------------------------
 
+        private CombatController _controller = null;
+
         // == CONSTRUCTOR(S)
         // ==============================================================
 
+        public ViewCombatPanelEmpty()
+        {
+            InitializeComponent();
+        }
+
+        public ViewCombatPanelEmpty(CombatController parentController)
+        {
+            InitializeComponent();
+
+            this._controller = parentController;
+        }
+
+        private void btnCreate_Click(object sender, EventArgs e)
+        {
+            this._controller.currentState = EnumStateCombat.STATE_NEW;
+        }
+
         // == METHODS
         // ==============================================================
-
-        public static int generateRandomNumberInRange(int min, int max)
-        {
-            Random r = new Random(Environment.TickCount);
-            return r.Next(min, max);
-        }
 
         // == EVENTS
         // ==============================================================

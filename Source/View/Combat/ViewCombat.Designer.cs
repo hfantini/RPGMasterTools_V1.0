@@ -33,7 +33,7 @@
             this.btnAdd = new System.Windows.Forms.ToolStripButton();
             this.pnlMain = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.pnlEnemies = new System.Windows.Forms.Panel();
+            this.pnlCombatPanel = new System.Windows.Forms.Panel();
             this.fLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.tLayoutMain.SuspendLayout();
             this.tStripSound.SuspendLayout();
@@ -97,9 +97,9 @@
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
-            this.tableLayoutPanel1.Controls.Add(this.pnlEnemies, 1, 0);
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 400F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.pnlCombatPanel, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.fLayoutPanel, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(5, 5);
@@ -110,26 +110,29 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1218, 602);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // pnlEnemies
+            // pnlCombatPanel
             // 
-            this.pnlEnemies.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.pnlEnemies.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlEnemies.Location = new System.Drawing.Point(243, 0);
-            this.pnlEnemies.Margin = new System.Windows.Forms.Padding(0);
-            this.pnlEnemies.Name = "pnlEnemies";
-            this.pnlEnemies.Padding = new System.Windows.Forms.Padding(8);
-            this.pnlEnemies.Size = new System.Drawing.Size(975, 602);
-            this.pnlEnemies.TabIndex = 1;
+            this.pnlCombatPanel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.pnlCombatPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnlCombatPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlCombatPanel.Location = new System.Drawing.Point(405, 0);
+            this.pnlCombatPanel.Margin = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.pnlCombatPanel.Name = "pnlCombatPanel";
+            this.pnlCombatPanel.Padding = new System.Windows.Forms.Padding(8);
+            this.pnlCombatPanel.Size = new System.Drawing.Size(813, 602);
+            this.pnlCombatPanel.TabIndex = 1;
             // 
             // fLayoutPanel
             // 
+            this.fLayoutPanel.AutoSize = true;
             this.fLayoutPanel.BackColor = System.Drawing.Color.White;
             this.fLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.fLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.fLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
             this.fLayoutPanel.Name = "fLayoutPanel";
-            this.fLayoutPanel.Size = new System.Drawing.Size(243, 602);
+            this.fLayoutPanel.Size = new System.Drawing.Size(400, 602);
             this.fLayoutPanel.TabIndex = 2;
+            this.fLayoutPanel.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.fLayoutPanel_ControlAdded);
             // 
             // ViewCombat
             // 
@@ -145,6 +148,7 @@
             this.tStripSound.PerformLayout();
             this.pnlMain.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -155,7 +159,7 @@
         private System.Windows.Forms.Panel pnlMain;
         private System.Windows.Forms.ToolStrip tStripSound;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Panel pnlEnemies;
+        private System.Windows.Forms.Panel pnlCombatPanel;
         private System.Windows.Forms.FlowLayoutPanel fLayoutPanel;
         private System.Windows.Forms.ToolStripButton btnAdd;
     }
