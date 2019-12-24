@@ -119,20 +119,109 @@ namespace RPGMasterTools.Source.Model.RPG
             this.endTime = DateTime.Now;
         }
 
+        private bool checkIfCombatEnded()
+        {
+            bool retValue = false;
+            bool playerAlive = false;
+            bool enemyAlive = false;
+
+            foreach(CombatCharacter cCharacter in _combatCharacterList)
+            {
+                if(cCharacter.character is Player)
+                {
+                    if(cCharacter.character.currentState != Enumeration.RPG.DND5E.EnumCharacterState.STATE_DEAD)
+                    {
+                        playerAlive = true;
+                    }
+                }
+                else if (cCharacter.character is Enemy)
+                {
+                    if (cCharacter.character.currentState != Enumeration.RPG.DND5E.EnumCharacterState.STATE_DEAD)
+                    {
+                        enemyAlive = true;
+                    }
+                }
+            }
+
+            if(!playerAlive || !enemyAlive)
+            {
+                retValue = true;
+            }
+
+            return retValue;
+        }
+
+        private bool determineCharacterElegibleToPlay()
+        {
+            bool retValue = true;
+
+            if( getCurrentPlay().character.currentState == Enumeration.RPG.DND5E.EnumCharacterState.STATE_DEAD )
+            {
+                retValue = false;
+            }
+
+            return retValue;
+        }
+
         public void nextPlay()
         {
             if (this.combatState == CombatState.FIGHT)
             {
-                if (this._currentCharacterPlayIndex < this._combatCharacterList.Count - 1)
+                if (!checkIfCombatEnded())
                 {
-                    this._currentPlay++;
-                    this._currentCharacterPlayIndex++;
+                    int count = 0;
+                    bool determine = false;
+
+                    do
+                    {
+                        if (this._currentCharacterPlayIndex < this._combatCharacterList.Count - 1)
+                        {
+                            this._currentCharacterPlayIndex++;
+
+                            if (determineCharacterElegibleToPlay())
+                            {
+                                determine = true;
+                                this._currentPlay++;
+                            }
+                            else
+                            {
+                                count++;
+
+                                if(count / this._combatCharacterList.Count > 3)
+                                {
+                                    goToNextState();
+                                    break;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            this._currentCharacterPlayIndex = 0;
+
+                            if (determineCharacterElegibleToPlay())
+                            {
+                                determine = true;
+                                this._currentPlay++;
+                            }
+                            else
+                            {
+                                count++;
+
+                                if (count / this._combatCharacterList.Count > 3)
+                                {
+                                    goToNextState();
+                                    break;
+                                }
+                            }
+
+                            this._currentTurn++;
+                        }
+                    }
+                    while (!determine);
                 }
                 else
                 {
-                    this._currentPlay++;
-                    this._currentTurn++;
-                    this._currentCharacterPlayIndex = 0;
+                    goToNextState();
                 }
             }
         }

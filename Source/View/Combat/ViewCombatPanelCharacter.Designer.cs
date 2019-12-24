@@ -48,6 +48,8 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.txtLifeMax = new System.Windows.Forms.TextBox();
             this.txtLife = new System.Windows.Forms.TextBox();
             this.pnlIndicator = new System.Windows.Forms.Panel();
             this.pBoxIndicator = new System.Windows.Forms.PictureBox();
@@ -64,6 +66,7 @@
             this.panel4.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
             this.pnlIndicator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pBoxIndicator)).BeginInit();
             this.SuspendLayout();
@@ -82,7 +85,7 @@
             this.tblMain.Name = "tblMain";
             this.tblMain.RowCount = 1;
             this.tblMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblMain.Size = new System.Drawing.Size(533, 78);
+            this.tblMain.Size = new System.Drawing.Size(718, 78);
             this.tblMain.TabIndex = 0;
             // 
             // tblLayout
@@ -92,7 +95,7 @@
             this.tblLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tblLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tblLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.tblLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tblLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 160F));
             this.tblLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.tblLayout.Controls.Add(this.tableLayoutPanel4, 1, 0);
             this.tblLayout.Controls.Add(this.panel1, 0, 0);
@@ -105,7 +108,7 @@
             this.tblLayout.Name = "tblLayout";
             this.tblLayout.RowCount = 1;
             this.tblLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblLayout.Size = new System.Drawing.Size(510, 72);
+            this.tblLayout.Size = new System.Drawing.Size(695, 72);
             this.tblLayout.TabIndex = 1;
             // 
             // tableLayoutPanel4
@@ -122,7 +125,7 @@
             this.tableLayoutPanel4.RowCount = 2;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(190, 72);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(295, 72);
             this.tableLayoutPanel4.TabIndex = 3;
             // 
             // lblName
@@ -135,7 +138,7 @@
             this.lblName.Location = new System.Drawing.Point(0, 0);
             this.lblName.Margin = new System.Windows.Forms.Padding(0);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(190, 43);
+            this.lblName.Size = new System.Drawing.Size(295, 43);
             this.lblName.TabIndex = 0;
             this.lblName.Text = "CHAR_NAME";
             this.lblName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -150,7 +153,7 @@
             this.lblStatus.Location = new System.Drawing.Point(0, 46);
             this.lblStatus.Margin = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(190, 26);
+            this.lblStatus.Size = new System.Drawing.Size(295, 26);
             this.lblStatus.TabIndex = 1;
             this.lblStatus.Text = "CHAR_STATE";
             this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -163,7 +166,7 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(0);
             this.panel1.Name = "panel1";
-            this.panel1.Padding = new System.Windows.Forms.Padding(10, 10, 10, 10);
+            this.panel1.Padding = new System.Windows.Forms.Padding(10);
             this.panel1.Size = new System.Drawing.Size(80, 72);
             this.panel1.TabIndex = 6;
             // 
@@ -184,7 +187,7 @@
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel2.Controls.Add(this.tblButton);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(430, 0);
+            this.panel2.Location = new System.Drawing.Point(615, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(0);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(80, 72);
@@ -221,6 +224,7 @@
             this.btnDamage.Size = new System.Drawing.Size(32, 30);
             this.btnDamage.TabIndex = 0;
             this.btnDamage.UseVisualStyleBackColor = true;
+            this.btnDamage.Click += new System.EventHandler(this.btnDamage_Click);
             // 
             // btnHeal
             // 
@@ -233,6 +237,7 @@
             this.btnHeal.Size = new System.Drawing.Size(32, 30);
             this.btnHeal.TabIndex = 1;
             this.btnHeal.UseVisualStyleBackColor = true;
+            this.btnHeal.Click += new System.EventHandler(this.btnHeal_Click);
             // 
             // btnCharEffect
             // 
@@ -257,13 +262,14 @@
             this.btnDeath.Size = new System.Drawing.Size(32, 30);
             this.btnDeath.TabIndex = 3;
             this.btnDeath.UseVisualStyleBackColor = true;
+            this.btnDeath.Click += new System.EventHandler(this.btnDeath_Click);
             // 
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel3.Controls.Add(this.tableLayoutPanel2);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(270, 0);
+            this.panel3.Location = new System.Drawing.Point(375, 0);
             this.panel3.Margin = new System.Windows.Forms.Padding(0);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(80, 72);
@@ -319,10 +325,10 @@
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel4.Controls.Add(this.tableLayoutPanel3);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(350, 0);
+            this.panel4.Location = new System.Drawing.Point(455, 0);
             this.panel4.Margin = new System.Windows.Forms.Padding(0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(80, 72);
+            this.panel4.Size = new System.Drawing.Size(160, 72);
             this.panel4.TabIndex = 9;
             // 
             // tableLayoutPanel3
@@ -331,7 +337,7 @@
             this.tableLayoutPanel3.ColumnCount = 1;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.Controls.Add(this.pictureBox1, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.txtLife, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel1, 0, 1);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
@@ -339,7 +345,7 @@
             this.tableLayoutPanel3.RowCount = 2;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(76, 68);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(156, 68);
             this.tableLayoutPanel3.TabIndex = 5;
             // 
             // pictureBox1
@@ -350,10 +356,40 @@
             this.pictureBox1.Location = new System.Drawing.Point(0, 3);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(76, 23);
+            this.pictureBox1.Size = new System.Drawing.Size(156, 23);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.txtLifeMax, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.txtLife, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 29);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(156, 39);
+            this.tableLayoutPanel1.TabIndex = 1;
+            // 
+            // txtLifeMax
+            // 
+            this.txtLifeMax.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtLifeMax.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtLifeMax.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLifeMax.Location = new System.Drawing.Point(81, 3);
+            this.txtLifeMax.MaxLength = 3;
+            this.txtLifeMax.Name = "txtLifeMax";
+            this.txtLifeMax.Size = new System.Drawing.Size(72, 32);
+            this.txtLifeMax.TabIndex = 3;
+            this.txtLifeMax.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtLife
             // 
@@ -362,13 +398,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtLife.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtLife.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtLife.Location = new System.Drawing.Point(3, 32);
+            this.txtLife.Location = new System.Drawing.Point(3, 3);
             this.txtLife.MaxLength = 3;
             this.txtLife.Name = "txtLife";
-            this.txtLife.Size = new System.Drawing.Size(70, 32);
-            this.txtLife.TabIndex = 1;
+            this.txtLife.Size = new System.Drawing.Size(72, 32);
+            this.txtLife.TabIndex = 2;
             this.txtLife.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtLife.TextChanged += new System.EventHandler(this.txtLife_TextChanged);
             // 
             // pnlIndicator
             // 
@@ -376,7 +411,7 @@
             this.pnlIndicator.Cursor = System.Windows.Forms.Cursors.Default;
             this.pnlIndicator.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlIndicator.Location = new System.Drawing.Point(5, 5);
-            this.pnlIndicator.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.pnlIndicator.Margin = new System.Windows.Forms.Padding(5);
             this.pnlIndicator.Name = "pnlIndicator";
             this.pnlIndicator.Size = new System.Drawing.Size(10, 68);
             this.pnlIndicator.TabIndex = 0;
@@ -400,7 +435,7 @@
             this.Controls.Add(this.tblMain);
             this.Margin = new System.Windows.Forms.Padding(0, 0, 0, 6);
             this.Name = "ViewCombatPanelCharacter";
-            this.Size = new System.Drawing.Size(533, 78);
+            this.Size = new System.Drawing.Size(718, 78);
             this.Load += new System.EventHandler(this.ViewCombatPanelCharacter_Load);
             this.tblMain.ResumeLayout(false);
             this.tblLayout.ResumeLayout(false);
@@ -416,8 +451,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pBoxInititive)).EndInit();
             this.panel4.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
-            this.tableLayoutPanel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.pnlIndicator.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pBoxIndicator)).EndInit();
             this.ResumeLayout(false);
@@ -447,7 +483,9 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.TextBox txtLife;
         private System.Windows.Forms.PictureBox pBoxIndicator;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TextBox txtLifeMax;
+        private System.Windows.Forms.TextBox txtLife;
     }
 }

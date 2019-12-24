@@ -52,6 +52,7 @@ namespace RPGMasterTools.Source.Model.RPG
         // -- VAR -------------------------------------------------------
         private string _name;
         private EnumCharacterState _currentState;
+        private int _maxLifePoints = 0;
         private int _lifePoints = 0;
         private int _stunTurnsCounter = 0;
         private int _charmTurnsCounter = 0;
@@ -76,61 +77,25 @@ namespace RPGMasterTools.Source.Model.RPG
                 if (this._lifePoints < 0)
                 {
                     this._lifePoints = 0;
-                    // STATE
+                    this._currentState = EnumCharacterState.STATE_FALLEN;
                 }
             }
         }
 
-        public void stun( int turns )
+        public void heal(int value)
         {
-            if(turns > 0)
+            if(value > 0)
             {
-                this._stunTurnsCounter = turns;
-                this._currentState = EnumCharacterState.STATE_STUNNED;
-            }
-        }
-
-        public void charm(int turns)
-        {
-            if (turns > 0)
-            {
-                this._charmTurnsCounter = turns;
-                this._currentState = EnumCharacterState.STATE_CHARMED;
-            }
-        }
-
-        // CALLED WHEN ANY PLAYERS FINISHES HIS PLAY
-        public void updatePlayerEnd()
-        {
-
-        }
-
-        // CALLED WHEN THE TURNS END
-        public void updateTurnEnd()
-        {
-            if (this._currentState == EnumCharacterState.STATE_STUNNED)
-            {
-                this._stunTurnsCounter--;
-
-                if (this._stunTurnsCounter == 0)
+                if (this._lifePoints + value > this._maxLifePoints)
                 {
+                    this._lifePoints = this._maxLifePoints;
+                }
+                else
+                {
+                    this._lifePoints += value;
                     this._currentState = EnumCharacterState.STATE_COMBAT;
                 }
             }
-            else if (this._currentState == EnumCharacterState.STATE_CHARMED)
-            {
-                this._charmTurnsCounter--;
-
-                if (this._charmTurnsCounter == 0)
-                {
-                    this._currentState = EnumCharacterState.STATE_COMBAT;
-                }
-            }
-        }
-
-        public virtual String getIcon()
-        {
-            return "RPGMasterTools.Properties.Resources.ico_class_none";
         }
 
         // == EVENTS
@@ -148,6 +113,7 @@ namespace RPGMasterTools.Source.Model.RPG
         public EnumCharacterState currentState
         {
             get { return this._currentState;  }
+            set { this._currentState = value; }
         }
 
         public int lifePoints
@@ -162,6 +128,22 @@ namespace RPGMasterTools.Source.Model.RPG
                 else
                 {
                     this._lifePoints = 0;
+                }
+            }
+        }
+
+        public int maxLifePoints
+        {
+            get { return this._maxLifePoints; }
+            set
+            {
+                if (value > 0)
+                {
+                    this._maxLifePoints = value;
+                }
+                else
+                {
+                    this._maxLifePoints = 0;
                 }
             }
         }

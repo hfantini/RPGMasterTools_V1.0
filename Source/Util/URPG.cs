@@ -31,6 +31,7 @@
 
 using RPGMasterTools.Source.Enumeration.Log;
 using RPGMasterTools.Source.Enumeration.RPG.DND5E;
+using RPGMasterTools.Source.Model.RPG;
 using RPGMasterTools.Source.Model.RPG.DND5E;
 using System;
 using System.Drawing;
@@ -116,6 +117,32 @@ namespace RPGMasterTools.Source.Util
                         break;
                 }
             }
+            return retValue;
+        }
+
+        public static string getCharacterStateString(Character character)
+        {
+            String retValue = "?";
+
+            switch(character.currentState)
+            {
+                case EnumCharacterState.STATE_IDLE:
+                    retValue = "IDLE";
+                    break;
+
+                case EnumCharacterState.STATE_COMBAT:
+                    retValue = "IN COMBAT";
+                    break;
+
+                case EnumCharacterState.STATE_FALLEN:
+                    retValue = "FALLEN";
+                    break;
+
+                case EnumCharacterState.STATE_DEAD:
+                    retValue = "DEAD";
+                    break;
+            }
+
             return retValue;
         }
 

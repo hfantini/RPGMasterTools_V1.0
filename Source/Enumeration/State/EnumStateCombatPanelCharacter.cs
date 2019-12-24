@@ -43,6 +43,10 @@ namespace RPGMasterTools.Source.Enumeration.State
         STATE_NONE,
         STATE_IDLE,
         STATE_UPDATE,
-        STATE_ROLL_RANDOM_INITIATIVE
+        STATE_ROLL_RANDOM_INITIATIVE,
+        STATE_APPLY_DAMAGE,
+        STATE_APPLY_HEAL,
+        STATE_APPLY_DEATH,
+        STATE_APPLY_RESS
     }
 }

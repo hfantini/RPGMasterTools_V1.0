@@ -81,6 +81,7 @@ namespace RPGMasterTools.Source.View.Combat
             // CONFIG COMPONENTS
 
             lblName.Text = combatCharacter.character.name;
+            lblStatus.Text = URPG.getCharacterStateString(combatCharacter.character);
 
             if(combatCharacter.character is Player)
             {
@@ -101,7 +102,9 @@ namespace RPGMasterTools.Source.View.Combat
 
             if (currentState == EnumStateCombatPanelCharacter.STATE_UPDATE)
             {
-                if(combat.combatState == Enumeration.RPG.CombatState.PREPARATION)
+                lblStatus.Text = URPG.getCharacterStateString(this._controller.combatCharacter.character);
+
+                if (combat.combatState == Enumeration.RPG.CombatState.PREPARATION)
                 {
                     if (this._controller.combatCharacter.initiative != -1)
                     {
@@ -110,6 +113,7 @@ namespace RPGMasterTools.Source.View.Combat
 
                     txtInitiative.Enabled = true;
                     txtLife.Enabled = true;
+                    txtLifeMax.Enabled = true;
                     btnDamage.Enabled = false;
                     btnHeal.Enabled = false;
                     btnCharEffect.Enabled = false;
@@ -119,15 +123,13 @@ namespace RPGMasterTools.Source.View.Combat
                 {
                     txtInitiative.Enabled = false;
                     txtLife.Enabled = false;
-                    btnDamage.Enabled = true;
-                    btnHeal.Enabled = true;
-                    btnCharEffect.Enabled = true;
-                    btnDeath.Enabled = true;
+                    txtLifeMax.Enabled = false;
 
                     txtInitiative.Text = this._controller.combatCharacter.initiative.ToString();
                     txtLife.Text = this._controller.combatCharacter.character.lifePoints.ToString();
+                    txtLifeMax.Text = this._controller.combatCharacter.character.maxLifePoints.ToString();
 
-                    if(combat.getCurrentPlay() == this._controller.combatCharacter)
+                    if (combat.getCurrentPlay() == this._controller.combatCharacter)
                     {
                         pBoxIndicator.Image = RPGMasterTools.Properties.Resources.ico_play;
                         tblMain.BackColor = Color.OrangeRed;
@@ -137,6 +139,38 @@ namespace RPGMasterTools.Source.View.Combat
                         pBoxIndicator.Image = RPGMasterTools.Properties.Resources.ico_stop;
                         tblMain.BackColor = SystemColors.ScrollBar;
                     }
+
+                    // BASED ON CURRENT CHARACTER STATE
+
+                    if (controller.combatCharacter.character.currentState == EnumCharacterState.STATE_COMBAT || controller.combatCharacter.character.currentState == EnumCharacterState.STATE_FALLEN)
+                    {
+                        // CHANGE STYLE OF DEATH BUTTON
+
+                        if (controller.combatCharacter.character.currentState == EnumCharacterState.STATE_COMBAT)
+                        {
+                            btnDamage.Enabled = true;
+                            btnHeal.Enabled = true;
+                            btnCharEffect.Enabled = false;
+                            btnDeath.Enabled = false;
+                        }
+                        else if (controller.combatCharacter.character.currentState == EnumCharacterState.STATE_FALLEN)
+                        {
+                            btnDamage.Enabled = false;
+                            btnHeal.Enabled = true;
+                            btnCharEffect.Enabled = false;
+                            btnDeath.Enabled = true;
+                        }
+                    }
+                    else if (controller.combatCharacter.character.currentState == EnumCharacterState.STATE_DEAD)
+                    {
+                        // CONVERT DEATH BUTTON TO RESURRECTION BUTTON
+
+                        btnDamage.Enabled = false;
+                        btnHeal.Enabled = false;
+                        btnCharEffect.Enabled = false;
+                        btnDeath.Enabled = true;
+                    }
+
                 }
             }
             else if(currentState == EnumStateCombatPanelCharacter.STATE_ROLL_RANDOM_INITIATIVE)
@@ -216,6 +250,43 @@ namespace RPGMasterTools.Source.View.Combat
                 }
 
                 return retValue;
+            }
+        }
+
+        public int maxLife
+        {
+            get
+            {
+                int retValue = -1;
+
+                if (this.txtLifeMax.Text != "" && this.txtLifeMax.Text.All(Char.IsDigit))
+                {
+                    retValue = Convert.ToInt32(this.txtLifeMax.Text);
+                }
+
+                return retValue;
+            }
+        }
+
+        private void btnDamage_Click(object sender, EventArgs e)
+        {
+            this._controller.currentState = EnumStateCombatPanelCharacter.STATE_APPLY_DAMAGE;
+        }
+
+        private void btnHeal_Click(object sender, EventArgs e)
+        {
+            this._controller.currentState = EnumStateCombatPanelCharacter.STATE_APPLY_HEAL;
+        }
+
+        private void btnDeath_Click(object sender, EventArgs e)
+        {
+            if (this._controller.combatCharacter.character.currentState == EnumCharacterState.STATE_FALLEN)
+            {
+                this._controller.currentState = EnumStateCombatPanelCharacter.STATE_APPLY_DEATH;
+            }
+            else if (this._controller.combatCharacter.character.currentState == EnumCharacterState.STATE_DEAD)
+            {
+                this._controller.currentState = EnumStateCombatPanelCharacter.STATE_APPLY_RESS;
             }
         }
     }

@@ -1,5 +1,4 @@
-﻿
-/*
+﻿/*
 
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
     |
@@ -15,11 +14,11 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [FILENAME]
-    |	Type: [TYPE]
+    |	Name: [EnumCharacterCondition.cs]
+    |	Type: [VIEW]
     |	Author: Henrique Fantini
     |	
-    |	Description:
+    |	Description: -
     |
     + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +
 
@@ -30,7 +29,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,15 +38,13 @@ using System.Threading.Tasks;
 
 namespace RPGMasterTools.Source.Enumeration.RPG.DND5E
 {
-    // == ENUM
-    // ==============================================================
-
-    [DefaultValue(STATE_IDLE)]
-    public enum EnumCharacterState
+    public enum EnumCharacterCondition
     {
-        STATE_IDLE, //OUT OF COMBAT
-        STATE_COMBAT,
-        STATE_FALLEN,
-        STATE_DEAD
+        STUN,
+        CHARM,
+        CHARM_UNCONTROLLED,
+        POISON,
+        DISEASE,
+        MAGIC
     }
 }

@@ -144,8 +144,8 @@ namespace RPGMasterTools.Source.View.Combat
 
                 // LIST
                 Model.RPG.Character copyCharacter = UObject.deepCopyObject(character);
+                copyCharacter.currentState = Enumeration.RPG.DND5E.EnumCharacterState.STATE_COMBAT;
                 combat.addCharacterToList(copyCharacter);
-                
             }
 
             this._controller.currentModel = combat;

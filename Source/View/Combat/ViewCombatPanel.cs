@@ -142,6 +142,12 @@ namespace RPGMasterTools.Source.View.Combat
                     {
                         validation = false;
                     }
+
+
+                    if (view.maxLife < 0)
+                    {
+                        validation = false;
+                    }
                 }
 
                 if(!validation)
@@ -158,6 +164,7 @@ namespace RPGMasterTools.Source.View.Combat
                     {
                         view.controller.combatCharacter.initiative = view.initiative;
                         view.controller.combatCharacter.character.lifePoints = view.life;
+                        view.controller.combatCharacter.character.maxLifePoints = view.maxLife;
 
                         combatCharacterList.Add(view.controller.combatCharacter);
                     }

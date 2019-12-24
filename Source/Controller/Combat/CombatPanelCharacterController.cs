@@ -39,6 +39,8 @@ using RPGMasterTools.Source.Model.RPG;
 using RPGMasterTools.Source.Model.RPG.DND5E;
 using RPGMasterTools.Source.Model.Sound;
 using RPGMasterTools.Source.Util;
+using RPGMasterTools.Source.View;
+using RPGMasterTools.Source.View.Combat;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -83,6 +85,53 @@ namespace RPGMasterTools.Source.Controller.Char
 
         protected override void update()
         {
+            if(this.currentState == EnumStateCombatPanelCharacter.STATE_APPLY_DAMAGE)
+            {
+                ViewCombatPanelDialogDamage vDamage = new ViewCombatPanelDialogDamage();
+                ViewDialog dialog = new ViewDialog("DAMAGE", vDamage);
+
+                dialog.ShowDialog();
+
+                if(vDamage.value > 0)
+                {
+                    this._cCharacter.character.damage(vDamage.value);
+                    this.currentState = EnumStateCombatPanelCharacter.STATE_UPDATE;
+                }
+            }
+            else if (this.currentState == EnumStateCombatPanelCharacter.STATE_APPLY_HEAL)
+            {
+                ViewCombatPanelDialogHeal vHeal = new ViewCombatPanelDialogHeal();
+                ViewDialog dialog = new ViewDialog("DAMAGE", vHeal);
+
+                dialog.ShowDialog();
+
+                if (vHeal.value > 0)
+                {
+                    this._cCharacter.character.heal(vHeal.value);
+                    this.currentState = EnumStateCombatPanelCharacter.STATE_UPDATE;
+                }
+            }
+            else if (this.currentState == EnumStateCombatPanelCharacter.STATE_APPLY_DEATH)
+            {
+                bool confirm = USystemMessage.createQuestionDialog("Question?", "Are you sure you want to kill this character?");
+
+                if(confirm)
+                {
+                    this._cCharacter.character.currentState = Enumeration.RPG.DND5E.EnumCharacterState.STATE_DEAD;
+                    this.currentState = EnumStateCombatPanelCharacter.STATE_UPDATE;
+                }
+            }
+            else if (this.currentState == EnumStateCombatPanelCharacter.STATE_APPLY_RESS)
+            {
+                bool confirm = USystemMessage.createQuestionDialog("Question?", "Are you sure you want to ress this character?");
+
+                if (confirm)
+                {
+                    this._cCharacter.character.heal(1); 
+                    this.currentState = EnumStateCombatPanelCharacter.STATE_UPDATE;
+                }
+            }
+
             base.update();
 
             if (this.currentState != EnumStateCombatPanelCharacter.STATE_IDLE)

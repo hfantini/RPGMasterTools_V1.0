@@ -96,6 +96,7 @@
     <Compile Include="Source\Enumeration\Log\EnumLogLevel.cs" />
     <Compile Include="Source\Enumeration\Log\EnumLogType.cs" />
     <Compile Include="Source\Enumeration\RPG\CombatState.cs" />
+    <Compile Include="Source\Enumeration\RPG\DND5E\EnumCharacterCondition.cs" />
     <Compile Include="Source\Enumeration\RPG\DND5E\EnumCharacterState.cs" />
     <Compile Include="Source\Enumeration\RPG\DND5E\EnumCharacterClass.cs" />
     <Compile Include="Source\Enumeration\RPG\DND5E\EnumDice.cs" />
@@ -254,6 +255,18 @@
     <Compile Include="Source\View\Combat\ViewCombatPanelDetailPreparation.Designer.cs">
       <DependentUpon>ViewCombatPanelDetailPreparation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Source\View\Combat\ViewCombatPanelDialogHeal.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\View\Combat\ViewCombatPanelDialogHeal.Designer.cs">
+      <DependentUpon>ViewCombatPanelDialogHeal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Source\View\Combat\ViewCombatPanelDialogDamage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Source\View\Combat\ViewCombatPanelDialogDamage.Designer.cs">
+      <DependentUpon>ViewCombatPanelDialogDamage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Source\View\Combat\ViewCombatPanelEmpty.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -408,6 +421,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Source\View\Combat\ViewCombatPanelDetailPreparation.resx">
       <DependentUpon>ViewCombatPanelDetailPreparation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\View\Combat\ViewCombatPanelDialogHeal.resx">
+      <DependentUpon>ViewCombatPanelDialogHeal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Source\View\Combat\ViewCombatPanelDialogDamage.resx">
+      <DependentUpon>ViewCombatPanelDialogDamage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Source\View\Combat\ViewCombatPanelEmpty.resx">
       <DependentUpon>ViewCombatPanelEmpty.cs</DependentUpon>
