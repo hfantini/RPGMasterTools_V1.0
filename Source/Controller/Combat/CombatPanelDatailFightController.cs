@@ -14,7 +14,7 @@
     |
     |	== FILE DETAILS 
     |
-    |	Name: [CombatPanelCharacterController.cs]
+    |	Name: [CombatPanelDatailFightController.cs]
     |	Type: [CONTROLLER]
     |	Author: Henrique Fantini
     |	
@@ -55,26 +55,26 @@ namespace RPGMasterTools.Source.Controller.Char
     // == CLASS
     // ==============================================================
 
-    public class CombatPanelCharacterController : ComponentController<EnumStateCombatPanelCharacter>
+    public class CombatPanelDatailFightController : ComponentController<EnumStateCombatPanelDetailFight>
     {
 
         // -- CONST -----------------------------------------------------
 
         // -- VAR -------------------------------------------------------
-        private CombatCharacter _cCharacter = null;
+        private Combat _combat = null;
 
         // == CONSTRUCTOR(S)
         // ==============================================================
 
-        public CombatPanelCharacterController(IComponent<EnumStateCombatPanelCharacter> component, GenericController controller, CombatCharacter cCharacter) : base(component, controller)
+        public CombatPanelDatailFightController(IComponent<EnumStateCombatPanelDetailFight> component, GenericController controller) : base(component, controller)
         {
-            this._cCharacter = cCharacter;
+            this._combat = combat;
         }
 
         // == METHODS
         // ==============================================================
 
-        protected override bool allowStateChange(EnumStateCombatPanelCharacter currentState, EnumStateCombatPanelCharacter nextState)
+        protected override bool allowStateChange(EnumStateCombatPanelDetailFight currentState, EnumStateCombatPanelDetailFight nextState)
         {
             bool retValue = true;
 
@@ -85,9 +85,9 @@ namespace RPGMasterTools.Source.Controller.Char
         {
             base.update();
 
-            if (this.currentState != EnumStateCombatPanelCharacter.STATE_IDLE)
+            if (this.currentState != EnumStateCombatPanelDetailFight.STATE_IDLE)
             {
-                this.currentState = EnumStateCombatPanelCharacter.STATE_IDLE;
+                this.currentState = EnumStateCombatPanelDetailFight.STATE_IDLE;
             }
         }
 
@@ -98,29 +98,11 @@ namespace RPGMasterTools.Source.Controller.Char
         {
             if (parentController is CombatPanelController)
             {
-                CombatPanelController controller = (CombatPanelController)parentController;
-
-                if(controller.currentState == EnumStateCombatPanel.STATE_RANDOM_ALL)
+                CombatPanelController controller = (CombatPanelController) parentController;
+                
+                if(controller.currentState == EnumStateCombatPanel.STATE_UPDATE)
                 {
-                    this.currentState = EnumStateCombatPanelCharacter.STATE_ROLL_RANDOM_INITIATIVE;
-                }
-                else if (controller.currentState == EnumStateCombatPanel.STATE_RANDOM_PLAYER)
-                {
-                    if(this._cCharacter.character is Player)
-                    {
-                        this.currentState = EnumStateCombatPanelCharacter.STATE_ROLL_RANDOM_INITIATIVE;
-                    }
-                }
-                else if (controller.currentState == EnumStateCombatPanel.STATE_RANDOM_ENEMY)
-                {
-                    if (this._cCharacter.character is Enemy)
-                    {
-                        this.currentState = EnumStateCombatPanelCharacter.STATE_ROLL_RANDOM_INITIATIVE;
-                    }
-                }
-                else if (controller.currentState == EnumStateCombatPanel.STATE_UPDATE)
-                {
-                    this.currentState = EnumStateCombatPanelCharacter.STATE_UPDATE;
+                    this.currentState = EnumStateCombatPanelDetailFight.STATE_UPDATE;
                 }
                 else
                 {
@@ -136,9 +118,9 @@ namespace RPGMasterTools.Source.Controller.Char
         // == GETTERS AND SETTERS
         // ==============================================================
 
-        public Model.RPG.CombatCharacter combatCharacter
+        public Model.RPG.Combat combat
         {
-            get { return this._cCharacter; }
+            get { return this._combat; }
         }
     }
 }

@@ -71,6 +71,7 @@
     <Compile Include="Source\Controller\Char\CharHeroesController.cs" />
     <Compile Include="Source\Controller\Char\CharController.cs" />
     <Compile Include="Source\Controller\Combat\CombatPanelCharacterController.cs" />
+    <Compile Include="Source\Controller\Combat\CombatPanelDatailFightController.cs" />
     <Compile Include="Source\Controller\Combat\CombatPanelController.cs" />
     <Compile Include="Source\Controller\Combat\CombatNamePlateController.cs" />
     <Compile Include="Source\Controller\Combat\CombatCrudNamePlateController.cs" />

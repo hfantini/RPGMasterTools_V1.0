@@ -41,6 +41,7 @@ namespace RPGMasterTools.Source.Enumeration.State
     public enum EnumStateCombatPanelDetailFight
     {
         STATE_NONE,
-        STATE_IDLE
+        STATE_IDLE,
+        STATE_UPDATE
     }
 }

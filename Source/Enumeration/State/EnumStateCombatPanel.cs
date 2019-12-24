@@ -48,5 +48,6 @@ namespace RPGMasterTools.Source.Enumeration.State
         STATE_RANDOM_PLAYER,
         STATE_RANDOM_ENEMY,
         STATE_START_BATTLE,
+        STATE_NEXT_PLAY,
     }
 }

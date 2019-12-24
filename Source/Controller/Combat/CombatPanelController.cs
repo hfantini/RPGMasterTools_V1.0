@@ -83,6 +83,12 @@ namespace RPGMasterTools.Source.Controller.Char
 
         protected override void update()
         {
+            if (this.currentState == EnumStateCombatPanel.STATE_NEXT_PLAY)
+            {
+                this.combat.nextPlay();
+                this.currentState = EnumStateCombatPanel.STATE_UPDATE;
+            }
+
             base.update();
 
             if (this.currentState != EnumStateCombatPanel.STATE_IDLE)

@@ -118,7 +118,7 @@ namespace RPGMasterTools.Source.View.Combat
 
                     // DETAIL PANEL
 
-                    ViewCombatPanelDetailPreparation vDetail = new ViewCombatPanelDetailPreparation(this._controller);
+                    ViewCombatPanelDetailFight vDetail = new ViewCombatPanelDetailFight(this._controller);
                     vDetail.Dock = DockStyle.Fill;
 
                     this.pnlDetailContent.Controls.Clear();

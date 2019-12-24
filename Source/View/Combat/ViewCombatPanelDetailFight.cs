@@ -40,6 +40,8 @@ using RPGMasterTools.Source.Enumeration.State;
 using RPGMasterTools.Source.Interface;
 using RPGMasterTools.Source.Controller;
 using RPGMasterTools.Source.Controller.Char;
+using RPGMasterTools.Source.Model.RPG.DND5E;
+using RPGMasterTools.Source.Util;
 
 // == NAMESPACE
 // ==================================================================
@@ -55,7 +57,7 @@ namespace RPGMasterTools.Source.View.Combat
 
         // -- VAR -------------------------------------------------------
 
-        CombatPanelController _parentController;
+        private CombatPanelDatailFightController _controller;
 
         // == CONSTRUCTOR(S)
         // ==============================================================
@@ -72,7 +74,7 @@ namespace RPGMasterTools.Source.View.Combat
             // INIT VALUES
 
             // CONFIG CONTROLLER
-            //this._parentController = parentController;
+            this._controller = new CombatPanelDatailFightController(this, parentController);
 
             // CONFIG COMPONENTS
         }
@@ -82,7 +84,24 @@ namespace RPGMasterTools.Source.View.Combat
 
         public void update(EnumStateCombatPanelDetailFight lastState, EnumStateCombatPanelDetailFight currentState)
         {
-            
+            if (currentState == EnumStateCombatPanelDetailFight.STATE_UPDATE)
+            {
+                Model.RPG.Combat combat = ((CombatPanelController)this._controller.parentController).combat;
+                Model.RPG.CombatCharacter cCharacter = combat.getCurrentPlay();
+
+                lblPlay.Text = combat.currentPlay.ToString();
+                lblTurn.Text = combat.currentTurn.ToString();
+                lblName.Text = cCharacter.character.name;
+
+                if(cCharacter.character is Player)
+                {
+                    pBoxIcon.Image = URPG.getClassIcon( ( (Player) cCharacter.character ).pClass );
+                }
+                else if (cCharacter.character is Enemy)
+                {
+                    pBoxIcon.Image = RPGMasterTools.Properties.Resources.ico_class_boss;
+                }
+            }
         }
 
         // == EVENTS
@@ -90,7 +109,13 @@ namespace RPGMasterTools.Source.View.Combat
 
         private void btnNextTurn_Click(object sender, EventArgs e)
         {
-            
+            CombatPanelController controller = (CombatPanelController)this._controller.parentController;
+            controller.currentState = EnumStateCombatPanel.STATE_NEXT_PLAY;
+        }
+
+        private void ViewCombatPanelDetailFight_Load(object sender, EventArgs e)
+        {
+            this._controller.currentState = EnumStateCombatPanelDetailFight.STATE_UPDATE;
         }
 
         // == GETTERS AND SETTERS
