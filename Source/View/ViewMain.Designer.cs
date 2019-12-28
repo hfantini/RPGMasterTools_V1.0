@@ -51,7 +51,7 @@
             // mnuItemExit
             // 
             this.mnuItemExit.Name = "mnuItemExit";
-            this.mnuItemExit.Size = new System.Drawing.Size(234, 30);
+            this.mnuItemExit.Size = new System.Drawing.Size(168, 22);
             this.mnuItemExit.Text = "MAIN.MENU.EXIT";
             // 
             // pnlMain
@@ -60,9 +60,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlMain.Controls.Add(this.tpnlMain);
-            this.pnlMain.Location = new System.Drawing.Point(0, 35);
+            this.pnlMain.Location = new System.Drawing.Point(0, 23);
+            this.pnlMain.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(1252, 583);
+            this.pnlMain.Size = new System.Drawing.Size(835, 379);
             this.pnlMain.TabIndex = 1;
             // 
             // tpnlMain
@@ -75,51 +76,47 @@
             this.tpnlMain.Margin = new System.Windows.Forms.Padding(0);
             this.tpnlMain.Name = "tpnlMain";
             this.tpnlMain.SelectedIndex = 0;
-            this.tpnlMain.Size = new System.Drawing.Size(1252, 583);
+            this.tpnlMain.Size = new System.Drawing.Size(835, 379);
             this.tpnlMain.TabIndex = 0;
             // 
             // tabSound
             // 
-            this.tabSound.Location = new System.Drawing.Point(4, 29);
+            this.tabSound.Location = new System.Drawing.Point(4, 22);
             this.tabSound.Margin = new System.Windows.Forms.Padding(0);
             this.tabSound.Name = "tabSound";
-            this.tabSound.Size = new System.Drawing.Size(1244, 550);
+            this.tabSound.Size = new System.Drawing.Size(827, 353);
             this.tabSound.TabIndex = 0;
             this.tabSound.Text = "MAIN.TAB.SOUND";
             this.tabSound.UseVisualStyleBackColor = true;
             // 
             // tabCharacter
             // 
-            this.tabCharacter.Location = new System.Drawing.Point(4, 29);
-            this.tabCharacter.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tabCharacter.Location = new System.Drawing.Point(4, 22);
             this.tabCharacter.Name = "tabCharacter";
-            this.tabCharacter.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabCharacter.Size = new System.Drawing.Size(1244, 550);
+            this.tabCharacter.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabCharacter.Size = new System.Drawing.Size(827, 353);
             this.tabCharacter.TabIndex = 1;
             this.tabCharacter.Text = "MAIN.TAB.CHARACTER";
             this.tabCharacter.UseVisualStyleBackColor = true;
             // 
             // tabCombat
             // 
-            this.tabCombat.Location = new System.Drawing.Point(4, 29);
-            this.tabCombat.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tabCombat.Location = new System.Drawing.Point(4, 22);
             this.tabCombat.Name = "tabCombat";
-            this.tabCombat.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabCombat.Size = new System.Drawing.Size(1244, 550);
+            this.tabCombat.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabCombat.Size = new System.Drawing.Size(827, 353);
             this.tabCombat.TabIndex = 2;
             this.tabCombat.Text = "MAIN.TAB.COMBAT";
             this.tabCombat.UseVisualStyleBackColor = true;
             // 
             // ViewMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1252, 617);
+            this.ClientSize = new System.Drawing.Size(835, 401);
             this.Controls.Add(this.pnlMain);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "ViewMain";
             this.Text = "MAIN.TITLE";
             this.Activated += new System.EventHandler(this.ViewMain_Activated);

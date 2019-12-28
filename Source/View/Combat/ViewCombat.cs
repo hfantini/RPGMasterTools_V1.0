@@ -104,6 +104,13 @@ namespace RPGMasterTools.Source.View.Character
 
                     fLayoutPanel.Controls.Add(combatNamePlate);
                 }
+
+                if(fLayoutPanel.Controls.Count == 1)
+                {
+                    // SELECT DEFAULT
+                    ViewCombatNamePlate combatNamePlate = (ViewCombatNamePlate)fLayoutPanel.Controls[0];
+                    combatNamePlate.select();
+                }
             }
             else if (currentState == EnumStateCombat.STATE_COMBAT_SELECT)
             {

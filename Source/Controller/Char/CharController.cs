@@ -164,20 +164,30 @@ namespace RPGMasterTools.Source.Controller.Char
 
         private void exportCharPreset()
         {
-            SaveFileDialog dlgSave = new SaveFileDialog();
-            dlgSave.Filter = "JSON file|*.json";
-            dlgSave.Title = "Save Character Preset";
-
-            dlgSave.ShowDialog();
-
-            if(dlgSave.FileName != null)
+            if (CharController.getListOfPlayers().Count > 0 || CharController.getListOfEnemies().Count > 0)
             {
-                JObject jObject = new JObject();
-                jObject.Add("heroes", JsonConvert.SerializeObject( CharController.getListOfPlayers() ) );
-                jObject.Add("enemies", JsonConvert.SerializeObject(CharController.getListOfEnemies() ) );
+                SaveFileDialog dlgSave = new SaveFileDialog();
+                dlgSave.Filter = "JSON file|*.json";
+                dlgSave.Title = ULanguage.getStringCurrentLanguage("CHARACTER.EXPORT.DLG_SAVE_TITLE");
 
-                UFileIO.writeJsonToFile(dlgSave.FileName, jObject);
-                MessageBox.Show("Preset saved with success!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                DialogResult retValue = dlgSave.ShowDialog();
+
+                if (retValue == DialogResult.OK)
+                {
+                    if (dlgSave.FileName != null && dlgSave.FileName != "")
+                    {
+                        JObject jObject = new JObject();
+                        jObject.Add("heroes", JsonConvert.SerializeObject(CharController.getListOfPlayers()));
+                        jObject.Add("enemies", JsonConvert.SerializeObject(CharController.getListOfEnemies()));
+
+                        UFileIO.writeJsonToFile(dlgSave.FileName, jObject);
+                        MessageBox.Show(ULanguage.getStringCurrentLanguage("CHARACTER.EXPORT.SUCCESS"), ULanguage.getStringCurrentLanguage("GENERAL.MESSAGE"), MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show(ULanguage.getStringCurrentLanguage("CHARACTER.EXPORT.NOTHING_TO_EXPORT"), ULanguage.getStringCurrentLanguage("GENERAL.WARNING"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -187,31 +197,32 @@ namespace RPGMasterTools.Source.Controller.Char
             dlgOpen.Filter = "JSON file|*.json";
             dlgOpen.Title = "Load Character Preset";
 
-            dlgOpen.ShowDialog();
+            DialogResult retValue = dlgOpen.ShowDialog();
 
-            if(dlgOpen.FileName != null)
+            if (retValue == DialogResult.OK)
             {
-                try
+                if (dlgOpen.FileName != null && dlgOpen.FileName != "")
                 {
-                    JObject loadedObject = UFileIO.loadJsonFromFile(dlgOpen.FileName);
-
-                    if( loadedObject.ContainsKey("heroes") && loadedObject.ContainsKey("enemies") )
+                    try
                     {
-                        JArray jPlayer = JArray.Parse(loadedObject.Value<string>("heroes"));
-                        _playerList = jPlayer.ToObject<List<Player>>();
+                        JObject loadedObject = UFileIO.loadJsonFromFile(dlgOpen.FileName);
 
-                        JArray jEnemy = JArray.Parse(loadedObject.Value<string>("enemies"));
-                        _enemyList = jEnemy.ToObject<List<Enemy>>();
+                        if (loadedObject.ContainsKey("heroes") && loadedObject.ContainsKey("enemies"))
+                        {
+                            JArray jPlayer = JArray.Parse(loadedObject.Value<string>("heroes"));
+                            _playerList = jPlayer.ToObject<List<Player>>();
 
-                        this.currentState = EnumStateChar.STATE_PLAYERLIST_UPDATE;
-                        this.currentState = EnumStateChar.STATE_ENEMYLIST_UPDATE;
+                            JArray jEnemy = JArray.Parse(loadedObject.Value<string>("enemies"));
+                            _enemyList = jEnemy.ToObject<List<Enemy>>();
 
-                        MessageBox.Show("Preset Loaded with success!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                            this.currentState = EnumStateChar.STATE_PLAYERLIST_UPDATE;
+                            this.currentState = EnumStateChar.STATE_ENEMYLIST_UPDATE;
+                        }
                     }
-                }
-                catch(Exception e)
-                {
-                    MessageBox.Show("Invalid or corrupted file!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(ULanguage.getStringCurrentLanguage("CHARACTER.IMPORT.FAIL"), ULanguage.getStringCurrentLanguage("GENERAL.ERROR"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }

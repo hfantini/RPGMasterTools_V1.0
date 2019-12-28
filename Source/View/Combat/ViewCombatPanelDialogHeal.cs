@@ -140,6 +140,10 @@ namespace RPGMasterTools.Source.View.Combat
 
         private void ViewCombatPanelDialogDamage_Load(object sender, EventArgs e)
         {
+            Form pForm = (Form)this.Parent;
+            pForm.AcceptButton = this.btnOk;
+            pForm.CancelButton = this.btnCancel;
+
             Parent.Size = new Size(470, 220);
         }
 

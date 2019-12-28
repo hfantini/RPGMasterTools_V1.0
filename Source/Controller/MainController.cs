@@ -173,7 +173,22 @@ namespace RPGMasterTools.Source.Controller
                                 this.currentState = EnumStateMain.STATE_TAB_CHANGE;
 
                                 break;
+
+                            case Keys.F3:
+
+                                this._activeTab = 3;
+                                this.currentState = EnumStateMain.STATE_TAB_CHANGE;
+
+                                break;
+
+                            default:
+                                base.onParentStateChange(parentController);
+                                break;
                         }
+                    }
+                    else
+                    {
+                        base.onParentStateChange(parentController);
                     }
                 }
             }

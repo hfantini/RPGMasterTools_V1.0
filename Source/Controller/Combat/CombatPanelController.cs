@@ -86,7 +86,15 @@ namespace RPGMasterTools.Source.Controller.Char
             if (this.currentState == EnumStateCombatPanel.STATE_NEXT_PLAY)
             {
                 this.combat.nextPlay();
-                this.currentState = EnumStateCombatPanel.STATE_UPDATE;
+
+                if (this.combat.combatState == Enumeration.RPG.CombatState.FIGHT)
+                {
+                    this.currentState = EnumStateCombatPanel.STATE_UPDATE;
+                }
+                else if (this.combat.combatState == Enumeration.RPG.CombatState.FINISHED)
+                {
+                    this.currentState = EnumStateCombatPanel.STATE_CREATE;
+                }
             }
 
             base.update();

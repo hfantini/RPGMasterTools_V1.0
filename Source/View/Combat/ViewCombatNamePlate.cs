@@ -97,14 +97,18 @@ namespace RPGMasterTools.Source.View.Combat
             }
         }
 
+        public void select()
+        {
+            CombatController controller = (CombatController)this._controller.parentController;
+            controller.selectedCombat = this._controller.combat;
+        }
+
         // == EVENTS
         // ==============================================================
 
         private void onClick()
         {
-            CombatController controller = (CombatController)this._controller.parentController;
-
-            controller.selectedCombat = this._controller.combat;
+            select();
         }
 
         private void ViewCombatNamePlate_Click(object sender, EventArgs e)

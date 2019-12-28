@@ -89,17 +89,20 @@ namespace RPGMasterTools.Source.View.Combat
                 Model.RPG.Combat combat = ((CombatPanelController)this._controller.parentController).combat;
                 Model.RPG.CombatCharacter cCharacter = combat.getCurrentPlay();
 
-                lblPlay.Text = combat.currentPlay.ToString();
-                lblTurn.Text = combat.currentTurn.ToString();
-                lblName.Text = cCharacter.character.name;
+                if (cCharacter != null)
+                {
+                    lblPlay.Text = combat.currentPlay.ToString();
+                    lblTurn.Text = combat.currentTurn.ToString();
+                    lblName.Text = cCharacter.character.name;
 
-                if(cCharacter.character is Player)
-                {
-                    pBoxIcon.Image = URPG.getClassIcon( ( (Player) cCharacter.character ).pClass );
-                }
-                else if (cCharacter.character is Enemy)
-                {
-                    pBoxIcon.Image = RPGMasterTools.Properties.Resources.ico_class_boss;
+                    if (cCharacter.character is Player)
+                    {
+                        pBoxIcon.Image = URPG.getClassIcon(((Player)cCharacter.character).pClass);
+                    }
+                    else if (cCharacter.character is Enemy)
+                    {
+                        pBoxIcon.Image = RPGMasterTools.Properties.Resources.ico_class_boss;
+                    }
                 }
             }
         }

@@ -225,6 +225,28 @@ namespace RPGMasterTools.Source.View.Combat
             }
         }
 
+        private void btnDamage_Click(object sender, EventArgs e)
+        {
+            this._controller.currentState = EnumStateCombatPanelCharacter.STATE_APPLY_DAMAGE;
+        }
+
+        private void btnHeal_Click(object sender, EventArgs e)
+        {
+            this._controller.currentState = EnumStateCombatPanelCharacter.STATE_APPLY_HEAL;
+        }
+
+        private void btnDeath_Click(object sender, EventArgs e)
+        {
+            if (this._controller.combatCharacter.character.currentState == EnumCharacterState.STATE_FALLEN)
+            {
+                this._controller.currentState = EnumStateCombatPanelCharacter.STATE_APPLY_DEATH;
+            }
+            else if (this._controller.combatCharacter.character.currentState == EnumCharacterState.STATE_DEAD)
+            {
+                this._controller.currentState = EnumStateCombatPanelCharacter.STATE_APPLY_RESS;
+            }
+        }
+
         // == GETTERS AND SETTERS
         // ==============================================================
 
@@ -265,28 +287,6 @@ namespace RPGMasterTools.Source.View.Combat
                 }
 
                 return retValue;
-            }
-        }
-
-        private void btnDamage_Click(object sender, EventArgs e)
-        {
-            this._controller.currentState = EnumStateCombatPanelCharacter.STATE_APPLY_DAMAGE;
-        }
-
-        private void btnHeal_Click(object sender, EventArgs e)
-        {
-            this._controller.currentState = EnumStateCombatPanelCharacter.STATE_APPLY_HEAL;
-        }
-
-        private void btnDeath_Click(object sender, EventArgs e)
-        {
-            if (this._controller.combatCharacter.character.currentState == EnumCharacterState.STATE_FALLEN)
-            {
-                this._controller.currentState = EnumStateCombatPanelCharacter.STATE_APPLY_DEATH;
-            }
-            else if (this._controller.combatCharacter.character.currentState == EnumCharacterState.STATE_DEAD)
-            {
-                this._controller.currentState = EnumStateCombatPanelCharacter.STATE_APPLY_RESS;
             }
         }
     }

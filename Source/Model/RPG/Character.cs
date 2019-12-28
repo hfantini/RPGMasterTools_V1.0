@@ -29,6 +29,7 @@
 
 using RPGMasterTools.Source.Enumeration.RPG;
 using RPGMasterTools.Source.Enumeration.RPG.DND5E;
+using RPGMasterTools.Source.Model.RPG.DND5E;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -68,33 +69,21 @@ namespace RPGMasterTools.Source.Model.RPG
         // == METHODS
         // ==============================================================
 
-        public void damage(int value)
+        public virtual void damage(int value)
         {
             if (value > 0)
             {
-                this._lifePoints -= value;
-
-                if (this._lifePoints < 0)
-                {
-                    this._lifePoints = 0;
-                    this._currentState = EnumCharacterState.STATE_FALLEN;
-                }
+                int newLife = this._lifePoints - value;
+                this.lifePoints = newLife;
             }
         }
 
-        public void heal(int value)
+        public virtual void heal(int value)
         {
             if(value > 0)
             {
-                if (this._lifePoints + value > this._maxLifePoints)
-                {
-                    this._lifePoints = this._maxLifePoints;
-                }
-                else
-                {
-                    this._lifePoints += value;
-                    this._currentState = EnumCharacterState.STATE_COMBAT;
-                }
+                int newLife = this._lifePoints + value;
+                this.lifePoints = newLife;
             }
         }
 
@@ -121,13 +110,17 @@ namespace RPGMasterTools.Source.Model.RPG
             get { return this._lifePoints; }
             set
             {
-                if(value > 0)
+                if(value < 0)
                 {
-                    this._lifePoints = value;
+                    this._lifePoints = 0;
+                }
+                else if(value > this.maxLifePoints )
+                {
+                    this._lifePoints = this.maxLifePoints;
                 }
                 else
                 {
-                    this._lifePoints = 0;
+                    this._lifePoints = value;
                 }
             }
         }

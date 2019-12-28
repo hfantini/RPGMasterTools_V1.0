@@ -160,6 +160,10 @@ namespace RPGMasterTools.Source.View.Character
 
         private void ViewCharacterHeroesCrud_Load(object sender, EventArgs e)
         {
+            Form pForm = (Form) this.Parent;
+            pForm.AcceptButton = this.btnOk;
+            pForm.CancelButton = this.btnCancel;
+
             this._controller.currentState = EnumStateCharEnemiesCrud.STATE_IDLE;
         }
 

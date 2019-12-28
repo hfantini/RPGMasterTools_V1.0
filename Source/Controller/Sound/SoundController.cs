@@ -380,7 +380,7 @@ namespace RPGMasterTools.Source.Controller.Sound
 
             // DEFINE TARGET FILE OPTIONS
 
-            string filename = USystemMessage.createInputDialog("Input", "Set the filename") + ".json";
+            string filename = USystemMessage.createInputDialog(ULanguage.getStringCurrentLanguage("GENERAL.MESSAGE"), ULanguage.getStringCurrentLanguage("CHARACTER.EXPORT.SET_FILENAME")) + ".json";
             string filePath = UFileIO.getUserCustomPresetFolder() + "\\" + filename;
 
             bool overWrite = true;
@@ -400,8 +400,9 @@ namespace RPGMasterTools.Source.Controller.Sound
                 JObject jSavePreset = JObject.FromObject(this._savePreset);
                 UFileIO.writeJsonToFile(filePath, jSavePreset);
 
-                // DISPLAY SUCCESS MESSAGEBOX
-                USystemMessage.createMessageBox("Success!", "Preset saved!");
+                // DISPLAY SUCCESS 
+
+                USystemMessage.createMessageBox(ULanguage.getStringCurrentLanguage("GENERAL.SUCCESS"), ULanguage.getStringCurrentLanguage("CHARACTER.EXPORT.SUCCESS"));
             }
         }
 

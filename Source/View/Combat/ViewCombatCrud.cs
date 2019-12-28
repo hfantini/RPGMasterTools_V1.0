@@ -135,13 +135,11 @@ namespace RPGMasterTools.Source.View.Combat
         private void createCurrentModel()
         {
             Model.RPG.Combat combat = new Model.RPG.Combat();
-            
-            //DEEP CLONE FROM LIST
-            foreach( Model.RPG.Character character in this._controller.toList )
-            {
-                // NAME
-                combat.name = lblTitle.Text;
+            combat.name = txtName.Text;
 
+            //DEEP CLONE FROM LIST
+            foreach ( Model.RPG.Character character in this._controller.toList )
+            {
                 // LIST
                 Model.RPG.Character copyCharacter = UObject.deepCopyObject(character);
                 copyCharacter.currentState = Enumeration.RPG.DND5E.EnumCharacterState.STATE_COMBAT;
@@ -254,6 +252,10 @@ namespace RPGMasterTools.Source.View.Combat
 
         private void ViewCombatCrud_Load(object sender, EventArgs e)
         {
+            Form pForm = (Form)this.Parent;
+            pForm.AcceptButton = this.btnOk;
+            pForm.CancelButton = this.btnCancel;
+
             this._controller.currentState = EnumStateCombatCrud.STATE_FROMLIST_UPDATE;
             this._controller.currentState = EnumStateCombatCrud.STATE_TOLIST_UPDATE;
         }

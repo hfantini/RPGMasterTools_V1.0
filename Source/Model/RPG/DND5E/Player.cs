@@ -67,6 +67,23 @@ namespace RPGMasterTools.Source.Model.RPG.DND5E
         // == METHODS
         // ==============================================================
 
+        public override void damage(int value)
+        {
+            base.damage(value);
+
+            if (this.lifePoints <= 0)
+            {
+                this.currentState = Enumeration.RPG.DND5E.EnumCharacterState.STATE_FALLEN;
+            }
+        }
+
+        public override void heal(int value)
+        {
+            base.heal(value);
+
+            this.currentState = Enumeration.RPG.DND5E.EnumCharacterState.STATE_COMBAT;
+        }
+
         // == EVENTS
         // ==============================================================
 

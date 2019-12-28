@@ -65,8 +65,6 @@ namespace RPGMasterTools.Source.View
         public ViewDialog(String title, Control control)
         {
             InitializeComponent();
-
-            this.Text = ULanguage.getStringCurrentLanguage(title);
             this._control = control;
 
             // ADD CONTROL AS CHILDREN

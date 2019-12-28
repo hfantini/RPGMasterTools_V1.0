@@ -124,6 +124,16 @@ namespace RPGMasterTools.Source.View.Combat
                     this.pnlDetailContent.Controls.Clear();
                     this.pnlDetailContent.Controls.Add(vDetail);
                 }
+                else if (this._controller.combat.combatState == Enumeration.RPG.CombatState.FINISHED)
+                {
+                    // DETAIL PANEL
+
+                    ViewCombatPanelDetailFight vDetail = new ViewCombatPanelDetailFight(this._controller);
+                    vDetail.Dock = DockStyle.Fill;
+
+                    this.pnlDetailContent.Controls.Clear();
+                    //this.pnlDetailContent.Controls.Add(vDetail);
+                }
             }
             else if (currentState == EnumStateCombatPanel.STATE_START_BATTLE)
             {
@@ -163,8 +173,8 @@ namespace RPGMasterTools.Source.View.Combat
                     foreach (ViewCombatPanelCharacter view in this.fLayoutList.Controls)
                     {
                         view.controller.combatCharacter.initiative = view.initiative;
-                        view.controller.combatCharacter.character.lifePoints = view.life;
                         view.controller.combatCharacter.character.maxLifePoints = view.maxLife;
+                        view.controller.combatCharacter.character.lifePoints = view.life;
 
                         combatCharacterList.Add(view.controller.combatCharacter);
                     }
